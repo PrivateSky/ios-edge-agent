@@ -1,0 +1,11 @@
+framework module PSSmartWalletNativeLayer {
+  umbrella header "PSSmartWalletNativeLayer.h"
+
+  export *
+  module * { export * }
+}
+
+module PSSmartWalletNativeLayer.Swift {
+    header "PSSmartWalletNativeLayer-Swift.h"
+    requires objc
+}

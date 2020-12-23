@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PSSmartWalletNativeLayerDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m0x-7P-YHM">
+                                <rect key="frame" x="0.0" y="60" width="414" height="729"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zzF-rp-eRE">
+                                <rect key="frame" x="184" y="815" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="reloadButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="oWn-ie-eG5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="m0x-7P-YHM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2n1-8X-psi"/>
+                            <constraint firstItem="zzF-rp-eRE" firstAttribute="centerX" secondItem="m0x-7P-YHM" secondAttribute="centerX" id="OEu-Rc-Mk6"/>
+                            <constraint firstItem="m0x-7P-YHM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="STd-jq-PU3"/>
+                            <constraint firstItem="m0x-7P-YHM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="bZb-RK-zYn"/>
+                            <constraint firstItem="zzF-rp-eRE" firstAttribute="top" secondItem="m0x-7P-YHM" secondAttribute="bottom" constant="26" id="bhh-Su-hlb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zzF-rp-eRE" secondAttribute="bottom" constant="17" id="rq0-ko-tNh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webViewHostView" destination="m0x-7P-YHM" id="VNR-Ik-OU8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="53.571428571428569"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
