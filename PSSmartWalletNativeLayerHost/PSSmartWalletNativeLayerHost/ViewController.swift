@@ -23,32 +23,29 @@ class ViewController: UIViewController, WKNavigationDelegate {
         webViewHostView?.constrainFull(other: webView)
         self.webView = webView
         webView.navigationDelegate = self
-        let setup = setupApiContainer()
-        apiContainer = setup.0
-        webView.load(URLRequest(url: URL(string: setup.1)!))
+        apiContainer = setupApiContainer()
+        setupNodeServer()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            webView.load(URLRequest(url: URL(string: "http://localhost:8080")!))
+        }
 
     }
-    
-    @IBAction
-    @objc private func reloadButtonPressed() {
-        webView?.load(URLRequest(url: URL(string: apiContainer!.webAppOrigin)!))
-    }
+
     
     private func setupNodeServer() {
-        let path: String = Bundle.main.path(forResource: "selected/MobileServerLauncher.js", ofType: nil) ?? ""
+        let path: String = Bundle.main.path(forResource: "nodejsProject/MobileServerLauncher.js", ofType: nil) ?? ""
 
         Thread {
             NodeRunner.startEngine(withArguments: ["node", path])
         }.start()
     }
     
-    private func setupApiContainer() -> (APIContainer?, String) {
+    private func setupApiContainer() -> APIContainer? {
         
-        let path = Bundle.main.bundlePath + "/webApp"
-        let ac = try? APIContainer(mode: .withWebApp( .init(webAppDirectory: path, indexFilename: "NativeSmartWalletCameraDemo.html")))
+        let ac = try? APIContainer(mode: .apiOnly(selectedPort: 7070))
         try? ac?.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: self))
         
-        return (ac, ac?.webAppOrigin ?? "")
+        return ac
     }
     
     private func setupNewWebView() -> WKWebView {
@@ -56,12 +53,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let webView = WKWebView(frame: .zero, configuration: conf)
         
         return webView
-    }
-    
-    
-    private func getWebDemoHTML() -> String {
-        let path = Bundle.main.path(forResource: "webApp/NativeSmartWalletWebAppDemo.html", ofType: "")
-        return try! String(contentsOfFile: path!)
     }
     
     private func getNativeBridgeJS() -> String {

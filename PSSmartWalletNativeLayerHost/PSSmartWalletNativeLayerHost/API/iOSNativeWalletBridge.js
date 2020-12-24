@@ -399,4 +399,4 @@ class PSSmartWalletNativeLayer {
     
 }
 
-const defaultNativeSmartWallet = new PSSmartWalletNativeLayer(window.location.origin);
+const defaultNativeSmartWallet = new PSSmartWalletNativeLayer("http://localhost:7070");

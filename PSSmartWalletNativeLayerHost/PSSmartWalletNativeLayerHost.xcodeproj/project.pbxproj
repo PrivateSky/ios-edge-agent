@@ -23,6 +23,7 @@
 		0B2F95872593FDF200983BEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76BD2593F9BA00983BEE /* Main.storyboard */; };
 		0B2F95B02594059900983BEE /* iOSNativeWalletBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F95AF2594059900983BEE /* iOSNativeWalletBridge.js */; };
 		0B2F95B22594063300983BEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2F95B12594063300983BEE /* SceneDelegate.swift */; };
+		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,7 @@
 		0B2F95AF2594059900983BEE /* iOSNativeWalletBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = iOSNativeWalletBridge.js; sourceTree = "<group>"; };
 		0B2F95B12594063300983BEE /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0BF91AEE2542058A001A9031 /* PSSmartWalletNativeLayerHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSSmartWalletNativeLayerHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		0B2F62452593F9A000983BEE /* PSSmartWalletNativeLayerHost */ = {
 			isa = PBXGroup;
 			children = (
+				0BFBD24E259518ED009EACAF /* nodejsProject */,
 				0B2F7E9A2593F9C800983BEE /* NodeRunner */,
 				0B2F7E952593F9C700983BEE /* API */,
 				0B2F62462593F9A000983BEE /* ViewController.swift */,
@@ -213,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BFBD24F259518ED009EACAF /* nodejsProject in Resources */,
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
 				0B2F95B02594059900983BEE /* iOSNativeWalletBridge.js in Resources */,
