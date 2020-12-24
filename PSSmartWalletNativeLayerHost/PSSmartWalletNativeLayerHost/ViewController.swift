@@ -6,38 +6,49 @@
 //
 
 import UIKit
-import WebKit
 import PSSmartWalletNativeLayer
+import SafariServices
 
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class ViewController: UIViewController {
     
-    private var webView: WKWebView?
     private var apiContainer: APIContainer?
-    
-    @IBOutlet private var webViewHostView: UIView?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        let webView = setupNewWebView()
-        webViewHostView?.constrainFull(other: webView)
-        self.webView = webView
-        webView.navigationDelegate = self
         apiContainer = setupApiContainer()
-        setupNodeServer()
+        let indexPage = setupNodeServer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            webView.load(URLRequest(url: URL(string: "http://localhost:8080")!))
+            self.loadURL(string: indexPage)
         }
-
     }
 
-    
-    private func setupNodeServer() {
+    private func setupNodeServer() -> String {
+        let port = 8080
+        
+        let rootInstallationFolder = Bundle.main.path(forResource: "nodejsProject", ofType: nil) ?? ""
+        
         let path: String = Bundle.main.path(forResource: "nodejsProject/MobileServerLauncher.js", ofType: nil) ?? ""
+        
+        let pskServerPath = Bundle.main.path(forResource: "nodejsProject/pskWebServer.js", ofType: nil) ?? ""
+        
+        let apihubRootPath = Bundle.main.path(forResource: "nodejsProject/apihub-root", ofType: nil) ?? ""
+        
+        let env: [String: String] = [
+            "PSK_CONFIG_LOCATION": "\(apihubRootPath)/external-volume/config",
+            "PSK_ROOT_INSTALATION_FOLDER": rootInstallationFolder,
+            "BDNS_ROOT_HOSTS": "http://localhost:\(port)"
+        ]
+        let envString = String(data: try! JSONEncoder().encode(env), encoding: .ascii)!
+        
 
         Thread {
-            NodeRunner.startEngine(withArguments: ["node", path])
+            NodeRunner.startEngine(withArguments: ["node", path, "--bundle=\(pskServerPath)", "--port=8080",
+            "--rootFolder=\(apihubRootPath)",
+            "--env=\(envString)"])
         }.start()
+        
+        return "http://localhost:\(port)/app/loader/index.html"
     }
     
     private func setupApiContainer() -> APIContainer? {
@@ -47,33 +58,16 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         return ac
     }
-    
-    private func setupNewWebView() -> WKWebView {
-        let conf = WKWebViewConfiguration()
-        let webView = WKWebView(frame: .zero, configuration: conf)
         
-        return webView
+    func loadURL(string: String) {
+        if let url = URL(string: string) {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        }
     }
-    
-    private func getNativeBridgeJS() -> String {
-        let path = Bundle.main.path(forResource: "iOSNativeWalletBridge", ofType: "js")
-        return try! String(contentsOfFile: path!)
-    }
-    
-    private func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print(error)
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        print(navigationAction.request.url!)
-        decisionHandler(.allow)
-    }
-    
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        print(navigation)
-    }
-    
-    
 }
 
 
