@@ -7,17 +7,20 @@
 
 import UIKit
 import PSSmartWalletNativeLayer
-import SafariServices
+import WebKit
 
 
 class ViewController: UIViewController {
     
     private var apiContainer: APIContainer?
-        
+    private let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         apiContainer = setupApiContainer()
         let indexPage = setupNodeServer()
+        view.constrainFull(other: webView)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             self.loadURL(string: indexPage)
         }
@@ -61,11 +64,7 @@ class ViewController: UIViewController {
         
     func loadURL(string: String) {
         if let url = URL(string: string) {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
+            webView.load(URLRequest(url: url))
         }
     }
 }
