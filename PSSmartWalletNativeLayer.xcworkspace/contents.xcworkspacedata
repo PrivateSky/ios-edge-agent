@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PSSmartWalletNativeLayerHost/PSSmartWalletNativeLayerHost.xcodeproj">
+      location = "group:/Users/candronache/Documents/Projects/PharmaLedger/ios-edge-agent/PSSmartWalletNativeLayerHost/PSKNodeServer.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:PSSmartWalletNativeLayer/PSSmartWalletNativeLayer.xcodeproj">

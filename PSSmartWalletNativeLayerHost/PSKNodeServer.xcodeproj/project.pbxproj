@@ -44,7 +44,7 @@
 
 /* Begin PBXFileReference section */
 		0B2F62462593F9A000983BEE /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0B2F76A92593F9BA00983BEE /* PSSmartWalletNativeLayerHost-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSSmartWalletNativeLayerHost-Bridging-Header.h"; sourceTree = "<group>"; };
+		0B2F76A92593F9BA00983BEE /* PSKNodeServer-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSKNodeServer-Bridging-Header.h"; sourceTree = "<group>"; };
 		0B2F76B92593F9BA00983BEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B2F76BC2593F9BA00983BEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0B2F76BE2593F9BA00983BEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 		0B2F7EA12593F9C800983BEE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B2F95AF2594059900983BEE /* iOSNativeWalletBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = iOSNativeWalletBridge.js; sourceTree = "<group>"; };
 		0B2F95B12594063300983BEE /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0BF91AEE2542058A001A9031 /* PSSmartWalletNativeLayerHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSSmartWalletNativeLayerHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BF91AEE2542058A001A9031 /* PSKNodeServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSKNodeServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +77,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0B2F62452593F9A000983BEE /* PSSmartWalletNativeLayerHost */ = {
+		0B2F62452593F9A000983BEE /* PSKNodeServer */ = {
 			isa = PBXGroup;
 			children = (
 				0BFBD24E259518ED009EACAF /* nodejsProject */,
@@ -86,14 +86,14 @@
 				0B2F62462593F9A000983BEE /* ViewController.swift */,
 				0B2F95B12594063300983BEE /* SceneDelegate.swift */,
 				0B2F7E992593F9C800983BEE /* AppDelegate.swift */,
-				0B2F76A92593F9BA00983BEE /* PSSmartWalletNativeLayerHost-Bridging-Header.h */,
+				0B2F76A92593F9BA00983BEE /* PSKNodeServer-Bridging-Header.h */,
 				0B2F76B92593F9BA00983BEE /* Assets.xcassets */,
 				0B2F76BB2593F9BA00983BEE /* LaunchScreen.storyboard */,
 				0B2F76BD2593F9BA00983BEE /* Main.storyboard */,
 				0B2F7E9D2593F9C800983BEE /* Frameworks */,
 				0B2F7EA12593F9C800983BEE /* Info.plist */,
 			);
-			path = PSSmartWalletNativeLayerHost;
+			path = PSKNodeServer;
 			sourceTree = "<group>";
 		};
 		0B2F7E952593F9C700983BEE /* API */ = {
@@ -143,7 +143,7 @@
 		0BF91AE52542058A001A9031 = {
 			isa = PBXGroup;
 			children = (
-				0B2F62452593F9A000983BEE /* PSSmartWalletNativeLayerHost */,
+				0B2F62452593F9A000983BEE /* PSKNodeServer */,
 				0BF91AEF2542058A001A9031 /* Products */,
 				0B77D9BB2545F100006E0CC3 /* Frameworks */,
 			);
@@ -152,7 +152,7 @@
 		0BF91AEF2542058A001A9031 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0BF91AEE2542058A001A9031 /* PSSmartWalletNativeLayerHost.app */,
+				0BF91AEE2542058A001A9031 /* PSKNodeServer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,9 +160,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0BF91AED2542058A001A9031 /* PSSmartWalletNativeLayerHost */ = {
+		0BF91AED2542058A001A9031 /* PSKNodeServer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0BF91B022542058D001A9031 /* Build configuration list for PBXNativeTarget "PSSmartWalletNativeLayerHost" */;
+			buildConfigurationList = 0BF91B022542058D001A9031 /* Build configuration list for PBXNativeTarget "PSKNodeServer" */;
 			buildPhases = (
 				0BF91AEA2542058A001A9031 /* Sources */,
 				0BF91AEB2542058A001A9031 /* Frameworks */,
@@ -173,9 +173,9 @@
 			);
 			dependencies = (
 			);
-			name = PSSmartWalletNativeLayerHost;
+			name = PSKNodeServer;
 			productName = PSSmartWalletNativeLayerDemo;
-			productReference = 0BF91AEE2542058A001A9031 /* PSSmartWalletNativeLayerHost.app */;
+			productReference = 0BF91AEE2542058A001A9031 /* PSKNodeServer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -193,7 +193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0BF91AE92542058A001A9031 /* Build configuration list for PBXProject "PSSmartWalletNativeLayerHost" */;
+			buildConfigurationList = 0BF91AE92542058A001A9031 /* Build configuration list for PBXProject "PSKNodeServer" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -206,7 +206,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0BF91AED2542058A001A9031 /* PSSmartWalletNativeLayerHost */,
+				0BF91AED2542058A001A9031 /* PSKNodeServer */,
 			);
 		};
 /* End PBXProject section */
@@ -389,18 +389,18 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/PSSmartWalletNativeLayerHost",
-					"$(PROJECT_DIR)/PSSmartWalletNativeLayerHost/Frameworks",
-					"$(PROJECT_DIR)/PSSmartWalletNativeLayerHost/Frameworks",
+					"$(PROJECT_DIR)/PSKNodeServer/",
+					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
+					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 				);
-				INFOPLIST_FILE = PSSmartWalletNativeLayerHost/Info.plist;
+				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = intern.privatesky.iosEdge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PSSmartWalletNativeLayerHost/PSSmartWalletNativeLayerHost-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PSKNodeServer/PSKNodeServer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -418,11 +418,11 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/PSSmartWalletNativeLayerHost",
-					"$(PROJECT_DIR)/PSSmartWalletNativeLayerHost/Frameworks",
-					"$(PROJECT_DIR)/PSSmartWalletNativeLayerHost/Frameworks",
+					"$(PROJECT_DIR)/PSKNodeServer/",
+					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
+					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 				);
-				INFOPLIST_FILE = PSSmartWalletNativeLayerHost/Info.plist;
+				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -430,7 +430,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = intern.PSSmartWalletNativeLayerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "PSSmartWalletNativeLayerHost/PSSmartWalletNativeLayerHost-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PSKNodeServer/PSKNodeServer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -439,7 +439,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0BF91AE92542058A001A9031 /* Build configuration list for PBXProject "PSSmartWalletNativeLayerHost" */ = {
+		0BF91AE92542058A001A9031 /* Build configuration list for PBXProject "PSKNodeServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0BF91B002542058D001A9031 /* Debug */,
@@ -448,7 +448,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0BF91B022542058D001A9031 /* Build configuration list for PBXNativeTarget "PSSmartWalletNativeLayerHost" */ = {
+		0BF91B022542058D001A9031 /* Build configuration list for PBXNativeTarget "PSKNodeServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0BF91B032542058D001A9031 /* Debug */,
