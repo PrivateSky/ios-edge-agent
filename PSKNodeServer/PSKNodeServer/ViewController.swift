@@ -17,8 +17,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         apiContainer = setupApiContainer()
-        let indexPage = setupNodeServer()
+        let indexPage = setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path)
         view.constrainFull(other: webView)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
@@ -26,16 +27,32 @@ class ViewController: UIViewController {
         }
     }
 
-    private func setupNodeServer() -> String {
+    private func setupNodeServer(path: String) -> String {
         let port = 8080
         
-        let rootInstallationFolder = Bundle.main.path(forResource: "nodejsProject", ofType: nil) ?? ""
+        let sourceInstallationFolder = Bundle.main.path(forResource: "nodejsProject", ofType: nil) ?? ""
         
-        let path: String = Bundle.main.path(forResource: "nodejsProject/MobileServerLauncher.js", ofType: nil) ?? ""
+        let rootInstallationFolder = "\(path)/nodejsProject"
         
-        let pskServerPath = Bundle.main.path(forResource: "nodejsProject/pskWebServer.js", ofType: nil) ?? ""
+        let fm = FileManager.default
+        try? fm.removeItem(atPath: rootInstallationFolder)
         
-        let apihubRootPath = Bundle.main.path(forResource: "nodejsProject/apihub-root", ofType: nil) ?? ""
+        if !fm.fileExists(atPath: rootInstallationFolder, isDirectory: nil) {
+            print("Begin copying into \(rootInstallationFolder)")
+            do {
+                try fm.copyItem(atPath: sourceInstallationFolder, toPath: rootInstallationFolder)
+                print("DONE COPYING");
+                
+            } catch let error {
+                print("COPY ERROR: \(error)")
+            }
+        }
+        
+        let serverLauncher: String =  "\(path)/nodejsProject/MobileServerLauncher.js"
+        
+        let pskServerPath =  "\(path)/nodejsProject/pskWebServer.js"
+        
+        let apihubRootPath =  "\(path)/nodejsProject/apihub-root"
         
         let env: [String: String] = [
             "PSK_CONFIG_LOCATION": "\(apihubRootPath)/external-volume/config",
@@ -46,7 +63,7 @@ class ViewController: UIViewController {
         
 
         Thread {
-            NodeRunner.startEngine(withArguments: ["node", path, "--bundle=\(pskServerPath)", "--port=8080",
+            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=8080",
             "--rootFolder=\(apihubRootPath)",
             "--env=\(envString)"])
         }.start()

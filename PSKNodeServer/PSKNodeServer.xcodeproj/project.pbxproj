@@ -21,7 +21,6 @@
 		0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76B92593F9BA00983BEE /* Assets.xcassets */; };
 		0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76BB2593F9BA00983BEE /* LaunchScreen.storyboard */; };
 		0B2F95872593FDF200983BEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76BD2593F9BA00983BEE /* Main.storyboard */; };
-		0B2F95B02594059900983BEE /* iOSNativeWalletBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F95AF2594059900983BEE /* iOSNativeWalletBridge.js */; };
 		0B2F95B22594063300983BEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2F95B12594063300983BEE /* SceneDelegate.swift */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 /* End PBXBuildFile section */
@@ -57,7 +56,6 @@
 		0B2F7E9F2593F9C800983BEE /* PSSmartWalletNativeLayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PSSmartWalletNativeLayer.framework; sourceTree = "<group>"; };
 		0B2F7EA02593F9C800983BEE /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GCDWebServers.framework; sourceTree = "<group>"; };
 		0B2F7EA12593F9C800983BEE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B2F95AF2594059900983BEE /* iOSNativeWalletBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = iOSNativeWalletBridge.js; sourceTree = "<group>"; };
 		0B2F95B12594063300983BEE /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0BF91AEE2542058A001A9031 /* PSKNodeServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSKNodeServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
@@ -99,7 +97,6 @@
 		0B2F7E952593F9C700983BEE /* API */ = {
 			isa = PBXGroup;
 			children = (
-				0B2F95AF2594059900983BEE /* iOSNativeWalletBridge.js */,
 				0B2F7E962593F9C800983BEE /* DataMatrixScan */,
 			);
 			path = API;
@@ -219,7 +216,6 @@
 				0BFBD24F259518ED009EACAF /* nodejsProject in Resources */,
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
-				0B2F95B02594059900983BEE /* iOSNativeWalletBridge.js in Resources */,
 				0B2F95872593FDF200983BEE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
