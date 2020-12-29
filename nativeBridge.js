@@ -300,11 +300,8 @@ class PSSmartWalletNativeLayer {
 }
 
 function detectNativeServerUrl(callback){
-    const {protocol, host, port, } = window.location;
+    const {protocol, host} = window.location;
     let url = `${protocol}//${host}`;
-    if(port !== ""){
-        url += `:${port}`
-    }
 
     url +="/nsp";
 
