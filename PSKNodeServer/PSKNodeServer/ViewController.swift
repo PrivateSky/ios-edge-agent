@@ -18,24 +18,32 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        apiContainer = setupApiContainer()
-        let indexPage = setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path)
-        view.constrainFull(other: webView)
+        guard let apiContainer = setupApiContainer() else {
+            print("Couldnt set up API Container")
+            return
+        }
+        self.apiContainer = apiContainer
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            self.loadURL(string: indexPage)
+        if  let indexPage = setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port),
+            let url = URL(string: indexPage) {
+            Utilities.executeWhenUrlAvilable(url: url) {
+                self.view.constrainFull(other: self.webView)
+                self.loadURL(string: indexPage)
+            }
         }
     }
 
-    private func setupNodeServer(path: String) -> String {
-        let port = 8080
+    private func setupNodeServer(path: String, apiContainerPort: UInt) -> String? {
+        guard let port = Utilities.findFreePort() else {
+            print("Couldnt find free port for Node")
+            return nil
+        }
         
         let sourceInstallationFolder = Bundle.main.path(forResource: "nodejsProject", ofType: nil) ?? ""
         
         let rootInstallationFolder = "\(path)/nodejsProject"
         
         let fm = FileManager.default
-        try? fm.removeItem(atPath: rootInstallationFolder)
         
         if !fm.fileExists(atPath: rootInstallationFolder, isDirectory: nil) {
             print("Begin copying into \(rootInstallationFolder)")
@@ -46,6 +54,14 @@ class ViewController: UIViewController {
             } catch let error {
                 print("COPY ERROR: \(error)")
             }
+        }
+        
+        let nspPath = "\(rootInstallationFolder)/apihub-root/nsp"
+        do {
+            try "\(apiContainerPort)".data(using: .ascii)?.write(to: .init(fileURLWithPath: nspPath))
+        } catch let error {
+            print(error)
+            return nil
         }
         
         let serverLauncher: String =  "\(path)/nodejsProject/MobileServerLauncher.js"
@@ -63,7 +79,7 @@ class ViewController: UIViewController {
         
 
         Thread {
-            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=8080",
+            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=\(port)",
             "--rootFolder=\(apihubRootPath)",
             "--env=\(envString)"])
         }.start()
@@ -72,8 +88,11 @@ class ViewController: UIViewController {
     }
     
     private func setupApiContainer() -> APIContainer? {
-        
-        let ac = try? APIContainer(mode: .apiOnly(selectedPort: 7070))
+        guard let port = Utilities.findFreePort() else {
+            print("No free port")
+            return nil
+        }
+        let ac = try? APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
         try? ac?.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: self))
         
         return ac

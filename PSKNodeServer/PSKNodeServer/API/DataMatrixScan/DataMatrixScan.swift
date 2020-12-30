@@ -24,6 +24,7 @@ struct DataMatrixScan {
                     completion(.failure(.init(localizedDescription: error.description)))
                 }
             }
+            codeScannerController.modalPresentationStyle = .fullScreen
             hostController.present(codeScannerController, animated: true)
         }
     }
@@ -38,6 +39,8 @@ fileprivate extension CodeScannerViewController.FailReason {
             return "Code type not available"
         case .cameraUnavailable:
             return "Camera access denied"
+        case .userCancelled:
+            return "Cancelled by user"
         }
     }
 }

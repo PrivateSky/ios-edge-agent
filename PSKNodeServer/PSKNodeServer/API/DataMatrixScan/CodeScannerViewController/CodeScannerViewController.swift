@@ -8,14 +8,28 @@ import AVFoundation
 import UIKit
 
 class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    
+    @IBOutlet private var overlayView: UIView?
+    @IBOutlet private var previewHostView: UIView?
+    @IBOutlet private var cancelButton: UIButton?
+    
     private var captureSession: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
     
     var searchedMetadata: [AVMetadataObject.ObjectType] = []
     var completion: Completion?
     
+    convenience init() {
+        self.init(nibName: "CodeScannerViewController", bundle: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        overlayView?.layer.borderWidth = 3.5
+        overlayView?.layer.borderColor = UIColor.green.cgColor
+        
+        cancelButton?.layer.borderWidth = 4.0
+        cancelButton?.layer.borderColor = UIColor.white.cgColor
         
         if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
            beginScanning()
@@ -41,6 +55,12 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
             captureSession?.startRunning()
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        overlayView?.translatesAutoresizingMaskIntoConstraints = true
+        overlayView?.center = view.center
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -50,11 +70,15 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
         }
     }
     
-    func beginScanning() {
+    @IBAction private func didPressCancel() {
+        completion?(.failure(.userCancelled))
+    }
+    
+    private func beginScanning() {
         let captureSession = AVCaptureSession()
         self.captureSession = captureSession
         
-        view.backgroundColor = UIColor.black
+        previewHostView?.backgroundColor = UIColor.black
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
             completion?(.failure(.cameraUnavailable))
@@ -91,7 +115,7 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(previewLayer)
+        previewHostView?.layer.addSublayer(previewLayer)
         
         self.previewLayer = previewLayer
         captureSession.startRunning()
@@ -99,13 +123,18 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
     }
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession?.stopRunning()
 
         if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+            guard let readableObject = previewLayer?.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            completion?(.success(stringValue))
+            
+            overlayView?.frame = readableObject.bounds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                
+                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                self.completion?(.success(stringValue))
+            }
+            captureSession?.stopRunning()
         }
 
     }
@@ -124,6 +153,7 @@ extension CodeScannerViewController {
         case noCodeFound
         case featureNotAvailable
         case cameraUnavailable
+        case userCancelled
     }
     typealias Completion = (Result<String, FailReason>) -> Void
 }
