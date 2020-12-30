@@ -297,7 +297,44 @@ class PSSmartWalletNativeLayer {
         this.nativeApiMap[name] = nativeApiCall;
         return nativeApiCall;
     }
-    
 }
 
-const defaultNativeSmartWallet = new PSSmartWalletNativeLayer("http://localhost:7070");
+function detectNativeServerUrl(callback){
+    const {protocol, host} = window.location;
+    let url = `${protocol}//${host}`;
+
+    url +="/nsp";
+
+    let called = false;
+    function finish(err, result){
+        if(!called){
+            called = true;
+            return callback(err, result);
+        } else if(err){
+            //Just to don't loose errors
+            console.log(err);
+        }
+    }
+
+    fetch(url).then((response)=>{
+        return response.text();
+    }, (reason)=>{
+        finish(reason);
+    }).then((nsp)=>{
+        finish(undefined, nsp);
+    }).catch((err)=>{
+        finish(err);
+    });
+}
+
+window.opendsu_native_apis = {
+    createNativeBridge : (callback)=>{
+        detectNativeServerUrl((err, nsp)=>{
+            if(err){
+                return callback(err);
+            }
+            const connector = new PSSmartWalletNativeLayer(`http://localhost:${nsp}`);
+            callback(undefined, connector);
+        });
+    }
+}
