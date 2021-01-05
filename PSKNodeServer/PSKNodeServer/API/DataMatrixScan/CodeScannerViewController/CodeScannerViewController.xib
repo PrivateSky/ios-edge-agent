@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -11,8 +12,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CodeScannerViewController" customModule="PSKNodeServer" customModuleProvider="target">
             <connections>
                 <outlet property="cancelButton" destination="wRM-hp-STv" id="VoS-wG-DbA"/>
-                <outlet property="overlayView" destination="KDZ-5X-LjJ" id="0CF-h0-bvn"/>
                 <outlet property="previewHostView" destination="z04-Bt-auQ" id="mED-yW-Fg1"/>
+                <outlet property="scannerAnimationView" destination="eJC-Hx-qWY" id="Yex-RE-lFg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vJ3-xs-gjT"/>
             </connections>
         </placeholder>
@@ -21,7 +22,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z04-Bt-auQ">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z04-Bt-auQ" userLabel="previewHostView">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-Hx-qWY" customClass="ScannerAnimationView" customModule="PSKNodeServer" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
@@ -37,21 +42,20 @@
                         <action selector="didPressCancel" destination="-1" eventType="touchUpInside" id="UPg-XO-jb3"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KDZ-5X-LjJ" userLabel="overlayView">
-                    <rect key="frame" x="87" y="384" width="234" height="200"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="z04-Bt-auQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="4br-UF-yYn"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="z04-Bt-auQ" secondAttribute="bottom" id="K3I-HF-rQv"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerX" secondItem="z04-Bt-auQ" secondAttribute="centerX" id="K55-Zf-SO7"/>
                 <constraint firstItem="wRM-hp-STv" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="QTc-mN-nAq"/>
                 <constraint firstItem="z04-Bt-auQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eyg-Lw-V5U"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="z04-Bt-auQ" secondAttribute="trailing" id="jwg-lD-kjM"/>
                 <constraint firstItem="wRM-hp-STv" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-30" id="kv7-um-2BZ"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerY" secondItem="z04-Bt-auQ" secondAttribute="centerY" id="r6g-NS-Eje"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="width" secondItem="z04-Bt-auQ" secondAttribute="width" id="xiu-nz-5th"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="height" secondItem="z04-Bt-auQ" secondAttribute="height" id="zQx-zw-1Wd"/>
             </constraints>
             <point key="canvasLocation" x="-13.043478260869566" y="66.964285714285708"/>
         </view>

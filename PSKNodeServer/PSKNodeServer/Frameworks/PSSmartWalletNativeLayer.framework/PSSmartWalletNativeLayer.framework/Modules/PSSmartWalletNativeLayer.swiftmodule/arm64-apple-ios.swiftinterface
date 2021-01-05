@@ -1,0 +1,70 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name PSSmartWalletNativeLayer
+import CryptoKit
+import Foundation
+import GCDWebServers
+@_exported import PSSmartWalletNativeLayer
+import Swift
+import UIKit
+import WebKit
+public enum Error : Swift.Error {
+  case nameAlreadyInUse(apiName: Swift.String)
+  case noAvailablePort
+}
+public struct ApiError : Swift.Error {
+  public init(localizedDescription: Swift.String)
+}
+public typealias ApiResultCall = (Swift.Result<[PSSmartWalletNativeLayer.Value], PSSmartWalletNativeLayer.ApiError>) -> Swift.Void
+public typealias VoidBlock = () -> Swift.Void
+public enum StreamSessionAction {
+  case chunk(Foundation.Data)
+  case close
+}
+public protocol StreamSessionDelegate {
+  func provideNext(action: @escaping (PSSmartWalletNativeLayer.StreamSessionAction) -> Swift.Void)
+  func handlePeerClose()
+}
+public typealias ApiImplementation = ([Any], @escaping PSSmartWalletNativeLayer.ApiResultCall) -> Swift.Void
+public typealias StreamSessionDelegateCompletion = (Swift.Result<PSSmartWalletNativeLayer.StreamSessionDelegate, PSSmartWalletNativeLayer.ApiError>) -> Swift.Void
+public typealias StreamApiImplementation = ([Any], @escaping PSSmartWalletNativeLayer.StreamSessionDelegateCompletion) -> Swift.Void
+public enum Value {
+  case string(Swift.String)
+  case number(Swift.Double)
+  case bytes(Foundation.Data)
+}
+@available(iOS 13.0, *)
+public struct Curve25519KeyPair {
+  public static let implementation: ([Any], @escaping PSSmartWalletNativeLayer.ApiResultCall) -> Swift.Void
+}
+@_hasMissingDesignatedInitializers public class TestTextStreaming : PSSmartWalletNativeLayer.StreamSessionDelegate {
+  public static let implementation: ([Any], @escaping PSSmartWalletNativeLayer.StreamSessionDelegateCompletion) -> Swift.Void
+  public func provideNext(action: @escaping (PSSmartWalletNativeLayer.StreamSessionAction) -> Swift.Void)
+  public func handlePeerClose()
+  @objc deinit
+}
+public class APIContainer {
+  public enum Mode {
+    case withWebApp(PSSmartWalletNativeLayer.APIContainer.WebAppConfiguration)
+    case apiOnly(selectedPort: Swift.UInt?)
+  }
+  public struct WebAppConfiguration {
+    public let webAppDirectory: Swift.String
+    public let indexFilename: Swift.String
+    public init(webAppDirectory: Swift.String, indexFilename: Swift.String)
+  }
+  final public let port: Swift.UInt
+  public var serverOrigin: Swift.String {
+    get
+  }
+  public var webAppOrigin: Swift.String {
+    get
+  }
+  public init(mode: PSSmartWalletNativeLayer.APIContainer.Mode) throws
+  public func addAPI(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.ApiImplementation) throws
+  public func addStreamApi(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.StreamApiImplementation) throws
+  @objc deinit
+}
+public struct NativeChoiceExtension {
+  public static func buildImplementationFor(hostController: UIKit.UIViewController) -> PSSmartWalletNativeLayer.ApiImplementation
+}

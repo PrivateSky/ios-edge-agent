@@ -9,12 +9,13 @@ import UIKit
 
 class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
-    @IBOutlet private var overlayView: UIView?
+    @IBOutlet private var scannerAnimationView: ScannerAnimationView?
     @IBOutlet private var previewHostView: UIView?
     @IBOutlet private var cancelButton: UIButton?
     
     private var captureSession: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    private let soundFile = CodeScannerSoundFile()
     
     var searchedMetadata: [AVMetadataObject.ObjectType] = []
     var completion: Completion?
@@ -25,8 +26,6 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        overlayView?.layer.borderWidth = 3.5
-        overlayView?.layer.borderColor = UIColor.green.cgColor
         
         cancelButton?.layer.borderWidth = 4.0
         cancelButton?.layer.borderColor = UIColor.white.cgColor
@@ -58,8 +57,6 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        overlayView?.translatesAutoresizingMaskIntoConstraints = true
-        overlayView?.center = view.center
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -125,16 +122,24 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
 
         if let metadataObject = metadataObjects.first {
-            guard let readableObject = previewLayer?.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject else { return }
+            guard let readableObject = previewLayer?.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject else {
+                print("COULD NOT TRANSFORM")
+                return
+            }
             guard let stringValue = readableObject.stringValue else { return }
             
-            overlayView?.frame = readableObject.bounds
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                 
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-                self.completion?(.success(stringValue))
+                self.scannerAnimationView?.focusOn(rect: readableObject.bounds, completion: {
+                    AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    self.soundFile.play()
+                    self.completion?(.success(stringValue))
+                    
+                })
             }
             captureSession?.stopRunning()
+            output.setMetadataObjectsDelegate(nil, queue: nil)
         }
 
     }
