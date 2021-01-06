@@ -39,7 +39,7 @@ class ScannerAnimationView: NibInstanceView {
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.25, delay: 0, options: .curveEaseInOut) {
             self.focusView?.frame = rect
         } completion: { (_) in
-            self.focusView?.animateColorSwitch(to: .white, completion: nil)
+            self.focusView?.animateColorSwitch(to: .white, completion: completion)
         }
         
     }
