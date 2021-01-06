@@ -22,14 +22,15 @@
 		0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76BB2593F9BA00983BEE /* LaunchScreen.storyboard */; };
 		0B2F95872593FDF200983BEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76BD2593F9BA00983BEE /* Main.storyboard */; };
 		0B2F95B22594063300983BEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2F95B12594063300983BEE /* SceneDelegate.swift */; };
-		0BBAE40725A4967B0093E97C /* NibInstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE3FF25A4967B0093E97C /* NibInstanceView.swift */; };
-		0BBAE40825A4967B0093E97C /* LineAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE40025A4967B0093E97C /* LineAnimationView.swift */; };
-		0BBAE40925A4967B0093E97C /* ScannerFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE40225A4967B0093E97C /* ScannerFocusView.swift */; };
-		0BBAE40A25A4967B0093E97C /* ScannerFocusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBAE40325A4967B0093E97C /* ScannerFocusView.xib */; };
-		0BBAE40B25A4967B0093E97C /* MaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE40425A4967B0093E97C /* MaskView.swift */; };
-		0BBAE40C25A4967B0093E97C /* ScannerAnimationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBAE40525A4967B0093E97C /* ScannerAnimationView.xib */; };
-		0BBAE40D25A4967B0093E97C /* ScannerAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE40625A4967B0093E97C /* ScannerAnimationView.swift */; };
 		0BBAE40F25A498750093E97C /* CodeScannerSoundFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE40E25A498750093E97C /* CodeScannerSoundFile.swift */; };
+		0BBAE43625A4C5760093E97C /* NibInstanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE42E25A4C5760093E97C /* NibInstanceView.swift */; };
+		0BBAE43725A4C5760093E97C /* LineAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE42F25A4C5760093E97C /* LineAnimationView.swift */; };
+		0BBAE43825A4C5760093E97C /* ScannerFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE43125A4C5760093E97C /* ScannerFocusView.swift */; };
+		0BBAE43925A4C5760093E97C /* ScannerFocusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBAE43225A4C5760093E97C /* ScannerFocusView.xib */; };
+		0BBAE43A25A4C5760093E97C /* MaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE43325A4C5760093E97C /* MaskView.swift */; };
+		0BBAE43B25A4C5760093E97C /* ScannerAnimationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBAE43425A4C5760093E97C /* ScannerAnimationView.xib */; };
+		0BBAE43C25A4C5760093E97C /* ScannerAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE43525A4C5760093E97C /* ScannerAnimationView.swift */; };
+		0BCFE08E25A5AA5A003F7BC2 /* PSKWebViewHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE08D25A5AA5A003F7BC2 /* PSKWebViewHostView.swift */; };
 		0BD719FC259C6B8E00151CB9 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* Utilities.swift */; };
 		0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
@@ -67,14 +68,15 @@
 		0B2F7EA02593F9C800983BEE /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GCDWebServers.framework; sourceTree = "<group>"; };
 		0B2F7EA12593F9C800983BEE /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B2F95B12594063300983BEE /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0BBAE3FF25A4967B0093E97C /* NibInstanceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibInstanceView.swift; sourceTree = "<group>"; };
-		0BBAE40025A4967B0093E97C /* LineAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineAnimationView.swift; sourceTree = "<group>"; };
-		0BBAE40225A4967B0093E97C /* ScannerFocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerFocusView.swift; sourceTree = "<group>"; };
-		0BBAE40325A4967B0093E97C /* ScannerFocusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScannerFocusView.xib; sourceTree = "<group>"; };
-		0BBAE40425A4967B0093E97C /* MaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskView.swift; sourceTree = "<group>"; };
-		0BBAE40525A4967B0093E97C /* ScannerAnimationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScannerAnimationView.xib; sourceTree = "<group>"; };
-		0BBAE40625A4967B0093E97C /* ScannerAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerAnimationView.swift; sourceTree = "<group>"; };
 		0BBAE40E25A498750093E97C /* CodeScannerSoundFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerSoundFile.swift; sourceTree = "<group>"; };
+		0BBAE42E25A4C5760093E97C /* NibInstanceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NibInstanceView.swift; sourceTree = "<group>"; };
+		0BBAE42F25A4C5760093E97C /* LineAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineAnimationView.swift; sourceTree = "<group>"; };
+		0BBAE43125A4C5760093E97C /* ScannerFocusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerFocusView.swift; sourceTree = "<group>"; };
+		0BBAE43225A4C5760093E97C /* ScannerFocusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScannerFocusView.xib; sourceTree = "<group>"; };
+		0BBAE43325A4C5760093E97C /* MaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskView.swift; sourceTree = "<group>"; };
+		0BBAE43425A4C5760093E97C /* ScannerAnimationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScannerAnimationView.xib; sourceTree = "<group>"; };
+		0BBAE43525A4C5760093E97C /* ScannerAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerAnimationView.swift; sourceTree = "<group>"; };
+		0BCFE08D25A5AA5A003F7BC2 /* PSKWebViewHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSKWebViewHostView.swift; sourceTree = "<group>"; };
 		0BD719FB259C6B8E00151CB9 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeScannerViewController.xib; sourceTree = "<group>"; };
 		0BF91AEE2542058A001A9031 /* PSKNodeServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSKNodeServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +100,7 @@
 		0B2F62452593F9A000983BEE /* PSKNodeServer */ = {
 			isa = PBXGroup;
 			children = (
+				0BCFE08C25A5AA49003F7BC2 /* Views */,
 				0BFBD24E259518ED009EACAF /* nodejsProject */,
 				0BD719F8259C6A9900151CB9 /* Core */,
 				0B2F7E9A2593F9C800983BEE /* NodeRunner */,
@@ -151,14 +154,6 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		0B77CC7B25A36E5500229E2C /* CustomViews */ = {
-			isa = PBXGroup;
-			children = (
-				0BBAE3FD25A4967B0093E97C /* ScannerAnimationView */,
-			);
-			path = CustomViews;
-			sourceTree = "<group>";
-		};
 		0B77D9BB2545F100006E0CC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,35 +161,50 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		0BBAE3FD25A4967B0093E97C /* ScannerAnimationView */ = {
+		0BBAE42B25A4C5760093E97C /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				0BBAE3FE25A4967B0093E97C /* UtilityViews */,
-				0BBAE40525A4967B0093E97C /* ScannerAnimationView.xib */,
-				0BBAE40625A4967B0093E97C /* ScannerAnimationView.swift */,
+				0BBAE42C25A4C5760093E97C /* ScannerAnimationView */,
 			);
-			name = ScannerAnimationView;
-			path = ../../../../../../../../Experimental/TestLayerMask/TestLayerMask/ScannerAnimationView;
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		0BBAE3FE25A4967B0093E97C /* UtilityViews */ = {
+		0BBAE42C25A4C5760093E97C /* ScannerAnimationView */ = {
 			isa = PBXGroup;
 			children = (
-				0BBAE3FF25A4967B0093E97C /* NibInstanceView.swift */,
-				0BBAE40025A4967B0093E97C /* LineAnimationView.swift */,
-				0BBAE40125A4967B0093E97C /* ScannerFocusView */,
-				0BBAE40425A4967B0093E97C /* MaskView.swift */,
+				0BBAE42D25A4C5760093E97C /* UtilityViews */,
+				0BBAE43425A4C5760093E97C /* ScannerAnimationView.xib */,
+				0BBAE43525A4C5760093E97C /* ScannerAnimationView.swift */,
+			);
+			path = ScannerAnimationView;
+			sourceTree = "<group>";
+		};
+		0BBAE42D25A4C5760093E97C /* UtilityViews */ = {
+			isa = PBXGroup;
+			children = (
+				0BBAE42E25A4C5760093E97C /* NibInstanceView.swift */,
+				0BBAE42F25A4C5760093E97C /* LineAnimationView.swift */,
+				0BBAE43025A4C5760093E97C /* ScannerFocusView */,
+				0BBAE43325A4C5760093E97C /* MaskView.swift */,
 			);
 			path = UtilityViews;
 			sourceTree = "<group>";
 		};
-		0BBAE40125A4967B0093E97C /* ScannerFocusView */ = {
+		0BBAE43025A4C5760093E97C /* ScannerFocusView */ = {
 			isa = PBXGroup;
 			children = (
-				0BBAE40225A4967B0093E97C /* ScannerFocusView.swift */,
-				0BBAE40325A4967B0093E97C /* ScannerFocusView.xib */,
+				0BBAE43125A4C5760093E97C /* ScannerFocusView.swift */,
+				0BBAE43225A4C5760093E97C /* ScannerFocusView.xib */,
 			);
 			path = ScannerFocusView;
+			sourceTree = "<group>";
+		};
+		0BCFE08C25A5AA49003F7BC2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0BCFE08D25A5AA5A003F7BC2 /* PSKWebViewHostView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0BD719F8259C6A9900151CB9 /* Core */ = {
@@ -208,7 +218,7 @@
 		0BD719FD259C976900151CB9 /* CodeScannerViewController */ = {
 			isa = PBXGroup;
 			children = (
-				0B77CC7B25A36E5500229E2C /* CustomViews */,
+				0BBAE42B25A4C5760093E97C /* CustomViews */,
 				0B2F7E972593F9C800983BEE /* CodeScannerViewController.swift */,
 				0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */,
 				0BBAE40E25A498750093E97C /* CodeScannerSoundFile.swift */,
@@ -292,12 +302,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BBAE40A25A4967B0093E97C /* ScannerFocusView.xib in Resources */,
+				0BBAE43925A4C5760093E97C /* ScannerFocusView.xib in Resources */,
 				0BFBD24F259518ED009EACAF /* nodejsProject in Resources */,
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
 				0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */,
-				0BBAE40C25A4967B0093E97C /* ScannerAnimationView.xib in Resources */,
+				0BBAE43B25A4C5760093E97C /* ScannerAnimationView.xib in Resources */,
 				0B2F95872593FDF200983BEE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,18 +319,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BBAE40925A4967B0093E97C /* ScannerFocusView.swift in Sources */,
 				0B2F95722593F9D600983BEE /* DataMatrixScan.swift in Sources */,
-				0BBAE40725A4967B0093E97C /* NibInstanceView.swift in Sources */,
 				0B2F95732593F9D600983BEE /* AppDelegate.swift in Sources */,
-				0BBAE40825A4967B0093E97C /* LineAnimationView.swift in Sources */,
+				0BBAE43825A4C5760093E97C /* ScannerFocusView.swift in Sources */,
+				0BBAE43C25A4C5760093E97C /* ScannerAnimationView.swift in Sources */,
 				0BBAE40F25A498750093E97C /* CodeScannerSoundFile.swift in Sources */,
 				0BD719FC259C6B8E00151CB9 /* Utilities.swift in Sources */,
-				0BBAE40D25A4967B0093E97C /* ScannerAnimationView.swift in Sources */,
+				0BCFE08E25A5AA5A003F7BC2 /* PSKWebViewHostView.swift in Sources */,
 				0B2F95712593F9D600983BEE /* CodeScannerViewController.swift in Sources */,
+				0BBAE43725A4C5760093E97C /* LineAnimationView.swift in Sources */,
 				0B2F7EA32593F9C900983BEE /* ViewController.swift in Sources */,
+				0BBAE43A25A4C5760093E97C /* MaskView.swift in Sources */,
 				0B2F95742593F9D600983BEE /* NodeRunner.mm in Sources */,
-				0BBAE40B25A4967B0093E97C /* MaskView.swift in Sources */,
+				0BBAE43625A4C5760093E97C /* NibInstanceView.swift in Sources */,
 				0B2F95B22594063300983BEE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

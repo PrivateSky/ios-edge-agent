@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     private var apiContainer: APIContainer?
     private let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+    @IBOutlet private var webHostView: PSKWebViewHostView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,8 @@ class ViewController: UIViewController {
         if  let indexPage = setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port),
             let url = URL(string: indexPage) {
             Utilities.executeWhenUrlAvilable(url: url) {
-                self.view.constrainFull(other: self.webView)
+                self.webHostView?.constrain(webView: self.webView)
+                self.webView.backgroundColor = .red
                 self.loadURL(string: indexPage)
             }
         }
@@ -102,6 +104,10 @@ class ViewController: UIViewController {
         if let url = URL(string: string) {
             webView.load(URLRequest(url: url))
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
 }
 
