@@ -6,14 +6,16 @@ import Foundation
 import GCDWebServers
 @_exported import PSSmartWalletNativeLayer
 import Swift
-import UIKit
 import WebKit
 public enum Error : Swift.Error {
   case nameAlreadyInUse(apiName: Swift.String)
   case noAvailablePort
 }
 public struct ApiError : Swift.Error {
-  public init(localizedDescription: Swift.String)
+  public init(code: Swift.String)
+}
+extension ApiError {
+  public static let noSuchApiError: PSSmartWalletNativeLayer.ApiError
 }
 public typealias ApiResultCall = (Swift.Result<[PSSmartWalletNativeLayer.Value], PSSmartWalletNativeLayer.ApiError>) -> Swift.Void
 public typealias VoidBlock = () -> Swift.Void
@@ -64,7 +66,4 @@ public class APIContainer {
   public func addAPI(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.ApiImplementation) throws
   public func addStreamApi(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.StreamApiImplementation) throws
   @objc deinit
-}
-public struct NativeChoiceExtension {
-  public static func buildImplementationFor(hostController: UIKit.UIViewController) -> PSSmartWalletNativeLayer.ApiImplementation
 }

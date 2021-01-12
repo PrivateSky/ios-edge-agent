@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  PSKNodeServer
+
+  Created by Costin Andronache on 1/12/21.
+  
+*/
+
+"ok" = "Ok";
+"cancel" = "Cancel";
+"info_camera_access_denied" = "Camera access has been denied. Please enable it for this app from Settings";

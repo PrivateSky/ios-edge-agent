@@ -10,10 +10,14 @@ import WebKit
 
 //to doc
 public struct ApiError: Swift.Error {
-    let localizedDescription: String
-    public init(localizedDescription: String) {
-        self.localizedDescription = localizedDescription
+    let code: String
+    public init(code: String) {
+        self.code = code
     }
+}
+
+public extension ApiError {
+    static let noSuchApiError = ApiError(code: "ERR_NO_SUCH_API")
 }
 
 public typealias ApiResultCall = (Result<[Value], ApiError>) -> Void

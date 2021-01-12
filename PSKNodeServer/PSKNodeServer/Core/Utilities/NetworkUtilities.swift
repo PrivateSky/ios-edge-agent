@@ -1,5 +1,5 @@
 //
-//  Utilities.swift
+//  NetworkUtilities.swift
 //  PSKNodeServer
 //
 //  Created by Costin Andronache on 12/30/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Utilities {
+struct NetworkUtilities {
     static func findFreePort() -> UInt16? {
         
         let serverFD = socket(AF_INET, SOCK_STREAM, 0)

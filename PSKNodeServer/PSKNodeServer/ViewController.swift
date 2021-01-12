@@ -18,7 +18,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        view.backgroundColor = Configuration.defaultInstance.webviewBackgroundColor
+        
         guard let apiContainer = setupApiContainer() else {
             print("Couldnt set up API Container")
             return
@@ -27,16 +28,15 @@ class ViewController: UIViewController {
         
         if  let indexPage = setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port),
             let url = URL(string: indexPage) {
-            Utilities.executeWhenUrlAvilable(url: url) {
+            NetworkUtilities.executeWhenUrlAvilable(url: url) {
                 self.webHostView?.constrain(webView: self.webView)
-                self.webView.backgroundColor = .red
                 self.loadURL(string: indexPage)
             }
         }
     }
 
     private func setupNodeServer(path: String, apiContainerPort: UInt) -> String? {
-        guard let port = Utilities.findFreePort() else {
+        guard let port = NetworkUtilities.findFreePort() else {
             print("Couldnt find free port for Node")
             return nil
         }
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
     }
     
     private func setupApiContainer() -> APIContainer? {
-        guard let port = Utilities.findFreePort() else {
+        guard let port = NetworkUtilities.findFreePort() else {
             print("No free port")
             return nil
         }

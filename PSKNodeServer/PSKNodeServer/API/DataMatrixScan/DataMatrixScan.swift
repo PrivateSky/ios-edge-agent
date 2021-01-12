@@ -21,7 +21,11 @@ struct DataMatrixScan {
                 case .success(let code):
                     completion(.success([.string(code)]))
                 case .failure(let error):
-                    completion(.failure(.init(localizedDescription: error.description)))
+                    if error == .cameraUnavailable {
+                        UIAlertController.okMessage(in: hostController, message: NSLocalizedString("info_camera_access_denied", comment: "")) {
+                        }                        
+                    }
+                    completion(.failure(.init(code: error.code)))
                 }
             }
             codeScannerController.modalPresentationStyle = .fullScreen
@@ -31,16 +35,16 @@ struct DataMatrixScan {
 }
 
 fileprivate extension CodeScannerViewController.FailReason {
-    var description: String {
+    var code: String {
         switch self {
         case .noCodeFound:
-            return "No code found, timeout"
+            return "ERR_NO_CODE_FOUND"
         case .featureNotAvailable:
-            return "Code type not available"
+            return "ERR_SCAN_NOT_SUPPORTED"
         case .cameraUnavailable:
-            return "Camera access denied"
+            return "ERR_CAM_UNAVAILABLE"
         case .userCancelled:
-            return "Cancelled by user"
+            return "ERR_USER_CANCELLED"
         }
     }
 }

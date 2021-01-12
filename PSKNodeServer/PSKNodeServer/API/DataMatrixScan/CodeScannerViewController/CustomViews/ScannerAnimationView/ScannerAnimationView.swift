@@ -28,6 +28,8 @@ class ScannerAnimationView: NibInstanceView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        let size = frame.width - 80
+        focusView?.frame = CGRect(x: 0, y: 0, width: size, height: size)
         focusView?.center = center
         maskingView?.set(shape: UIBezierPath(rect: focusView!.frame).cgPath)
     }

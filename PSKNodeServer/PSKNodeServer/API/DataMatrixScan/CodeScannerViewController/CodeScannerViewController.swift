@@ -27,6 +27,7 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cancelButton?.setTitle(NSLocalizedString("cancel", comment: ""), for: .application)
         cancelButton?.layer.borderWidth = 4.0
         cancelButton?.layer.borderColor = UIColor.white.cgColor
         
@@ -38,6 +39,7 @@ class CodeScannerViewController: UIViewController, AVCaptureMetadataOutputObject
                     if granted {
                         self?.beginScanning()
                     } else {
+                        
                         self?.completion?(.failure(.cameraUnavailable))
                     }                    
                 }

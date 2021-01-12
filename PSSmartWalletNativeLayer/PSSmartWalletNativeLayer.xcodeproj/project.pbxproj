@@ -28,7 +28,6 @@
 		0B003A452540B7C1006A66C1 /* APIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A442540B7C1006A66C1 /* APIContainer.swift */; };
 		0B003A4F2540BAF3006A66C1 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A4E2540BAF3006A66C1 /* Errors.swift */; };
 		0B003A532540BF14006A66C1 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A522540BF14006A66C1 /* Definitions.swift */; };
-		0B003A5B2540D2AF006A66C1 /* NativeChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A5A2540D2AF006A66C1 /* NativeChoice.swift */; };
 		0B003A5F2540D474006A66C1 /* Curve25519KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A5E2540D474006A66C1 /* Curve25519KeyPair.swift */; };
 		0B16AD662550A6C5005821F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B16AD652550A6C5005821F7 /* SystemConfiguration.framework */; };
 		0B16AD702550A722005821F7 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B16AD6F2550A722005821F7 /* CoreServices.framework */; };
@@ -63,7 +62,6 @@
 		0B003A442540B7C1006A66C1 /* APIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIContainer.swift; sourceTree = "<group>"; };
 		0B003A4E2540BAF3006A66C1 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		0B003A522540BF14006A66C1 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
-		0B003A5A2540D2AF006A66C1 /* NativeChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeChoice.swift; sourceTree = "<group>"; };
 		0B003A5E2540D474006A66C1 /* Curve25519KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Curve25519KeyPair.swift; sourceTree = "<group>"; };
 		0B16AD652550A6C5005821F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0B16AD692550A704005821F7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -150,7 +148,6 @@
 		0B003A592540D277006A66C1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0B003A5A2540D2AF006A66C1 /* NativeChoice.swift */,
 				0B003A5E2540D474006A66C1 /* Curve25519KeyPair.swift */,
 			);
 			path = Extensions;
@@ -304,7 +301,6 @@
 				0B003A5F2540D474006A66C1 /* Curve25519KeyPair.swift in Sources */,
 				0B003A452540B7C1006A66C1 /* APIContainer.swift in Sources */,
 				0BA02F0B254A03F90032FC96 /* ApiImplementationContainer.swift in Sources */,
-				0B003A5B2540D2AF006A66C1 /* NativeChoice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

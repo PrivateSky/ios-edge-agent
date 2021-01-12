@@ -92,7 +92,7 @@ extension APIContainer {
                 return
             }
             
-            handleResult(error: .init(localizedDescription: "No such api \(name) found"), completion: completion)
+            handleResult(error: .noSuchApiError, completion: completion)
         }
         
         private func handleApiCall(api: @escaping ApiImplementation, arguments: [Any], completion: @escaping GCDWebServerCompletionBlock) {

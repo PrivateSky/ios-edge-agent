@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PSSmartWalletNativeLayer/../PSKNodeServer/PSKNodeServer.xcodeproj">
+      location = "group:nativeBridge.js">
+   </FileRef>
+   <FileRef
+      location = "group:PSKNodeServer/PSKNodeServer.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:PSSmartWalletNativeLayer/PSSmartWalletNativeLayer.xcodeproj">
