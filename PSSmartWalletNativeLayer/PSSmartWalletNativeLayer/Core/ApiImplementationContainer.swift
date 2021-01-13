@@ -136,7 +136,7 @@ extension APIContainer {
         
         
         private func handleResult(error: ApiError, completion: @escaping GCDWebServerCompletionBlock) {
-            completion(GCDWebServerDataResponse(jsonObject: ["error": error.localizedDescription])?.applyCORSHeaders())
+            completion(GCDWebServerDataResponse(jsonObject: ["error": error.code])?.applyCORSHeaders())
         }
         
         private func handleResult(values: [Value], completion: @escaping GCDWebServerCompletionBlock) {
