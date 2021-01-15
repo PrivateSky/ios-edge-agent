@@ -12,7 +12,8 @@ import WebKit
 
 class ViewController: UIViewController {
     
-    private var apiContainer: APIContainer?
+    private let ac = ApplicationCore()
+    
     private let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
     @IBOutlet private var webHostView: PSKWebViewHostView?
     
@@ -20,86 +21,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Configuration.defaultInstance.webviewBackgroundColor
         
-        guard let apiContainer = setupApiContainer() else {
-            print("Couldnt set up API Container")
-            return
-        }
-        self.apiContainer = apiContainer
+        webHostView?.constrain(webView: webView)
         
-        if  let indexPage = setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port),
-            let url = URL(string: indexPage) {
-            NetworkUtilities.executeWhenUrlAvilable(url: url) {
-                self.webHostView?.constrain(webView: self.webView)
-                self.loadURL(string: indexPage)
+        ac.setupStackIn(hostController: self) { [weak self] (result) in
+            switch result {
+            case .success(let url):
+                self?.webView.load(.init(url: url))
+            case .failure(let error):
+                let message = "\(error.description)\n\("error_final_words".localized)"
+                UIAlertController.okMessage(in: self, message: message, completion: nil)
             }
+            
+        } reloadCallback: { [weak self] _ in
+            //self?.webView.reload()
         }
+
     }
 
-    private func setupNodeServer(path: String, apiContainerPort: UInt) -> String? {
-        guard let port = NetworkUtilities.findFreePort() else {
-            print("Couldnt find free port for Node")
-            return nil
-        }
-        
-        let sourceInstallationFolder = Bundle.main.path(forResource: "nodejsProject", ofType: nil) ?? ""
-        
-        let rootInstallationFolder = "\(path)/nodejsProject"
-        
-        let fm = FileManager.default
-        
-        if !fm.fileExists(atPath: rootInstallationFolder, isDirectory: nil) {
-            print("Begin copying into \(rootInstallationFolder)")
-            do {
-                try fm.copyItem(atPath: sourceInstallationFolder, toPath: rootInstallationFolder)
-                print("DONE COPYING");
-                
-            } catch let error {
-                print("COPY ERROR: \(error)")
-            }
-        }
-        
-        let nspPath = "\(rootInstallationFolder)/apihub-root/nsp"
-        do {
-            try "\(apiContainerPort)".data(using: .ascii)?.write(to: .init(fileURLWithPath: nspPath))
-        } catch let error {
-            print(error)
-            return nil
-        }
-        
-        let serverLauncher: String =  "\(path)/nodejsProject/MobileServerLauncher.js"
-        
-        let pskServerPath =  "\(path)/nodejsProject/pskWebServer.js"
-        
-        let apihubRootPath =  "\(path)/nodejsProject/apihub-root"
-        
-        let env: [String: String] = [
-            "PSK_CONFIG_LOCATION": "\(apihubRootPath)/external-volume/config",
-            "PSK_ROOT_INSTALATION_FOLDER": rootInstallationFolder,
-            "BDNS_ROOT_HOSTS": "http://localhost:\(port)"
-        ]
-        let envString = String(data: try! JSONEncoder().encode(env), encoding: .ascii)!
-        
-
-        Thread {
-            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=\(port)",
-            "--rootFolder=\(apihubRootPath)",
-            "--env=\(envString)"])
-        }.start()
-        
-        return "http://localhost:\(port)/app/loader/index.html"
-    }
-    
-    private func setupApiContainer() -> APIContainer? {
-        guard let port = NetworkUtilities.findFreePort() else {
-            print("No free port")
-            return nil
-        }
-        let ac = try? APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
-        try? ac?.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: self))
-        
-        return ac
-    }
-        
     func loadURL(string: String) {
         if let url = URL(string: string) {
             webView.load(URLRequest(url: url))
@@ -111,18 +49,21 @@ class ViewController: UIViewController {
     }
 }
 
-
-
-extension UIView {
-    func constrainFull(other: UIView) {
-        other.translatesAutoresizingMaskIntoConstraints = false;
-        addSubview(other)
-        NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalTo: other.widthAnchor),
-            self.heightAnchor.constraint(equalTo: other.heightAnchor),
-            self.centerXAnchor.constraint(equalTo: other.centerXAnchor),
-            self.centerYAnchor.constraint(equalTo: other.centerYAnchor)
-        ])
+extension ApplicationCore.SetupError {
+    var description: String {
+        switch self {
+        case .nodePortSearchFail:
+            return "port_search_fail_node".localized
+        case .apiContainerPortSearchFail:
+            return "port_search_fail_ac".localized
+        case .apiContainerSetupFailed(let error):
+            return "\("ac_setup_failed".localized) \(error.localizedDescription)"
+        case .nspSetupError(let error):
+            return "\("nsp_setup_failed".localized) \(error.localizedDescription)"
+        case .webAppCopyError(let error):
+            return "\("web_app_copy_failed".localized) \(error.localizedDescription)"
+        case .unknownError(let error):
+            return "\("unknown_error".localized) \(error.localizedDescription)"
+        }
     }
 }
-

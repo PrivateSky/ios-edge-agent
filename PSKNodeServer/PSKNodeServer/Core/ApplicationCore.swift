@@ -1,0 +1,165 @@
+//
+//  ApplicationCore.swift
+//
+//
+
+import UIKit
+import PSSmartWalletNativeLayer
+
+
+class ApplicationCore {
+    
+    private var apiContainer: APIContainer?
+    private var reloadCallback: ReloadCallback?
+    private var rootInstallationFolder = ""
+    private var indexPageURL: URL?
+    private var ignoredFirstForeground: Bool = false
+    
+    func setupStackIn(hostController: UIViewController, completion: Completion?, reloadCallback: ReloadCallback?) {
+        
+        do {
+            let apiContainer = try
+                setupApiContainer(hostController: hostController)
+            self.apiContainer = apiContainer
+            let indexPage = try setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port)
+            
+            NetworkUtilities.executeWhenUrlAvilable(url: indexPage) {
+                completion?(.success(indexPage))
+                self.indexPageURL = indexPage
+                self.reloadCallback = reloadCallback
+            }
+            
+        } catch let error as ApplicationCore.SetupError {
+            completion?(.failure(error))
+        } catch {
+            completion?(.failure(.unknownError(error)))
+        }
+        
+    }
+
+    private func setupNodeServer(path: String, apiContainerPort: UInt) throws -> URL {
+        
+        guard let port = NetworkUtilities.findFreePort() else {
+            throw ApplicationCore.SetupError.nodePortSearchFail
+        }
+        
+        let sourceInstallationFolder = Bundle.main.path(forResource: "nodejsProject", ofType: nil) ?? ""
+        
+        let rootInstallationFolder = "\(path)/nodejsProject"
+        self.rootInstallationFolder = rootInstallationFolder
+        
+        let fm = FileManager.default
+        
+        if !fm.fileExists(atPath: rootInstallationFolder, isDirectory: nil) {
+            print("Begin copying into \(rootInstallationFolder)")
+            do {
+                try fm.copyItem(atPath: sourceInstallationFolder, toPath: rootInstallationFolder)
+                print("DONE COPYING");
+                
+            } catch let error {
+                throw ApplicationCore.SetupError.webAppCopyError(error)
+            }
+        }
+        
+        let nspPath = "\(rootInstallationFolder)/apihub-root/nsp"
+        do {
+            try "\(apiContainerPort)".data(using: .ascii)?.write(to: .init(fileURLWithPath: nspPath))
+        } catch let error {
+            throw ApplicationCore.SetupError.nspSetupError(error)
+        }
+        
+        let serverLauncher: String =  "\(path)/nodejsProject/MobileServerLauncher.js"
+        
+        let pskServerPath =  "\(path)/nodejsProject/pskWebServer.js"
+        
+        let apihubRootPath =  "\(path)/nodejsProject/apihub-root"
+        
+        let env: [String: String] = [
+            "PSK_CONFIG_LOCATION": "\(apihubRootPath)/external-volume/config",
+            "PSK_ROOT_INSTALATION_FOLDER": rootInstallationFolder,
+            "BDNS_ROOT_HOSTS": "http://localhost:\(port)"
+        ]
+        let envString = String(data: try! JSONEncoder().encode(env), encoding: .ascii)!
+        
+        
+        Thread {
+            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=\(port)",
+            "--rootFolder=\(apihubRootPath)",
+            "--env=\(envString)"])
+        }.start()
+        
+        return URL(string: "http://localhost:\(port)/app/loader/index.html")!
+    }
+    
+    private func setupApiContainer(hostController: UIViewController) throws -> APIContainer {
+        guard let port = NetworkUtilities.findFreePort() else {
+            throw ApplicationCore.SetupError.apiContainerPortSearchFail
+        }
+        do {
+            let ac = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
+            try ac.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: hostController))
+            setupBackgroundListeners()
+            
+            return ac
+        } catch let error {
+            throw ApplicationCore.SetupError.apiContainerSetupFailed(error)
+        }
+    }
+    
+    private func setupBackgroundListeners() {
+        
+        _ = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
+            self.restartServerOnForeground()
+        })
+        
+        if #available(iOS 13.0, *) {
+            _ = NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
+                self.restartServerOnForeground()
+            })
+        }
+    }
+    
+    private func restartServerOnForeground() {
+        
+        guard ignoredFirstForeground else {
+            ignoredFirstForeground = true
+            return
+        }
+        
+        let needServerRestart = "\(rootInstallationFolder)/apihub-root/needServerRestart"
+        do {
+            try "NEED_RESTART".data(using: .ascii)?.write(to: .init(fileURLWithPath: needServerRestart))
+            if let url = indexPageURL {
+                NetworkUtilities.executeWhenUrlAvilable(url: url) {
+                    self.reloadCallback?(.success(()))
+                }
+            }
+            
+            
+        } catch let error {
+            reloadCallback?(.failure(.foregroundRestartError(error)))
+        }
+    }
+}
+
+extension ApplicationCore {
+    enum SetupError: Swift.Error {
+        case nodePortSearchFail
+        case apiContainerPortSearchFail
+        case apiContainerSetupFailed(Swift.Error)
+        case nspSetupError(Swift.Error)
+        case webAppCopyError(Swift.Error)
+        case unknownError(Swift.Error)
+    }
+    
+    enum RestartError: Swift.Error {
+        case foregroundRestartError(Swift.Error)
+    }
+}
+
+extension ApplicationCore {
+    
+    typealias Completion = (Result<URL, SetupError>) -> Void
+    
+    typealias ReloadCallback = (Result<Void, RestartError>) -> Void
+}

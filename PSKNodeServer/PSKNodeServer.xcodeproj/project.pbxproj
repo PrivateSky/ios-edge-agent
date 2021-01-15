@@ -30,12 +30,15 @@
 		0BBAE43A25A4C5760093E97C /* MaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE43325A4C5760093E97C /* MaskView.swift */; };
 		0BBAE43B25A4C5760093E97C /* ScannerAnimationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BBAE43425A4C5760093E97C /* ScannerAnimationView.xib */; };
 		0BBAE43C25A4C5760093E97C /* ScannerAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBAE43525A4C5760093E97C /* ScannerAnimationView.swift */; };
+		0BC9553E25B1A19700522101 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC9553D25B1A19700522101 /* UIView+Extensions.swift */; };
+		0BC9554025B1A44800522101 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC9553F25B1A44800522101 /* String+localized.swift */; };
 		0BCFE08E25A5AA5A003F7BC2 /* PSKWebViewHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE08D25A5AA5A003F7BC2 /* PSKWebViewHostView.swift */; };
 		0BCFE09C25ACDAAE003F7BC2 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE09B25ACDAAE003F7BC2 /* Configuration.swift */; };
 		0BCFE09F25ACF339003F7BC2 /* UIColor+HexString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE09E25ACF339003F7BC2 /* UIColor+HexString.swift */; };
 		0BCFE0A225AD0011003F7BC2 /* AppConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BCFE0A125AD0011003F7BC2 /* AppConfig.json */; };
 		0BCFE0A725AD9BCE003F7BC2 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE0A625AD9BCE003F7BC2 /* UIAlertController+Extensions.swift */; };
 		0BCFE0AF25AD9DA4003F7BC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0BCFE0AD25AD9DA4003F7BC2 /* Localizable.strings */; };
+		0BCFE0B725B0975E003F7BC2 /* ApplicationCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE0B625B0975E003F7BC2 /* ApplicationCore.swift */; };
 		0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */; };
 		0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
@@ -81,6 +84,8 @@
 		0BBAE43325A4C5760093E97C /* MaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskView.swift; sourceTree = "<group>"; };
 		0BBAE43425A4C5760093E97C /* ScannerAnimationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScannerAnimationView.xib; sourceTree = "<group>"; };
 		0BBAE43525A4C5760093E97C /* ScannerAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerAnimationView.swift; sourceTree = "<group>"; };
+		0BC9553D25B1A19700522101 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		0BC9553F25B1A44800522101 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
 		0BCFE08D25A5AA5A003F7BC2 /* PSKWebViewHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSKWebViewHostView.swift; sourceTree = "<group>"; };
 		0BCFE09B25ACDAAE003F7BC2 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		0BCFE09E25ACF339003F7BC2 /* UIColor+HexString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexString.swift"; sourceTree = "<group>"; };
@@ -88,9 +93,10 @@
 		0BCFE0A325AD138B003F7BC2 /* BuildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BuildConfig.xcconfig; sourceTree = "<group>"; };
 		0BCFE0A625AD9BCE003F7BC2 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
 		0BCFE0AE25AD9DA4003F7BC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = PSKNodeServer/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0BCFE0B625B0975E003F7BC2 /* ApplicationCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCore.swift; sourceTree = "<group>"; };
 		0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
 		0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeScannerViewController.xib; sourceTree = "<group>"; };
-		0BF91AEE2542058A001A9031 /* Pharma Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pharma Ledger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BF91AEE2542058A001A9031 /* Pharma Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Pharma Ledger.app"; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -226,6 +232,8 @@
 				0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */,
 				0BCFE09E25ACF339003F7BC2 /* UIColor+HexString.swift */,
 				0BCFE0A625AD9BCE003F7BC2 /* UIAlertController+Extensions.swift */,
+				0BC9553D25B1A19700522101 /* UIView+Extensions.swift */,
+				0BC9553F25B1A44800522101 /* String+localized.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -244,6 +252,7 @@
 			children = (
 				0BCFE09D25ACF328003F7BC2 /* Utilities */,
 				0BCFE09B25ACDAAE003F7BC2 /* Configuration.swift */,
+				0BCFE0B625B0975E003F7BC2 /* ApplicationCore.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -356,6 +365,7 @@
 			files = (
 				0BCFE0A725AD9BCE003F7BC2 /* UIAlertController+Extensions.swift in Sources */,
 				0B2F95722593F9D600983BEE /* DataMatrixScan.swift in Sources */,
+				0BC9554025B1A44800522101 /* String+localized.swift in Sources */,
 				0B2F95732593F9D600983BEE /* AppDelegate.swift in Sources */,
 				0BBAE43825A4C5760093E97C /* ScannerFocusView.swift in Sources */,
 				0BBAE43C25A4C5760093E97C /* ScannerAnimationView.swift in Sources */,
@@ -363,8 +373,10 @@
 				0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */,
 				0BCFE09F25ACF339003F7BC2 /* UIColor+HexString.swift in Sources */,
 				0BCFE09C25ACDAAE003F7BC2 /* Configuration.swift in Sources */,
+				0BCFE0B725B0975E003F7BC2 /* ApplicationCore.swift in Sources */,
 				0BCFE08E25A5AA5A003F7BC2 /* PSKWebViewHostView.swift in Sources */,
 				0B2F95712593F9D600983BEE /* CodeScannerViewController.swift in Sources */,
+				0BC9553E25B1A19700522101 /* UIView+Extensions.swift in Sources */,
 				0BBAE43725A4C5760093E97C /* LineAnimationView.swift in Sources */,
 				0B2F7EA32593F9C900983BEE /* ViewController.swift in Sources */,
 				0BBAE43A25A4C5760093E97C /* MaskView.swift in Sources */,

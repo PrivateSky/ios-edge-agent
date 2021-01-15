@@ -9,3 +9,10 @@
 "ok" = "Ok";
 "cancel" = "Cancel";
 "info_camera_access_denied" = "Camera access has been denied. Please enable it for this app from Settings";
+"port_search_fail_node" = "Port search failed for the node server.";
+"port_search_fail_ac" = "Port search failed for the native bridge.";
+"ac_setup_failed" = "Setup failed for the native bridge";
+"nsp_setup_failed" = "Connection between native bridge and node server failed.";
+"web_app_copy_failed" = "Failed to setup the web application.";
+"unknown_error" = "An unknown error occured.";
+"error_final_words" = "Please re-start the app. If the problem persists, please contact the developers";
