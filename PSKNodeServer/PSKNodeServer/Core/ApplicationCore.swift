@@ -108,12 +108,12 @@ class ApplicationCore {
     
     private func setupBackgroundListeners() {
         
-        _ = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
-            self.restartServerOnForeground()
-        })
-        
         if #available(iOS 13.0, *) {
-            _ = NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
+            NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
+                self.restartServerOnForeground()
+            })
+        } else {
+            NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
                 self.restartServerOnForeground()
             })
         }

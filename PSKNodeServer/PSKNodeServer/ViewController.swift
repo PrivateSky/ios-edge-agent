@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             }
             
         } reloadCallback: { [weak self] _ in
-            //self?.webView.reload()
+            self?.webView.reload()
         }
 
     }

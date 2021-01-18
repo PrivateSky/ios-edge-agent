@@ -96,7 +96,8 @@
 		0BCFE0B625B0975E003F7BC2 /* ApplicationCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCore.swift; sourceTree = "<group>"; };
 		0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
 		0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodeScannerViewController.xib; sourceTree = "<group>"; };
-		0BF91AEE2542058A001A9031 /* Pharma Ledger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Pharma Ledger.app"; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BEBA0D525B617610045D32E /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
+		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,6 +118,7 @@
 		0B2F62452593F9A000983BEE /* PSKNodeServer */ = {
 			isa = PBXGroup;
 			children = (
+				0BEBA0D625B645410045D32E /* UI */,
 				0BFBD24E259518ED009EACAF /* nodejsProject */,
 				0BCFE0A025ACFFEA003F7BC2 /* Resources */,
 				0BCFE08C25A5AA49003F7BC2 /* Views */,
@@ -128,9 +130,6 @@
 				0B2F7E992593F9C800983BEE /* AppDelegate.swift */,
 				0B2F76A92593F9BA00983BEE /* PSKNodeServer-Bridging-Header.h */,
 				0B2F76B92593F9BA00983BEE /* Assets.xcassets */,
-				0B2F76BB2593F9BA00983BEE /* LaunchScreen.storyboard */,
-				0B2F76BD2593F9BA00983BEE /* Main.storyboard */,
-				0BCFE0AD25AD9DA4003F7BC2 /* Localizable.strings */,
 				0B2F7E9D2593F9C800983BEE /* Frameworks */,
 				0B2F7EA12593F9C800983BEE /* Info.plist */,
 			);
@@ -243,6 +242,7 @@
 			children = (
 				0BCFE0A125AD0011003F7BC2 /* AppConfig.json */,
 				0BCFE0A325AD138B003F7BC2 /* BuildConfig.xcconfig */,
+				0BEBA0D525B617610045D32E /* Version.xcconfig */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -268,6 +268,16 @@
 			path = CodeScannerViewController;
 			sourceTree = "<group>";
 		};
+		0BEBA0D625B645410045D32E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0B2F76BB2593F9BA00983BEE /* LaunchScreen.storyboard */,
+				0B2F76BD2593F9BA00983BEE /* Main.storyboard */,
+				0BCFE0AD25AD9DA4003F7BC2 /* Localizable.strings */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		0BF91AE52542058A001A9031 = {
 			isa = PBXGroup;
 			children = (
@@ -280,7 +290,7 @@
 		0BF91AEF2542058A001A9031 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0BF91AEE2542058A001A9031 /* Pharma Ledger.app */,
+				0BF91AEE2542058A001A9031 /* EPI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,7 +313,7 @@
 			);
 			name = PSKNodeServer;
 			productName = PSSmartWalletNativeLayerDemo;
-			productReference = 0BF91AEE2542058A001A9031 /* Pharma Ledger.app */;
+			productReference = 0BF91AEE2542058A001A9031 /* EPI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

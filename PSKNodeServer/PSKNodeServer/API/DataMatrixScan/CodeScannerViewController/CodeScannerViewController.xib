@@ -23,11 +23,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z04-Bt-auQ" userLabel="previewHostView">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-Hx-qWY" customClass="ScannerAnimationView" customModule="PSKNodeServer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRM-hp-STv">
@@ -47,7 +47,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="z04-Bt-auQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="4br-UF-yYn"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="z04-Bt-auQ" secondAttribute="bottom" id="K3I-HF-rQv"/>
+                <constraint firstAttribute="bottom" secondItem="z04-Bt-auQ" secondAttribute="bottom" id="K3I-HF-rQv"/>
                 <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerX" secondItem="z04-Bt-auQ" secondAttribute="centerX" id="K55-Zf-SO7"/>
                 <constraint firstItem="wRM-hp-STv" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="QTc-mN-nAq"/>
                 <constraint firstItem="z04-Bt-auQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eyg-Lw-V5U"/>
