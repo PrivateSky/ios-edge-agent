@@ -26,7 +26,6 @@ class ApplicationCore {
             NetworkUtilities.executeWhenUrlAvilable(url: indexPage) {
                 completion?(.success(indexPage))
                 self.indexPageURL = indexPage
-                self.reloadCallback = reloadCallback
             }
             
         } catch let error as ApplicationCore.SetupError {
@@ -134,7 +133,6 @@ class ApplicationCore {
                     self.reloadCallback?(.success(()))
                 }
             }
-            
             
         } catch let error {
             reloadCallback?(.failure(.foregroundRestartError(error)))

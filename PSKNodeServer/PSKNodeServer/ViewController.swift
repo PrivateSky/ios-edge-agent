@@ -9,7 +9,6 @@ import UIKit
 import PSSmartWalletNativeLayer
 import WebKit
 
-
 class ViewController: UIViewController {
     
     private let ac = ApplicationCore()
@@ -32,8 +31,13 @@ class ViewController: UIViewController {
                 UIAlertController.okMessage(in: self, message: message, completion: nil)
             }
             
-        } reloadCallback: { [weak self] _ in
-            self?.webView.reload()
+        } reloadCallback: { [weak self] result in
+            switch result {
+            case .success:
+                return
+            case .failure(let error):
+                UIAlertController.okMessage(in: self, message: "\(error.description)\n\("error_final_words".localized)", completion: nil)
+            }
         }
 
     }
@@ -63,6 +67,15 @@ extension ApplicationCore.SetupError {
         case .webAppCopyError(let error):
             return "\("web_app_copy_failed".localized) \(error.localizedDescription)"
         case .unknownError(let error):
+            return "\("unknown_error".localized) \(error.localizedDescription)"
+        }
+    }
+}
+
+extension ApplicationCore.RestartError {
+    var description: String {
+        switch self {
+        case .foregroundRestartError(let error):
             return "\("unknown_error".localized) \(error.localizedDescription)"
         }
     }
