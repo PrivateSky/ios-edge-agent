@@ -43,6 +43,8 @@
 		0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 		53E5B68F2679F1EF00FCE2AC /* ScanditScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */; };
+		53E5B694267A25D900FCE2AC /* ScanditScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */; };
+		53E5B695267A25D900FCE2AC /* ScanditScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +103,8 @@
 		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 		53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanditScan.swift; sourceTree = "<group>"; };
+		53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanditScannerViewController.swift; sourceTree = "<group>"; };
+		53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanditScannerViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +306,8 @@
 			isa = PBXGroup;
 			children = (
 				53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */,
+				53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */,
+				53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */,
 			);
 			path = scanditScan;
 			sourceTree = "<group>";
@@ -371,6 +377,7 @@
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
 				0BCFE0AF25AD9DA4003F7BC2 /* Localizable.strings in Resources */,
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
+				53E5B695267A25D900FCE2AC /* ScanditScannerViewController.xib in Resources */,
 				0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */,
 				0BBAE43B25A4C5760093E97C /* ScannerAnimationView.xib in Resources */,
 				0B2F95872593FDF200983BEE /* Main.storyboard in Resources */,
@@ -394,6 +401,7 @@
 				0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */,
 				0BCFE09F25ACF339003F7BC2 /* UIColor+HexString.swift in Sources */,
 				0BCFE09C25ACDAAE003F7BC2 /* Configuration.swift in Sources */,
+				53E5B694267A25D900FCE2AC /* ScanditScannerViewController.swift in Sources */,
 				0BCFE0B725B0975E003F7BC2 /* ApplicationCore.swift in Sources */,
 				53E5B68F2679F1EF00FCE2AC /* ScanditScan.swift in Sources */,
 				0BCFE08E25A5AA5A003F7BC2 /* PSKWebViewHostView.swift in Sources */,
