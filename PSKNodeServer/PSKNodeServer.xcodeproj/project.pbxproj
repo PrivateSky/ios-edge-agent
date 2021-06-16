@@ -42,6 +42,7 @@
 		0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */; };
 		0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
+		53E5B68F2679F1EF00FCE2AC /* ScanditScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -99,6 +100,7 @@
 		0BEBA0D525B617610045D32E /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
+		53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanditScan.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		0B2F7E952593F9C700983BEE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				53E5B68D2679F1D300FCE2AC /* scanditScan */,
 				0B2F7E962593F9C800983BEE /* DataMatrixScan */,
 			);
 			path = API;
@@ -295,6 +298,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		53E5B68D2679F1D300FCE2AC /* scanditScan */ = {
+			isa = PBXGroup;
+			children = (
+				53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */,
+			);
+			path = scanditScan;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -384,6 +395,7 @@
 				0BCFE09F25ACF339003F7BC2 /* UIColor+HexString.swift in Sources */,
 				0BCFE09C25ACDAAE003F7BC2 /* Configuration.swift in Sources */,
 				0BCFE0B725B0975E003F7BC2 /* ApplicationCore.swift in Sources */,
+				53E5B68F2679F1EF00FCE2AC /* ScanditScan.swift in Sources */,
 				0BCFE08E25A5AA5A003F7BC2 /* PSKWebViewHostView.swift in Sources */,
 				0B2F95712593F9D600983BEE /* CodeScannerViewController.swift in Sources */,
 				0BC9553E25B1A19700522101 /* UIView+Extensions.swift in Sources */,
