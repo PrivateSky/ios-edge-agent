@@ -22,9 +22,12 @@ struct ScanditScan {
                 return
             }
             
-            print(scanditApiKey)
-            
-            completion(.success([.string("ScanditScan completed")]))
+            let hostController = controllerProvider()
+            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKey)
+            codeScannerViewController.modalPresentationStyle = .fullScreen
+            hostController.present(codeScannerViewController, animated: true)
+                        
+            completion(.success([.string("ScanditScan completed")])) 
         }
     }
 }
