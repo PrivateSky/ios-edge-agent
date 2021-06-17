@@ -1,5 +1,5 @@
 //
-//  scanditScan.swift
+//  ScanditScan.swift
 //  PSKNodeServer
 //
 //  Created by Zrust, Vladimir on 16.06.2021.
