@@ -97,6 +97,7 @@ class ApplicationCore {
         do {
             let ac = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
             try ac.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: hostController))
+            try ac.addAPI(name: "scanditScan", implementation: ScanditScan.implementationIn(controllerProvider: hostController))
             setupBackgroundListeners()
             
             return ac
