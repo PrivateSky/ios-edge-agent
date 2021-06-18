@@ -1,0 +1,5 @@
+# Carthage dependency builds and checouts
+Carthage
+
+# Frameworks
+*.framework
