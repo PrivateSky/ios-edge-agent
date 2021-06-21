@@ -42,6 +42,18 @@
 		0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */; };
 		0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
+		53D40BDB267CC4440000822D /* ScanditBarcodeCapture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD6267CC3410000822D /* ScanditBarcodeCapture.framework */; };
+		53D40BDC267CC4440000822D /* ScanditBarcodeCapture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD6267CC3410000822D /* ScanditBarcodeCapture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53D40BDD267CC4470000822D /* ScanditCaptureCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BDA267CC3410000822D /* ScanditCaptureCore.framework */; };
+		53D40BDE267CC4470000822D /* ScanditCaptureCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BDA267CC3410000822D /* ScanditCaptureCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53D40BDF267CC44A0000822D /* ScanditIdCapture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD5267CC3410000822D /* ScanditIdCapture.framework */; };
+		53D40BE0267CC44A0000822D /* ScanditIdCapture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD5267CC3410000822D /* ScanditIdCapture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53D40BE1267CC44C0000822D /* ScanditOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD7267CC3410000822D /* ScanditOCR.framework */; };
+		53D40BE2267CC44C0000822D /* ScanditOCR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD7267CC3410000822D /* ScanditOCR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53D40BE3267CC44E0000822D /* ScanditParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD2267CC3410000822D /* ScanditParser.framework */; };
+		53D40BE4267CC44F0000822D /* ScanditParser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD2267CC3410000822D /* ScanditParser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		53D40BE5267CC4510000822D /* ScanditTextCapture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD3267CC3410000822D /* ScanditTextCapture.framework */; };
+		53D40BE6267CC4510000822D /* ScanditTextCapture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD3267CC3410000822D /* ScanditTextCapture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53E5B68F2679F1EF00FCE2AC /* ScanditScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */; };
 		53E5B694267A25D900FCE2AC /* ScanditScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */; };
 		53E5B695267A25D900FCE2AC /* ScanditScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */; };
@@ -54,8 +66,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				53D40BE6267CC4510000822D /* ScanditTextCapture.framework in Embed Frameworks */,
 				0B2F957F2593FCC200983BEE /* PSSmartWalletNativeLayer.framework in Embed Frameworks */,
+				53D40BE2267CC44C0000822D /* ScanditOCR.framework in Embed Frameworks */,
+				53D40BE0267CC44A0000822D /* ScanditIdCapture.framework in Embed Frameworks */,
+				53D40BDC267CC4440000822D /* ScanditBarcodeCapture.framework in Embed Frameworks */,
 				0B2F957D2593FCC000983BEE /* NodeMobile.framework in Embed Frameworks */,
+				53D40BDE267CC4470000822D /* ScanditCaptureCore.framework in Embed Frameworks */,
+				53D40BE4267CC44F0000822D /* ScanditParser.framework in Embed Frameworks */,
 				0B2F957B2593FCBE00983BEE /* GCDWebServers.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -102,6 +120,17 @@
 		0BEBA0D525B617610045D32E /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
+		53D40BD0267CC3400000822D /* ScanditCaptureCore.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditCaptureCore.framework.dSYM; path = Carthage/Build/iOS/ScanditCaptureCore.framework.dSYM; sourceTree = "<group>"; };
+		53D40BD1267CC3400000822D /* ScanditBarcodeCapture.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditBarcodeCapture.framework.dSYM; path = Carthage/Build/iOS/ScanditBarcodeCapture.framework.dSYM; sourceTree = "<group>"; };
+		53D40BD2267CC3410000822D /* ScanditParser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditParser.framework; path = Carthage/Build/iOS/ScanditParser.framework; sourceTree = "<group>"; };
+		53D40BD3267CC3410000822D /* ScanditTextCapture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditTextCapture.framework; path = Carthage/Build/iOS/ScanditTextCapture.framework; sourceTree = "<group>"; };
+		53D40BD4267CC3410000822D /* ScanditTextCapture.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditTextCapture.framework.dSYM; path = Carthage/Build/iOS/ScanditTextCapture.framework.dSYM; sourceTree = "<group>"; };
+		53D40BD5267CC3410000822D /* ScanditIdCapture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditIdCapture.framework; path = Carthage/Build/iOS/ScanditIdCapture.framework; sourceTree = "<group>"; };
+		53D40BD6267CC3410000822D /* ScanditBarcodeCapture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditBarcodeCapture.framework; path = Carthage/Build/iOS/ScanditBarcodeCapture.framework; sourceTree = "<group>"; };
+		53D40BD7267CC3410000822D /* ScanditOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditOCR.framework; path = Carthage/Build/iOS/ScanditOCR.framework; sourceTree = "<group>"; };
+		53D40BD8267CC3410000822D /* ScanditParser.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditParser.framework.dSYM; path = Carthage/Build/iOS/ScanditParser.framework.dSYM; sourceTree = "<group>"; };
+		53D40BD9267CC3410000822D /* ScanditIdCapture.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditIdCapture.framework.dSYM; path = Carthage/Build/iOS/ScanditIdCapture.framework.dSYM; sourceTree = "<group>"; };
+		53D40BDA267CC3410000822D /* ScanditCaptureCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditCaptureCore.framework; path = Carthage/Build/iOS/ScanditCaptureCore.framework; sourceTree = "<group>"; };
 		53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanditScan.swift; sourceTree = "<group>"; };
 		53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanditScannerViewController.swift; sourceTree = "<group>"; };
 		53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScanditScannerViewController.xib; sourceTree = "<group>"; };
@@ -112,8 +141,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53D40BE5267CC4510000822D /* ScanditTextCapture.framework in Frameworks */,
 				0B2F957E2593FCC200983BEE /* PSSmartWalletNativeLayer.framework in Frameworks */,
+				53D40BE1267CC44C0000822D /* ScanditOCR.framework in Frameworks */,
+				53D40BDF267CC44A0000822D /* ScanditIdCapture.framework in Frameworks */,
+				53D40BDB267CC4440000822D /* ScanditBarcodeCapture.framework in Frameworks */,
 				0B2F957A2593FCBE00983BEE /* GCDWebServers.framework in Frameworks */,
+				53D40BDD267CC4470000822D /* ScanditCaptureCore.framework in Frameworks */,
+				53D40BE3267CC44E0000822D /* ScanditParser.framework in Frameworks */,
 				0B2F957C2593FCC000983BEE /* NodeMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +217,17 @@
 		0B77D9BB2545F100006E0CC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				53D40BD6267CC3410000822D /* ScanditBarcodeCapture.framework */,
+				53D40BD1267CC3400000822D /* ScanditBarcodeCapture.framework.dSYM */,
+				53D40BDA267CC3410000822D /* ScanditCaptureCore.framework */,
+				53D40BD0267CC3400000822D /* ScanditCaptureCore.framework.dSYM */,
+				53D40BD5267CC3410000822D /* ScanditIdCapture.framework */,
+				53D40BD9267CC3410000822D /* ScanditIdCapture.framework.dSYM */,
+				53D40BD7267CC3410000822D /* ScanditOCR.framework */,
+				53D40BD2267CC3410000822D /* ScanditParser.framework */,
+				53D40BD8267CC3410000822D /* ScanditParser.framework.dSYM */,
+				53D40BD3267CC3410000822D /* ScanditTextCapture.framework */,
+				53D40BD4267CC3410000822D /* ScanditTextCapture.framework.dSYM */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -323,6 +369,7 @@
 				0BF91AEB2542058A001A9031 /* Frameworks */,
 				0BF91B0E2542186E001A9031 /* Embed Frameworks */,
 				0B2F95842593FDE400983BEE /* Resources */,
+				53D40BE7267CC48A0000822D /* Carthage Copy Framework Files */,
 			);
 			buildRules = (
 			);
@@ -385,6 +432,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		53D40BE7267CC48A0000822D /* Carthage Copy Framework Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditBarcodeCapture.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditCaptureCore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditIdCapture.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditOCR.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditParser.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditTextCapture.framework",
+			);
+			name = "Carthage Copy Framework Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0BF91AEA2542058A001A9031 /* Sources */ = {
@@ -579,6 +653,7 @@
 					"$(PROJECT_DIR)/PSKNodeServer/",
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -614,6 +689,7 @@
 					"$(PROJECT_DIR)/PSKNodeServer/",
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
