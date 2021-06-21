@@ -13,4 +13,4 @@ PSKNodeServer project for ePI app - this project contains API for scanning barco
 ### Setup
 
 - Clone this repository
-- Run `Carthage bootstrap` in the root of PSKNodeServer to install Carthage dependencies
+- Run `carthage bootstrap` in the root of `PSKNodeServer` folder to install Carthage dependencies
