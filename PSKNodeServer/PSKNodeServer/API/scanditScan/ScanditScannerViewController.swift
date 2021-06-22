@@ -53,6 +53,10 @@ class ScanditScannerViewController: UIViewController {
     private static func createBarcodeCaptureSettings(with symbologies: [Symbology]) -> BarcodeCaptureSettings {
         let barcodeCaptureSettings = BarcodeCaptureSettings()
         
+        let compositeTypes: CompositeType = [.a, .b, .c]
+        barcodeCaptureSettings.enableSymbologies(forCompositeTypes: compositeTypes)
+        barcodeCaptureSettings.enabledCompositeTypes = compositeTypes
+        
         if symbologies.count > 0 {
             for symbology in symbologies {
                 barcodeCaptureSettings.set(symbology: symbology, enabled: true)
