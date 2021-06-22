@@ -13,6 +13,7 @@ class ScanditScannerViewController: UIViewController {
     private let scanditApiKey: String
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
+    private var barcodeCapture: BarcodeCapture
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +28,14 @@ class ScanditScannerViewController: UIViewController {
         self.scanditApiKey = scanditApiKey
         self.symbologies = symbologies
         self.dataCaptureContext = DataCaptureContext(licenseKey: scanditApiKey)
+        
+        let barcodeCaptureSettings = ScanditScannerViewController.createBarcodeCaptureSettings(with: symbologies)
+        self.barcodeCapture = BarcodeCapture(context: dataCaptureContext, settings: barcodeCaptureSettings)
+        
         super.init(nibName: "ScanditScannerViewController", bundle: nil)
     }
     
-    private func createBarcodeCaptureSettings(with symbologies: [Symbology]) -> BarcodeCaptureSettings {
+    private static func createBarcodeCaptureSettings(with symbologies: [Symbology]) -> BarcodeCaptureSettings {
         let barcodeCaptureSettings = BarcodeCaptureSettings()
         
         if symbologies.count > 0 {
