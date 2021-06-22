@@ -12,6 +12,7 @@ class ScanditScannerViewController: UIViewController {
     @IBOutlet weak var apiKeyLabel: UILabel!
     private let scanditApiKey: String
     private let symbologies: [Symbology]
+    private let dataCaptureContext: DataCaptureContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class ScanditScannerViewController: UIViewController {
     init(with scanditApiKey: String, andWith symbologies: [Symbology]){
         self.scanditApiKey = scanditApiKey
         self.symbologies = symbologies
+        self.dataCaptureContext = DataCaptureContext(licenseKey: scanditApiKey)
         super.init(nibName: "ScanditScannerViewController", bundle: nil)
     }
     
