@@ -20,6 +20,13 @@ class ScanditScannerViewController: UIViewController {
         apiKeyLabel.text = scanditApiKey
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        let cameraSettings = BarcodeCapture.recommendedCameraSettings
+        Camera.default?.apply(cameraSettings)
+        dataCaptureContext.setFrameSource(Camera.default)
+        Camera.default?.switch(toDesiredState: .on)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
