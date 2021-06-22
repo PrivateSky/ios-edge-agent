@@ -60,3 +60,18 @@ class ScanditScannerViewController: UIViewController {
         return barcodeCaptureSettings
     }
 }
+
+extension ScanditScannerViewController: BarcodeCaptureListener {
+  func barcodeCapture(_ barcodeCapture: BarcodeCapture, didScanIn session: BarcodeCaptureSession, frameData: FrameData) {
+        let recognizedBarcodes = session.newlyRecognizedBarcodes
+        for barcode in recognizedBarcodes {
+            // TODO: Implement completion
+            print("Barcode value: \(barcode.jsonString)")
+        }
+    
+    // TODO: Implement proper scan session closeup
+    Camera.default?.switch(toDesiredState: .off)
+    barcodeCapture.isEnabled = false
+    }
+}
+
