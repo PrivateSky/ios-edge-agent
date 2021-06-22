@@ -25,6 +25,10 @@ class ScanditScannerViewController: UIViewController {
         Camera.default?.apply(cameraSettings)
         dataCaptureContext.setFrameSource(Camera.default)
         Camera.default?.switch(toDesiredState: .on)
+        
+        let captureView = DataCaptureView(context: dataCaptureContext, frame: view.bounds)
+        captureView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(captureView)
     }
     
     required init?(coder aDecoder: NSCoder) {
