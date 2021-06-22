@@ -21,6 +21,8 @@ class ScanditScannerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        barcodeCapture.addListener(self)
+        
         let cameraSettings = BarcodeCapture.recommendedCameraSettings
         Camera.default?.apply(cameraSettings)
         dataCaptureContext.setFrameSource(Camera.default)
