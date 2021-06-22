@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import ScanditBarcodeCapture
 
 class ScanditScannerViewController: UIViewController {
     @IBOutlet weak var apiKeyLabel: UILabel!
     private let scanditApiKey: String
+    private let symbologies: [Symbology]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,8 +22,9 @@ class ScanditScannerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(with scanditApiKey: String){
+    init(with scanditApiKey: String, andWith symbologies: [Symbology]){
         self.scanditApiKey = scanditApiKey
+        self.symbologies = symbologies
         super.init(nibName: "ScanditScannerViewController", bundle: nil)
     }
 }
