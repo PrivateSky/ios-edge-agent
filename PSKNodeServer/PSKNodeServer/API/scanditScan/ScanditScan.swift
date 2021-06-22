@@ -9,7 +9,7 @@ import UIKit
 import PSSmartWalletNativeLayer
 import ScanditBarcodeCapture
 
-let SUPPORTED_SYMBOLOGIES: [Symbology] = [.gs1DatabarLimited, .microPDF417]
+let SUPPORTED_SYMBOLOGIES: [Symbology] = [.gs1DatabarLimited, .microPDF417, .dataMatrix, .code128]
 
 struct ScanditScan {
     typealias ViewControllerProvider = () -> UIViewController
