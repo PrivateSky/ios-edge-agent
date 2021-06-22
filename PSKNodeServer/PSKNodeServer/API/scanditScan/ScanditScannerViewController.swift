@@ -27,4 +27,16 @@ class ScanditScannerViewController: UIViewController {
         self.symbologies = symbologies
         super.init(nibName: "ScanditScannerViewController", bundle: nil)
     }
+    
+    private func createBarcodeCaptureSettings(with symbologies: [Symbology]) -> BarcodeCaptureSettings {
+        let barcodeCaptureSettings = BarcodeCaptureSettings()
+        
+        if symbologies.count > 0 {
+            for symbology in symbologies {
+                barcodeCaptureSettings.set(symbology: symbology, enabled: true)
+            }
+        }
+        
+        return barcodeCaptureSettings
+    }
 }
