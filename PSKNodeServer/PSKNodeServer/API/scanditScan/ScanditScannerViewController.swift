@@ -73,6 +73,15 @@ extension ScanditScannerViewController: BarcodeCaptureListener {
     for barcode in recognizedBarcodes {
         // TODO: Implement completion
         print("Barcode value: \(barcode.jsonString)")
+        
+        // Wait for both parts - data(GS1DatabarLimited) and compositeData(microPdf417)
+        if barcode.symbology == .gs1DatabarLimited, barcode.compositeData == nil {
+            break
+        }
+        
+        completionHandler(.success(barcode))
+        Camera.default?.switch(toDesiredState: .off)
+        barcodeCapture.isEnabled = false
     }
     
     // TODO: Implement proper scan session closeup
