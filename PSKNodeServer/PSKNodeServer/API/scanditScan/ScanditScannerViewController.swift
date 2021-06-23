@@ -32,6 +32,10 @@ class ScanditScannerViewController: UIViewController {
         _ = BarcodeCaptureOverlay(barcodeCapture: barcodeCapture, view: captureView)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        barcodeCapture.removeListener(self)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
