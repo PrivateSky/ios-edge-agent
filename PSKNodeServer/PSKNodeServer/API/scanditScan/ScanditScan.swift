@@ -27,10 +27,15 @@ struct ScanditScan {
             }
             
             let hostController = controllerProvider()
-            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKeyTemp, andWith: supportedSymbologies) { result in
+            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKeyTemp, andWith: supportedSymbologies) { [weak hostController] result in
                 switch result {
                 case .success(let barcode):
                     // TODO: implement
+                    print("completed with \(barcode.data)")
+                    print("and with \(barcode.compositeData)")
+                    DispatchQueue.main.async {
+                        hostController?.dismiss(animated: true, completion: nil)
+                    }
                 case .failure(let error):
                     // TODO: implement
                     print(error)
