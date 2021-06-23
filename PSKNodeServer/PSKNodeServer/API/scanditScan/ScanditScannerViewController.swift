@@ -16,7 +16,7 @@ class ScanditScannerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        apiKeyLabel.text = scanditApiKey
+        apiKeyLabel.text = "scanditApiKey"
     }
     
     override func viewWillAppear(_ animated: Bool) {
