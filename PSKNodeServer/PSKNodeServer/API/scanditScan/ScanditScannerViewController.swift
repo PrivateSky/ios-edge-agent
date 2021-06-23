@@ -10,7 +10,6 @@ import ScanditBarcodeCapture
 
 class ScanditScannerViewController: UIViewController {
     @IBOutlet weak var apiKeyLabel: UILabel!
-    private let scanditApiKey: String
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
@@ -40,7 +39,6 @@ class ScanditScannerViewController: UIViewController {
     }
     
     init(with scanditApiKey: String, andWith symbologies: [Symbology]){
-        self.scanditApiKey = scanditApiKey
         self.symbologies = symbologies
         self.dataCaptureContext = DataCaptureContext(licenseKey: scanditApiKey)
         
