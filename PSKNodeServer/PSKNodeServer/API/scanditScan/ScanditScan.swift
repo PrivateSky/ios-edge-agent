@@ -7,8 +7,12 @@
 
 import UIKit
 import PSSmartWalletNativeLayer
+import ScanditBarcodeCapture
+
 
 struct ScanditScan {
+    private static let supportedSymbologies: [Symbology] = [.gs1DatabarLimited, .microPDF417, .dataMatrix, .code128]
+
     typealias ViewControllerProvider = () -> UIViewController
     static func implementationIn(controllerProvider: @autoclosure @escaping ViewControllerProvider) -> ApiImplementation {
         return { args, completion in
@@ -23,7 +27,7 @@ struct ScanditScan {
             }
             
             let hostController = controllerProvider()
-            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKey)
+            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKey, andWith: supportedSymbologies)
             codeScannerViewController.modalPresentationStyle = .fullScreen
             hostController.present(codeScannerViewController, animated: true)
                         

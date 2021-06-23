@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanditScannerViewController" customModule="PSKNodeServer" customModuleProvider="target">
             <connections>
-                <outlet property="apiKeyLabel" destination="C9W-pi-dvi" id="p3W-O4-JCq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,19 +25,11 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="API key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C9W-pi-dvi">
-                    <rect key="frame" x="20" y="124.5" width="57" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lep-TO-bkP" secondAttribute="trailing" constant="20" id="Jfc-W7-ds5"/>
-                <constraint firstItem="C9W-pi-dvi" firstAttribute="top" secondItem="lep-TO-bkP" secondAttribute="bottom" constant="20" id="M5h-D2-qip"/>
-                <constraint firstItem="C9W-pi-dvi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="hSa-Ir-1dJ"/>
                 <constraint firstItem="lep-TO-bkP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="rRW-Mn-7uf"/>
                 <constraint firstItem="lep-TO-bkP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="tvt-Bx-ALa"/>
             </constraints>
