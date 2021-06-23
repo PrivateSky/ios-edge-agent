@@ -12,6 +12,7 @@ class ScanditScannerViewController: UIViewController {
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
+    private var completionHandler: (Result<Barcode, Error>) -> Void
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +41,10 @@ class ScanditScannerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(with scanditApiKey: String, andWith symbologies: [Symbology]){
+    init(with scanditApiKey: String, andWith symbologies: [Symbology], _ completion: @escaping (Result<Barcode, Error>) -> Void) {
         self.symbologies = symbologies
         self.dataCaptureContext = DataCaptureContext(licenseKey: scanditApiKey)
+        self.completionHandler = completion
         
         let barcodeCaptureSettings = ScanditScannerViewController.createBarcodeCaptureSettings(with: symbologies)
         self.barcodeCapture = BarcodeCapture(context: dataCaptureContext, settings: barcodeCaptureSettings)

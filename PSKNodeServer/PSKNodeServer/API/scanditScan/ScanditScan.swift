@@ -27,7 +27,15 @@ struct ScanditScan {
             }
             
             let hostController = controllerProvider()
-            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKey, andWith: supportedSymbologies)
+            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKeyTemp, andWith: supportedSymbologies) { result in
+                switch result {
+                case .success(let barcode):
+                    // TODO: implement
+                case .failure(let error):
+                    // TODO: implement
+                    print(error)
+                }
+            }
             codeScannerViewController.modalPresentationStyle = .fullScreen
             hostController.present(codeScannerViewController, animated: true)
                         
