@@ -9,14 +9,12 @@ import UIKit
 import ScanditBarcodeCapture
 
 class ScanditScannerViewController: UIViewController {
-    @IBOutlet weak var apiKeyLabel: UILabel!
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        apiKeyLabel.text = "scanditApiKey"
     }
     
     override func viewWillAppear(_ animated: Bool) {
