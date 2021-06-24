@@ -18,6 +18,8 @@ extension Symbology {
             return "data-matrix"
         case .microPDF417:
             return "micropdf417"
+        case .ean13UPCA:
+            return "ean13"
         default:
             return self.description
         }

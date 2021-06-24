@@ -11,7 +11,7 @@ import ScanditBarcodeCapture
 
 
 struct ScanditScan {
-    private static let supportedSymbologies: [Symbology] = [.gs1DatabarLimited, .microPDF417, .dataMatrix, .code128]
+    private static let supportedSymbologies: [Symbology] = [.gs1DatabarLimited, .microPDF417, .dataMatrix, .code128, .ean13UPCA]
 
     typealias ViewControllerProvider = () -> UIViewController
     static func implementationIn(controllerProvider: @autoclosure @escaping ViewControllerProvider) -> ApiImplementation {
