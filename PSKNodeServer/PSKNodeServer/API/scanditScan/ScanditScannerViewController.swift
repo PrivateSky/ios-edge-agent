@@ -13,6 +13,8 @@ class ScanditScannerViewController: UIViewController {
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
     private var completionHandler: (Result<Barcode, Error>) -> Void
+    private let compositeCodeRepeatedScanLimit = 100
+    private var compositeCodeRepeatedScanCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,23 +72,31 @@ class ScanditScannerViewController: UIViewController {
 extension ScanditScannerViewController: BarcodeCaptureListener {
   func barcodeCapture(_ barcodeCapture: BarcodeCapture, didScanIn session: BarcodeCaptureSession, frameData: FrameData) {
     let recognizedBarcodes = session.newlyRecognizedBarcodes
-    for barcode in recognizedBarcodes {
-        // TODO: Implement completion
-        print("Barcode value: \(barcode.jsonString)")
-        
-        // Wait for both parts - data(GS1DatabarLimited) and compositeData(microPdf417)
-        if barcode.symbology == .gs1DatabarLimited, barcode.compositeData == nil {
-            break
-        }
-        
-        completionHandler(.success(barcode))
-        Camera.default?.switch(toDesiredState: .off)
-        barcodeCapture.isEnabled = false
+
+    guard let barcode = recognizedBarcodes.first else {
+        return
+    }
+
+    // Wait for both parts of composite code - data(GS1DatabarLimited) and compositeData(microPdf417)
+    // Currently only composite codes with GS1DataBarLimited are supported, GS1DataBarLimited as standalone is not supported
+    if barcode.symbology == .gs1DatabarLimited,
+       barcode.compositeData == nil,
+       compositeCodeRepeatedScanCount < compositeCodeRepeatedScanLimit {
+        compositeCodeRepeatedScanCount += 1
+        return
     }
     
-    // TODO: Implement proper scan session closeup
     Camera.default?.switch(toDesiredState: .off)
     barcodeCapture.isEnabled = false
+    
+    guard  compositeCodeRepeatedScanCount < compositeCodeRepeatedScanLimit else {
+        compositeCodeRepeatedScanCount = 0
+        completionHandler(.failure(ScanditError.unableToRecognizeCompositeCode))
+        return
     }
+    
+    compositeCodeRepeatedScanCount = 0
+    completionHandler(.success(barcode))
+  }
 }
 
