@@ -12,7 +12,7 @@ class ScanditScannerViewController: UIViewController {
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
-    private var completionHandler: (Result<Barcode, Error>) -> Void
+    private var completionHandler: (Result<Barcode, ScanditError>) -> Void
     private let compositeCodeRepeatedScanLimit = 100
     private var compositeCodeRepeatedScanCount = 0
     
@@ -43,7 +43,7 @@ class ScanditScannerViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(with scanditApiKey: String, andWith symbologies: [Symbology], _ completion: @escaping (Result<Barcode, Error>) -> Void) {
+    init(with scanditApiKey: String, andWith symbologies: [Symbology], _ completion: @escaping (Result<Barcode, ScanditError>) -> Void) {
         self.symbologies = symbologies
         self.dataCaptureContext = DataCaptureContext(licenseKey: scanditApiKey)
         self.completionHandler = completion
