@@ -9,6 +9,7 @@ import UIKit
 import ScanditBarcodeCapture
 
 class ScanditScannerViewController: UIViewController {
+    @IBOutlet weak var scannerView: UIView!
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
@@ -30,7 +31,7 @@ class ScanditScannerViewController: UIViewController {
         
         let captureView = DataCaptureView(context: dataCaptureContext, frame: view.bounds)
         captureView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(captureView)
+        scannerView.addSubview(captureView)
         
         _ = BarcodeCaptureOverlay(barcodeCapture: barcodeCapture, view: captureView)
     }

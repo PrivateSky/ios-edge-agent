@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanditScannerViewController" customModule="PSKNodeServer" customModuleProvider="target">
             <connections>
+                <outlet property="scannerView" destination="ClS-MW-JSm" id="i5e-4P-0Qd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,19 +20,19 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scandit scanner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lep-TO-bkP">
-                    <rect key="frame" x="20" y="84" width="374" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ClS-MW-JSm" userLabel="scannerView">
+                    <rect key="frame" x="0.0" y="34" width="414" height="828"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lep-TO-bkP" secondAttribute="trailing" constant="20" id="Jfc-W7-ds5"/>
-                <constraint firstItem="lep-TO-bkP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="40" id="rRW-Mn-7uf"/>
-                <constraint firstItem="lep-TO-bkP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="tvt-Bx-ALa"/>
+                <constraint firstItem="ClS-MW-JSm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6Xm-1E-p0C"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ClS-MW-JSm" secondAttribute="bottom" id="8Ls-Lw-MVg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ClS-MW-JSm" secondAttribute="trailing" id="BFP-qm-P5x"/>
+                <constraint firstItem="ClS-MW-JSm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hwx-aC-jq8"/>
+                <constraint firstItem="ClS-MW-JSm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vgp-cc-1tP"/>
             </constraints>
             <point key="canvasLocation" x="139" y="70"/>
         </view>
