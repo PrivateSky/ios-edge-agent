@@ -36,6 +36,9 @@ struct ScanditScan {
                     }
                     completion(.success(barcodeDataOutput))
                 case .failure(let error):
+                    DispatchQueue.main.async {
+                        hostController?.dismiss(animated: true, completion: nil)
+                    }
                     completion(.failure(.init(code: error.description)))
                 }
             }
