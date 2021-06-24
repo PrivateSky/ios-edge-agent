@@ -10,6 +10,7 @@ import ScanditBarcodeCapture
 
 class ScanditScannerViewController: UIViewController {
     @IBOutlet weak var scannerView: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
     private let symbologies: [Symbology]
     private let dataCaptureContext: DataCaptureContext
     private var barcodeCapture: BarcodeCapture
@@ -22,6 +23,10 @@ class ScanditScannerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        cancelButton?.setTitle(NSLocalizedString("cancel", comment: ""), for: .application)
+        cancelButton?.layer.borderWidth = 4.0
+        cancelButton?.layer.borderColor = UIColor.white.cgColor
+        
         barcodeCapture.addListener(self)
         
         let cameraSettings = BarcodeCapture.recommendedCameraSettings
@@ -53,6 +58,12 @@ class ScanditScannerViewController: UIViewController {
         self.barcodeCapture = BarcodeCapture(context: dataCaptureContext, settings: barcodeCaptureSettings)
         
         super.init(nibName: "ScanditScannerViewController", bundle: nil)
+    }
+    
+    @IBAction func didPressCancel(_ sender: Any) {
+        Camera.default?.switch(toDesiredState: .off)
+        barcodeCapture.isEnabled = false
+        completionHandler(.failure(ScanditError.scanCancelled))
     }
     
     private static func createBarcodeCaptureSettings(with symbologies: [Symbology]) -> BarcodeCaptureSettings {

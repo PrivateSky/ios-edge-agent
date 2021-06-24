@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanditScannerViewController" customModule="PSKNodeServer" customModuleProvider="target">
             <connections>
+                <outlet property="cancelButton" destination="oiB-9X-f4A" id="ry0-Su-HfM"/>
                 <outlet property="scannerView" destination="ClS-MW-JSm" id="i5e-4P-0Qd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,13 +25,27 @@
                     <rect key="frame" x="0.0" y="34" width="414" height="828"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oiB-9X-f4A">
+                    <rect key="frame" x="162" y="787" width="90" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="jtS-Xq-yG7"/>
+                        <constraint firstAttribute="width" constant="90" id="qBD-ci-6aJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="didPressCancel:" destination="-1" eventType="touchUpInside" id="CHo-m5-bna"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="ClS-MW-JSm" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6Xm-1E-p0C"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ClS-MW-JSm" secondAttribute="bottom" id="8Ls-Lw-MVg"/>
+                <constraint firstItem="oiB-9X-f4A" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9kw-ax-LRA"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ClS-MW-JSm" secondAttribute="trailing" id="BFP-qm-P5x"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oiB-9X-f4A" secondAttribute="bottom" constant="30" id="EKG-c5-8Qw"/>
                 <constraint firstItem="ClS-MW-JSm" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="hwx-aC-jq8"/>
                 <constraint firstItem="ClS-MW-JSm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vgp-cc-1tP"/>
             </constraints>
