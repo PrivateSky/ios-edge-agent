@@ -50,13 +50,13 @@ struct ScanditScan {
         var barcodeOutput: [Value] = []
         
         if let barcodeData = barcode.data {
-            barcodeOutput.append(.string(barcode.symbology.description))
+            barcodeOutput.append(.string(barcode.symbology.updatedDescription))
             barcodeOutput.append(Value.string(barcodeData))
         }
         
         if let compositeData = barcode.compositeData {
             // in composite codes, the composite part is always microPDF417 symbology
-            barcodeOutput.append(.string(Symbology.microPDF417.description))
+            barcodeOutput.append(.string(Symbology.microPDF417.updatedDescription))
             barcodeOutput.append(.string(compositeData))
         }
         
