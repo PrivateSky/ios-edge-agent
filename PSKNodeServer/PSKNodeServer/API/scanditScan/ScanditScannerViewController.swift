@@ -61,9 +61,13 @@ class ScanditScannerViewController: UIViewController {
     }
     
     @IBAction func didPressCancel(_ sender: Any) {
+        stopScanner()
+        completionHandler(.failure(ScanditError.scanCancelled))
+    }
+    
+    private func stopScanner(){
         Camera.default?.switch(toDesiredState: .off)
         barcodeCapture.isEnabled = false
-        completionHandler(.failure(ScanditError.scanCancelled))
     }
     
     private static func createBarcodeCaptureSettings(with symbologies: [Symbology]) -> BarcodeCaptureSettings {
@@ -98,8 +102,7 @@ extension ScanditScannerViewController: BarcodeCaptureListener {
         return
     }
     
-    Camera.default?.switch(toDesiredState: .off)
-    barcodeCapture.isEnabled = false
+    stopScanner()
     
     guard  compositeCodeRepeatedScanCount < compositeCodeRepeatedScanLimit else {
         compositeCodeRepeatedScanCount = 0
