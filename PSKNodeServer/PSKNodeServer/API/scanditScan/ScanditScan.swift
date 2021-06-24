@@ -44,8 +44,6 @@ struct ScanditScan {
             }
             codeScannerViewController.modalPresentationStyle = .fullScreen
             hostController.present(codeScannerViewController, animated: true)
-                        
-            completion(.success([.string("ScanditScan completed")])) 
         }
     }
     
