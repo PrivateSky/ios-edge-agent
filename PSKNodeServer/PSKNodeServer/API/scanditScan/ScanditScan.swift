@@ -30,15 +30,13 @@ struct ScanditScan {
             let codeScannerViewController = ScanditScannerViewController(with: scanditApiKeyTemp, andWith: supportedSymbologies) { [weak hostController] result in
                 switch result {
                 case .success(let barcode):
-                    // TODO: implement
-                    print("completed with \(barcode.data)")
-                    print("and with \(barcode.compositeData)")
+                    let barcodeDataOutput = createBarcodeDataOutput(barcode: barcode)
                     DispatchQueue.main.async {
                         hostController?.dismiss(animated: true, completion: nil)
                     }
+                    completion(.success(barcodeDataOutput))
                 case .failure(let error):
-                    // TODO: implement
-                    print(error)
+                    completion(.failure(.init(code: error.description)))
                 }
             }
             codeScannerViewController.modalPresentationStyle = .fullScreen
