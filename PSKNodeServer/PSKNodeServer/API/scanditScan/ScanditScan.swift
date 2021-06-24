@@ -52,7 +52,7 @@ struct ScanditScan {
         
         if let barcodeData = barcode.data {
             barcodeOutput.append(.string(barcode.symbology.updatedDescription))
-            barcodeOutput.append(Value.string(barcodeData))
+            barcodeOutput.append(.string(barcodeData))
         }
         
         if let compositeData = barcode.compositeData {
