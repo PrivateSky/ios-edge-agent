@@ -42,6 +42,7 @@
 		0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */; };
 		0BD719FF259C98FE00151CB9 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD719FE259C98FE00151CB9 /* CodeScannerViewController.xib */; };
 		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
+		53B4DCFF268480C1003F5BC6 /* ScanditError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B4DCFE268480C1003F5BC6 /* ScanditError.swift */; };
 		53D40BDB267CC4440000822D /* ScanditBarcodeCapture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD6267CC3410000822D /* ScanditBarcodeCapture.framework */; };
 		53D40BDC267CC4440000822D /* ScanditBarcodeCapture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BD6267CC3410000822D /* ScanditBarcodeCapture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		53D40BDD267CC4470000822D /* ScanditCaptureCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D40BDA267CC3410000822D /* ScanditCaptureCore.framework */; };
@@ -120,6 +121,7 @@
 		0BEBA0D525B617610045D32E /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
 		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
+		53B4DCFE268480C1003F5BC6 /* ScanditError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanditError.swift; sourceTree = "<group>"; };
 		53D40BD0267CC3400000822D /* ScanditCaptureCore.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditCaptureCore.framework.dSYM; path = Carthage/Build/iOS/ScanditCaptureCore.framework.dSYM; sourceTree = "<group>"; };
 		53D40BD1267CC3400000822D /* ScanditBarcodeCapture.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = ScanditBarcodeCapture.framework.dSYM; path = Carthage/Build/iOS/ScanditBarcodeCapture.framework.dSYM; sourceTree = "<group>"; };
 		53D40BD2267CC3410000822D /* ScanditParser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditParser.framework; path = Carthage/Build/iOS/ScanditParser.framework; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */,
 				53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */,
 				53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */,
+				53B4DCFE268480C1003F5BC6 /* ScanditError.swift */,
 			);
 			path = scanditScan;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			files = (
 				0BCFE0A725AD9BCE003F7BC2 /* UIAlertController+Extensions.swift in Sources */,
 				0B2F95722593F9D600983BEE /* DataMatrixScan.swift in Sources */,
+				53B4DCFF268480C1003F5BC6 /* ScanditError.swift in Sources */,
 				0BC9554025B1A44800522101 /* String+localized.swift in Sources */,
 				0B2F95732593F9D600983BEE /* AppDelegate.swift in Sources */,
 				0BBAE43825A4C5760093E97C /* ScannerFocusView.swift in Sources */,
