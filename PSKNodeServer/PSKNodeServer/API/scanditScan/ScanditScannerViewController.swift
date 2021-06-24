@@ -23,9 +23,9 @@ class ScanditScannerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        cancelButton?.setTitle(NSLocalizedString("cancel", comment: ""), for: .application)
-        cancelButton?.layer.borderWidth = 4.0
-        cancelButton?.layer.borderColor = UIColor.white.cgColor
+        cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .application)
+        cancelButton.layer.borderWidth = 4.0
+        cancelButton.layer.borderColor = UIColor.white.cgColor
         
         barcodeCapture.addListener(self)
         
