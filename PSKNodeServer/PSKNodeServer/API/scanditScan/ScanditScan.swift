@@ -19,7 +19,6 @@ struct ScanditScan {
             // TODO: remove debug prints
             print("ScandItScan completion")
             
-            // TODO: create decoder for ApiKey args object with proper error handling
             guard let scanditApiKeyArray: [String] = args.first as? [String], let scanditApiKey = scanditApiKeyArray.first  else {
                 completion(.failure(.init(code: "Scandit API key not passed to Scandit swift API")))
                 print("Scandit API key not passed to Scandit swift API")
