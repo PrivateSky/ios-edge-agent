@@ -1,0 +1,9 @@
+# Carthage dependency builds and checouts
+Carthage
+
+# Frameworks
+*.framework
+
+PSKNodeServer/nodejsProject
+PSKNodeServer/Resources
+PSKNodeServer/Assets.xcassets
