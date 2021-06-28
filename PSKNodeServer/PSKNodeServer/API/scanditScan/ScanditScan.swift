@@ -27,7 +27,7 @@ struct ScanditScan {
             }
             
             let hostController = controllerProvider()
-            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKeyTemp, andWith: supportedSymbologies) { [weak hostController] result in
+            let codeScannerViewController = ScanditScannerViewController(with: scanditApiKey, andWith: supportedSymbologies) { [weak hostController] result in
                 switch result {
                 case .success(let barcode):
                     let barcodeDataOutput = createBarcodeDataOutput(barcode: barcode)
