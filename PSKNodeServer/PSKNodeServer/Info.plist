@@ -23,7 +23,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<false/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow access to the camera. Camera is used to scan barcode, so we can provide leaflet information to you.</string>
