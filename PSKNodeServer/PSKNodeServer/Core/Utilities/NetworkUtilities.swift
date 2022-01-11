@@ -9,7 +9,6 @@ import Foundation
 
 struct NetworkUtilities {
     static func findFreePort() -> UInt16? {
-        
         let serverFD = socket(AF_INET, SOCK_STREAM, 0)
         guard serverFD != 0 else {
             return nil
@@ -37,7 +36,6 @@ struct NetworkUtilities {
         shutdown(serverFD, SHUT_RDWR)
         close(serverFD)
         
-        
         if isBigEndian() {
             return address.sin_port
         } else {
@@ -46,7 +44,6 @@ struct NetworkUtilities {
     }
     
     static func executeWhenUrlAvilable(url: URL, job: @escaping () -> Void) {
-        
         Thread {
             while true {
                 if let _ = try? Data(contentsOf: url) {

@@ -6,11 +6,13 @@
 //
 
 import Foundation
+#if canImport(CryptoKit)
 import CryptoKit
+
 
 @available(iOS 13.0, *)
 public struct Curve25519KeyPair {
-    public static let implementation: ApiImplementation = { (inputValues, callback) in
+    public static let implementation: APIImplementation = { (inputValues, callback) in
         
         let privateKey = Curve25519.Signing.PrivateKey()
         
@@ -19,17 +21,17 @@ public struct Curve25519KeyPair {
     }
 }
 
+#endif
 
-
-public class TestTextStreaming: StreamSessionDelegate {
+public class TestTextStreaming: DataStreamSessionDelegate {
     
     private var count: Int = 0
     
-    public static let implementation: StreamApiImplementation = { _,  completion in
+    public static let implementation: DataStreamAPIImplementation = { _,  completion in
         completion(.success(TestTextStreaming()))
     }
     
-    public func provideNext(action: @escaping (StreamSessionAction) -> Void) {
+    public func provideNext(action: @escaping (DataStreamSessionAction) -> Void) {
         count += 1
         if count < 10 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

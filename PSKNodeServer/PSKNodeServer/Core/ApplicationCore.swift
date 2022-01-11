@@ -6,9 +6,7 @@
 import UIKit
 import PSSmartWalletNativeLayer
 
-
-class ApplicationCore {
-    
+final class ApplicationCore {
     private var apiContainer: APIContainer?
     private var reloadCallback: ReloadCallback?
     private var rootInstallationFolder = ""
@@ -97,6 +95,7 @@ class ApplicationCore {
         do {
             let ac = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
             try ac.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: hostController))
+            try ac.addStreamAPI(name: "numberStream", implementation: NumberStreamTestAPI())
             setupBackgroundListeners()
             
             return ac
