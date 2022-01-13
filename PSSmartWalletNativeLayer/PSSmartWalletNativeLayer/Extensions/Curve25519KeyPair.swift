@@ -12,7 +12,7 @@ import CryptoKit
 
 @available(iOS 13.0, *)
 public struct Curve25519KeyPair {
-    public static let implementation: APIImplementation = { (inputValues, callback) in
+    public static let implementation: APIClosureImplementation = { (inputValues, callback) in
         
         let privateKey = Curve25519.Signing.PrivateKey()
         

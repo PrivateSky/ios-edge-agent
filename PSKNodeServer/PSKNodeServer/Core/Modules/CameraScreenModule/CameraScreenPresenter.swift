@@ -8,7 +8,7 @@
 import AVFoundation
 import UIKit
 
-final class CameraScreenPresenter: CameraScreenModuleInput {
+final class CameraScreenPresenter {
     typealias InitializationCompletion = (Result<Void, CameraScreenModule.InitializationError>) -> Void
     
     var onUserCancelAction: VoidBlock?
@@ -18,7 +18,7 @@ final class CameraScreenPresenter: CameraScreenModuleInput {
     private var initializationCompletion: InitializationCompletion = { _ in }
     private weak var view: CameraScreenView?
         
-    func initalizeWith(view: CameraScreenView, initializationCompletion: @escaping InitializationCompletion) {
+    func prepareForInitializationWith(view: CameraScreenView, initializationCompletion: @escaping InitializationCompletion) {
         self.view = view
         self.initializationCompletion = initializationCompletion
         
@@ -27,7 +27,7 @@ final class CameraScreenPresenter: CameraScreenModuleInput {
         }
         
         view.onUserCancelAction = { [weak self] in
-            self?.stopModule()
+            self?.stopCapture()
             self?.onUserCancelAction?()
         }
     }
@@ -107,7 +107,7 @@ extension CameraScreenPresenter: CameraScreenModuleInput {
                                  completion: completion)
     }
     
-    func stopModule() {
+    func stopCapture() {
         if captureSession?.isRunning == true {
             captureSession?.stopRunning()
         }

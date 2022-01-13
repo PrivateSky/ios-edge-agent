@@ -70,7 +70,11 @@ public class APIContainer {
         GCDWebServer.setLogLevel(0)
     }
     
-    public func addAPI(name: String, implementation: @escaping APIImplementation) throws {
+    public func addAPI(name: String, implementation: @escaping APIClosureImplementation) throws {
+        try implementationContainer.addAPI(name: name, implementation: implementation)
+    }
+    
+    public func addAPI(name: String, implementation: APIImplementation) throws {
         try implementationContainer.addAPI(name: name, implementation: implementation)
     }
     

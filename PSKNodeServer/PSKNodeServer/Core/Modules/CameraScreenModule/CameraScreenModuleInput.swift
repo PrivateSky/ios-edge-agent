@@ -23,9 +23,9 @@ enum CameraScreenModule {
     typealias CaptureFrameCompletion = (UIImage) -> Void
 }
 
-protocol CameraScreenModuleInput {
+protocol CameraScreenModuleInput: AnyObject {
     var onUserCancelAction: VoidBlock? { get set }
-    func stopModule()
+    func stopCapture()
     func addOutput(_ output: AVCaptureOutput, completion: CameraScreenModule.AddOutputCompletion?)
     func captureCurrentFrame(withAnimation: Bool,
                              withSound: Bool,

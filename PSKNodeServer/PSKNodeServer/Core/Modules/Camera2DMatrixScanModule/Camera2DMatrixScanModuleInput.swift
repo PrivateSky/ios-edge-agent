@@ -17,41 +17,59 @@ enum Camera2DMatrixScanError: Error {
 typealias Camera2DMatrixScanCompletion = (Result<String, Camera2DMatrixScanError>) -> Void
 
 protocol Camera2DMatrixScanModuleInput {
+    func launchSingleScanOn(hostController: UIViewController, completion: Camera2DMatrixScanCompletion?)
+}
+
+final class Camera2DMatrixScanModule: NSObject {
+    private var cameraScreenModuleInput: CameraScreenModuleInput?
+    private var completion: Camera2DMatrixScanCompletion?
+    private let cameraScreenModuleBuilder: CameraScreenModuleBuildable
+    
+    init(cameraScreenModuleBuilder: CameraScreenModuleBuildable) {
+        self.cameraScreenModuleBuilder = cameraScreenModuleBuilder
+    }
+            
+    private func beginScanningWith(cameraScreenModuleInput: CameraScreenModuleInput,
+                                   completion: Camera2DMatrixScanCompletion?) {
+        self.cameraScreenModuleInput = cameraScreenModuleInput
+        self.completion = completion
+        
+        let metadataOutput = AVCaptureMetadataOutput()
+        metadataOutput.metadataObjectTypes = [.dataMatrix]
+        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+    }
     
 }
 
-final class Camera2DMatrixScanModule: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-    
-    private var cameraScreenModule: CameraScreenModule?
-    private var completion: Camera2DMatrixScanCompletion?
-    
-    func performScanOn(hostController: UIViewController,
-                       cameraScreenModuleBuilder: CameraScreenModuleBuildable,
-                       completion: Camera2DMatrixScanCompletion?) {
+extension Camera2DMatrixScanModule: Camera2DMatrixScanModuleInput {
+    func launchSingleScanOn(hostController: UIViewController, completion: Camera2DMatrixScanCompletion?) {
+        var moduleController: UIViewController?
         
-        self.completion = completion
-        cameraScreenModuleBuilder.build(completion: { [weak self] cameraModuleResult in
-            switch cameraModuleResult {
-            case .failure(let cameraInitError):
-                completion?(.failure(.cameraModuleInitializationError(cameraInitError)))
-            case .success(let module):
-                self?.cameraScreenModule = module
-                self?.beginScanningWith(cameraScreenModule: module)
-            }
+        cameraScreenModuleBuilder.build(completion: { [weak hostController] initializer in
+            initializer.initializeModuleWith(controllerInHierarchyInsertion: {
+                moduleController = $0
+                $0.modalPresentationStyle = .fullScreen
+                hostController?.present($0, animated: true, completion: $1)
+            }, completion: { [weak self] in 
+                switch $0 {
+                case .failure(let initializationError):
+                    completion?(.failure(.cameraModuleInitializationError(initializationError)))
+                    moduleController?.dismiss(animated: true, completion: nil)
+                case .success(let input):
+                    input.onUserCancelAction = { [weak moduleController] in
+                        completion?(.failure(.userCancelled))
+                        moduleController?.dismiss(animated: true, completion: nil)
+                    }
+                    self?.beginScanningWith(cameraScreenModuleInput: input,
+                                            completion: completion)
+                }
+            })
         })
     }
-        
-    private func beginScanningWith(cameraScreenModule: CameraScreenModule) {
-        let metadataOutput = AVCaptureMetadataOutput()
-        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        metadataOutput.metadataObjectTypes = [.dataMatrix]
-        cameraScreenModule.input.
-    }
-    
-    
-    
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+}
 
+extension Camera2DMatrixScanModule: AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first {
             guard let readableObject = connection.videoPreviewLayer?.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject else {
                 return
@@ -60,13 +78,13 @@ final class Camera2DMatrixScanModule: NSObject, AVCaptureMetadataOutputObjectsDe
             guard let stringValue = readableObject.stringValue else { return }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                self.cameraScreenModule?.input.playFocusAnimation(withinViewBoundsRect: readableObject.bounds,
+                self.cameraScreenModuleInput?.playFocusAnimation(withinViewBoundsRect: readableObject.bounds,
                                                                   withSound: true,
                                                                   completion: { [weak self] in
-                    self?.
+                    self?.completion?(.success(stringValue))
                 })
             }
-            captureSession?.stopRunning()
+            cameraScreenModuleInput?.stopCapture()
             output.setMetadataObjectsDelegate(nil, queue: nil)
         }
 

@@ -23,7 +23,10 @@ public enum APIValue {
   case bytes(Foundation.Data)
 }
 public typealias APIResultCompletion = (Swift.Result<[PSSmartWalletNativeLayer.APIValue], PSSmartWalletNativeLayer.APIError>) -> Swift.Void
-public typealias APIImplementation = (_ inputArguments: [PSSmartWalletNativeLayer.APIValue], _ completion: @escaping PSSmartWalletNativeLayer.APIResultCompletion) -> Swift.Void
+public protocol APIImplementation {
+  func perform(_ inputArguments: [PSSmartWalletNativeLayer.APIValue], _ completion: @escaping PSSmartWalletNativeLayer.APIResultCompletion)
+}
+public typealias APIClosureImplementation = (_ inputArguments: [PSSmartWalletNativeLayer.APIValue], _ completion: @escaping PSSmartWalletNativeLayer.APIResultCompletion) -> Swift.Void
 public protocol StreamAPIImplementation {
   func openStream(input: [PSSmartWalletNativeLayer.APIValue], completion: @escaping (Swift.Result<Swift.Void, PSSmartWalletNativeLayer.APIError>) -> Swift.Void)
   func retrieveNext(input: [PSSmartWalletNativeLayer.APIValue], into: @escaping (Swift.Result<[PSSmartWalletNativeLayer.APIValue], PSSmartWalletNativeLayer.APIError>) -> Swift.Void)
@@ -63,7 +66,8 @@ public class APIContainer {
     get
   }
   public init(mode: PSSmartWalletNativeLayer.APIContainer.Mode) throws
-  public func addAPI(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.APIImplementation) throws
+  public func addAPI(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.APIClosureImplementation) throws
+  public func addAPI(name: Swift.String, implementation: PSSmartWalletNativeLayer.APIImplementation) throws
   public func addStreamAPI(name: Swift.String, implementation: PSSmartWalletNativeLayer.StreamAPIImplementation) throws
   public func addDataStreamAPI(name: Swift.String, implementation: @escaping PSSmartWalletNativeLayer.DataStreamAPIImplementation) throws
   @objc deinit

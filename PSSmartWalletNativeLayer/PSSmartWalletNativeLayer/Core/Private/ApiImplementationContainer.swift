@@ -7,7 +7,7 @@
 
 import Foundation
 import GCDWebServers
-    
+
 class ImplementationContainer {
     private var apiImplementationMap: [String: APIImplementation] = [:]
     private var dataStreamAPIImplementationMap: [String: DataStreamAPIImplementation] = [:]
@@ -20,7 +20,11 @@ class ImplementationContainer {
                                                               autoreleaseFrequency: .workItem,
                                                               target: nil)
     
-    func addAPI(name: String, implementation: @escaping APIImplementation) throws {
+    func addAPI(name: String, implementation: @escaping APIClosureImplementation) throws {
+        try addAPI(name: name, implementation: APIClosureImplementationContainer(implementation))
+    }
+            
+    func addAPI(name: String, implementation: APIImplementation) throws {
         guard apiImplementationMap[name] == nil else {
             throw Error.nameAlreadyInUse(apiName: name)
         }
@@ -97,11 +101,11 @@ class ImplementationContainer {
         }
     }
     
-    private func handleApiCall(api: @escaping APIImplementation,
+    private func handleApiCall(api: APIImplementation,
                                arguments: [APIValue],
                                completion: @escaping GCDWebServerCompletionBlock) {
         DispatchQueue.main.async {
-            api(arguments) {
+            api.perform(arguments) {
                 switch $0 {
                 case .success(let values):
                     self.completeWith(values: values, completion: completion)
@@ -218,6 +222,17 @@ private extension ImplementationContainer {
         }
         
         return .general(apiName: lastComponent)
+    }
+}
+
+private struct APIClosureImplementationContainer: APIImplementation {
+    let implementation: APIClosureImplementation
+    init(_ implementation: @escaping APIClosureImplementation) {
+        self.implementation = implementation
+    }
+    
+    func perform(_ inputArguments: [APIValue], _ completion: @escaping APIResultCompletion) {
+        implementation(inputArguments, completion)
     }
 }
 

@@ -50,6 +50,7 @@
 		8A883317278CBF5300FFB63C /* CameraScreenModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883316278CBF5300FFB63C /* CameraScreenModuleInput.swift */; };
 		8A883319278CCA1400FFB63C /* CameraScreenModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883318278CCA1400FFB63C /* CameraScreenModuleBuilder.swift */; };
 		8A88331E278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */; };
+		8A88D8F9278F6C440053C712 /* APICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88D8F8278F6C440053C712 /* APICollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +116,7 @@
 		8A883316278CBF5300FFB63C /* CameraScreenModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenModuleInput.swift; sourceTree = "<group>"; };
 		8A883318278CCA1400FFB63C /* CameraScreenModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenModuleBuilder.swift; sourceTree = "<group>"; };
 		8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera2DMatrixScanModuleInput.swift; sourceTree = "<group>"; };
+		8A88D8F8278F6C440053C712 /* APICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,26 +235,10 @@
 		8A8832E7278C976700FFB63C /* API */ = {
 			isa = PBXGroup;
 			children = (
-				8A8832E8278C976700FFB63C /* NumberStreamTest */,
-				8A8832EA278C976700FFB63C /* DataMatrixScan */,
+				8A88D8F8278F6C440053C712 /* APICollection.swift */,
+				8A88D8FA278F6CCA0053C712 /* APIList */,
 			);
 			path = API;
-			sourceTree = "<group>";
-		};
-		8A8832E8278C976700FFB63C /* NumberStreamTest */ = {
-			isa = PBXGroup;
-			children = (
-				8A8832E9278C976700FFB63C /* NumberStreamTestAPI.swift */,
-			);
-			path = NumberStreamTest;
-			sourceTree = "<group>";
-		};
-		8A8832EA278C976700FFB63C /* DataMatrixScan */ = {
-			isa = PBXGroup;
-			children = (
-				8A8832EB278C976700FFB63C /* DataMatrixScan.swift */,
-			);
-			path = DataMatrixScan;
 			sourceTree = "<group>";
 		};
 		8A8832EE278C977B00FFB63C /* NodeRunner */ = {
@@ -349,6 +335,15 @@
 				8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */,
 			);
 			path = Camera2DMatrixScanModule;
+			sourceTree = "<group>";
+		};
+		8A88D8FA278F6CCA0053C712 /* APIList */ = {
+			isa = PBXGroup;
+			children = (
+				8A8832E9278C976700FFB63C /* NumberStreamTestAPI.swift */,
+				8A8832EB278C976700FFB63C /* DataMatrixScan.swift */,
+			);
+			path = APIList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -452,6 +447,7 @@
 				0BCFE0B725B0975E003F7BC2 /* ApplicationCore.swift in Sources */,
 				8A883310278C98FE00FFB63C /* BaseModuleView.swift in Sources */,
 				8A8832EC278C976700FFB63C /* NumberStreamTestAPI.swift in Sources */,
+				8A88D8F9278F6C440053C712 /* APICollection.swift in Sources */,
 				0BC9553E25B1A19700522101 /* UIView+Extensions.swift in Sources */,
 				0B2F7EA32593F9C900983BEE /* ViewController.swift in Sources */,
 				8A883308278C980300FFB63C /* NibInstanceView.swift in Sources */,
@@ -545,7 +541,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -601,7 +596,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

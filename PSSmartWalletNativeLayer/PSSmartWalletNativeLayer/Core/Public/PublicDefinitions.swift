@@ -29,8 +29,13 @@ public typealias APIResultCompletion = (Result<[APIValue], APIError>) -> Void
  The `ApiImplementation` type defines the signature of the function object that the native api author must
  register into the `APIContainer` along with its designated name.
  */
-public typealias APIImplementation = (_ inputArguments: [APIValue],
-                                      _ completion: @escaping APIResultCompletion) -> Void
+public protocol APIImplementation {
+    func perform(_ inputArguments: [APIValue],
+                 _ completion: @escaping APIResultCompletion)
+}
+
+public typealias APIClosureImplementation = (_ inputArguments: [APIValue],
+                                             _ completion: @escaping APIResultCompletion) -> Void
 
 public protocol StreamAPIImplementation {
     func openStream(input: [APIValue],
