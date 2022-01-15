@@ -51,6 +51,7 @@
 		8A883319278CCA1400FFB63C /* CameraScreenModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883318278CCA1400FFB63C /* CameraScreenModuleBuilder.swift */; };
 		8A88331E278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */; };
 		8A88D8F9278F6C440053C712 /* APICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88D8F8278F6C440053C712 /* APICollection.swift */; };
+		8AD5387F2793144F00F28A81 /* ArrayUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,6 +118,7 @@
 		8A883318278CCA1400FFB63C /* CameraScreenModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenModuleBuilder.swift; sourceTree = "<group>"; };
 		8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera2DMatrixScanModuleInput.swift; sourceTree = "<group>"; };
 		8A88D8F8278F6C440053C712 /* APICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICollection.swift; sourceTree = "<group>"; };
+		8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				0BC9553D25B1A19700522101 /* UIView+Extensions.swift */,
 				0BC9553F25B1A44800522101 /* String+localized.swift */,
 				8A883311278C998A00FFB63C /* Definitions.swift */,
+				8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -440,6 +443,7 @@
 				8A8832F1278C977B00FFB63C /* NodeRunner.mm in Sources */,
 				0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */,
 				8A883317278CBF5300FFB63C /* CameraScreenModuleInput.swift in Sources */,
+				8AD5387F2793144F00F28A81 /* ArrayUtilities.swift in Sources */,
 				0BCFE09F25ACF339003F7BC2 /* UIColor+HexString.swift in Sources */,
 				8A8832ED278C976700FFB63C /* DataMatrixScan.swift in Sources */,
 				0BCFE09C25ACDAAE003F7BC2 /* Configuration.swift in Sources */,

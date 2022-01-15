@@ -24,6 +24,7 @@ final class Camera2DMatrixScanModule: NSObject {
     private var cameraScreenModuleInput: CameraScreenModuleInput?
     private var completion: Camera2DMatrixScanCompletion?
     private let cameraScreenModuleBuilder: CameraScreenModuleBuildable
+    private let searchedMetadataTypes: [AVMetadataObject.ObjectType] = [.dataMatrix, .qr]
     
     init(cameraScreenModuleBuilder: CameraScreenModuleBuildable) {
         self.cameraScreenModuleBuilder = cameraScreenModuleBuilder
@@ -35,8 +36,20 @@ final class Camera2DMatrixScanModule: NSObject {
         self.completion = completion
         
         let metadataOutput = AVCaptureMetadataOutput()
-        metadataOutput.metadataObjectTypes = [.dataMatrix]
+        let metadataTypes = searchedMetadataTypes
         metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+        cameraScreenModuleInput.addOutput(metadataOutput, completion: { [weak self] in
+            switch $0 {
+            case .success:
+                guard metadataOutput.availableMetadataObjectTypes.containsAll(metadataTypes) else {
+                    completion?(.failure(.cameraModuleFunctionalityError(.featureNotAvailable)))
+                    return
+                }
+                metadataOutput.metadataObjectTypes = metadataTypes
+            case .failure(let error):
+                completion?(.failure(.cameraModuleFunctionalityError(error)))
+            }
+        })
     }
     
 }
