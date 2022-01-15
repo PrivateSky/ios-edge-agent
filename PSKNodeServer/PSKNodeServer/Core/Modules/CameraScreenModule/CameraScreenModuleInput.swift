@@ -28,12 +28,6 @@ protocol CameraScreenModuleInput: AnyObject {
     func stopCapture()
     func addOutput(_ output: AVCaptureOutput, completion: CameraScreenModule.AddOutputCompletion?)
     func convertObjectCoordinatesIntoOwnBounds<T: AVMetadataObject>(object: T) -> T?
-    func captureCurrentFrame(withAnimation: Bool,
-                             withSound: Bool,
-                             completion: CameraScreenModule.CaptureFrameCompletion?)
-    func playCaptureAnimation(withSound: Bool)
-    func playFocusAnimation(withinViewBoundsRect rect: CGRect,
-                            withSound: Bool,
-                            completion: VoidBlock?)
+    func integrateOverlayView(_ view: UIView)
 }
 

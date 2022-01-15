@@ -30,7 +30,7 @@ extension APICollection {
 
 private extension APICollection {
     static func setupDataMatrixScanModule(viewControllerProvider: @autoclosure @escaping DataMatrixScanAPI.ViewControllerProvider) -> DataMatrixScanAPI {
-        let camera2DMatrixScanModule = Camera2DMatrixScanModule(cameraScreenModuleBuilder: CameraScreenModuleBuilder())
+        let camera2DMatrixScanModule = CameraMetadataScanModule(cameraScreenModuleBuilder: CameraScreenModuleBuilder(), searchedMetadataTypes: [.dataMatrix])
         return DataMatrixScanAPI(hostControllerProvider: viewControllerProvider(),
                                  camera2DMatrixScanModule: camera2DMatrixScanModule)
     }

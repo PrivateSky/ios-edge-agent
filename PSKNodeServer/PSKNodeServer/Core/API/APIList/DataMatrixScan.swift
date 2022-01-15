@@ -12,10 +12,10 @@ struct DataMatrixScanAPI: APIImplementation {
     typealias ViewControllerProvider = () -> UIViewController
 
     private let hostControllerProvider: ViewControllerProvider
-    private let camera2DMatrixScanModule: Camera2DMatrixScanModuleInput
+    private let camera2DMatrixScanModule: CameraMetadataScanModuleInput
     
     init(hostControllerProvider: @autoclosure @escaping ViewControllerProvider,
-         camera2DMatrixScanModule: Camera2DMatrixScanModuleInput) {
+         camera2DMatrixScanModule: CameraMetadataScanModuleInput) {
         self.hostControllerProvider = hostControllerProvider
         self.camera2DMatrixScanModule = camera2DMatrixScanModule
     }
@@ -56,7 +56,7 @@ struct DataMatrixScanAPI: APIImplementation {
     }
 }
 
-fileprivate extension Camera2DMatrixScanError {
+extension CameraMetadataScan.Error {
     var code: String {
         switch self {
         case .cameraModuleInitializationError(let initError):

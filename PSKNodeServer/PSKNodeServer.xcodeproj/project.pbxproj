@@ -49,11 +49,12 @@
 		8A883315278CA75000FFB63C /* CameraScreenPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883314278CA75000FFB63C /* CameraScreenPresenter.swift */; };
 		8A883317278CBF5300FFB63C /* CameraScreenModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883316278CBF5300FFB63C /* CameraScreenModuleInput.swift */; };
 		8A883319278CCA1400FFB63C /* CameraScreenModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883318278CCA1400FFB63C /* CameraScreenModuleBuilder.swift */; };
-		8A88331E278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */; };
+		8A88331E278CCF6B00FFB63C /* CameraMetadataScanModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88331D278CCF6B00FFB63C /* CameraMetadataScanModuleInput.swift */; };
 		8A88D8F9278F6C440053C712 /* APICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88D8F8278F6C440053C712 /* APICollection.swift */; };
 		8AD5387F2793144F00F28A81 /* ArrayUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */; };
 		8AD5388427931DD100F28A81 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */; };
 		8AD5388527931DD100F28A81 /* CodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */; };
+		8AD538C227934C3200F28A81 /* CameraFrameCaptureModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD538C127934C3200F28A81 /* CameraFrameCaptureModule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,11 +119,12 @@
 		8A883314278CA75000FFB63C /* CameraScreenPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenPresenter.swift; sourceTree = "<group>"; };
 		8A883316278CBF5300FFB63C /* CameraScreenModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenModuleInput.swift; sourceTree = "<group>"; };
 		8A883318278CCA1400FFB63C /* CameraScreenModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreenModuleBuilder.swift; sourceTree = "<group>"; };
-		8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera2DMatrixScanModuleInput.swift; sourceTree = "<group>"; };
+		8A88331D278CCF6B00FFB63C /* CameraMetadataScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMetadataScanModuleInput.swift; sourceTree = "<group>"; };
 		8A88D8F8278F6C440053C712 /* APICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICollection.swift; sourceTree = "<group>"; };
 		8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtilities.swift; sourceTree = "<group>"; };
 		8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodeScannerViewController.xib; sourceTree = "<group>"; };
 		8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeScannerViewController.swift; sourceTree = "<group>"; };
+		8AD538C127934C3200F28A81 /* CameraFrameCaptureModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFrameCaptureModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,8 +274,9 @@
 			children = (
 				8A2C70BF278E0D50003547EF /* Module.swift */,
 				8A88330F278C98FE00FFB63C /* BaseModuleView.swift */,
+				8AD538C027934C0B00F28A81 /* CameraFrameCaptureModule */,
 				8A8832F6278C980300FFB63C /* CameraScreenModule */,
-				8A88331C278CCF4100FFB63C /* Camera2DMatrixScanModule */,
+				8A88331C278CCF4100FFB63C /* CameraMetadataScanModule */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -337,12 +340,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8A88331C278CCF4100FFB63C /* Camera2DMatrixScanModule */ = {
+		8A88331C278CCF4100FFB63C /* CameraMetadataScanModule */ = {
 			isa = PBXGroup;
 			children = (
-				8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */,
+				8A88331D278CCF6B00FFB63C /* CameraMetadataScanModuleInput.swift */,
 			);
-			path = Camera2DMatrixScanModule;
+			path = CameraMetadataScanModule;
 			sourceTree = "<group>";
 		};
 		8A88D8FA278F6CCA0053C712 /* APIList */ = {
@@ -361,6 +364,14 @@
 				8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */,
 			);
 			path = OldCodeScanner;
+			sourceTree = "<group>";
+		};
+		8AD538C027934C0B00F28A81 /* CameraFrameCaptureModule */ = {
+			isa = PBXGroup;
+			children = (
+				8AD538C127934C3200F28A81 /* CameraFrameCaptureModule.swift */,
+			);
+			path = CameraFrameCaptureModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,7 +460,8 @@
 				8AD5388527931DD100F28A81 /* CodeScannerViewController.swift in Sources */,
 				8A88330E278C980300FFB63C /* ScannerAnimationView.swift in Sources */,
 				0BC9554025B1A44800522101 /* String+localized.swift in Sources */,
-				8A88331E278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift in Sources */,
+				8AD538C227934C3200F28A81 /* CameraFrameCaptureModule.swift in Sources */,
+				8A88331E278CCF6B00FFB63C /* CameraMetadataScanModuleInput.swift in Sources */,
 				8A883309278C980300FFB63C /* LineAnimationView.swift in Sources */,
 				8A883306278C980300FFB63C /* CodeScannerSoundFile.swift in Sources */,
 				8A883319278CCA1400FFB63C /* CameraScreenModuleBuilder.swift in Sources */,

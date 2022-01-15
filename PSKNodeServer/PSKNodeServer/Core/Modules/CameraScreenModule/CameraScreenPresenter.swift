@@ -96,20 +96,8 @@ extension CameraScreenPresenter: CameraScreenModuleInput {
         previewLayer?.transformedMetadataObject(for: object) as? T
     }
     
-    func captureCurrentFrame(withAnimation: Bool, withSound: Bool, completion: CameraScreenModule.CaptureFrameCompletion?) {
-        
-    }
-    
-    func playCaptureAnimation(withSound: Bool) {
-        view?.playCaptureAnimation(withSound: withSound)
-    }
-    
-    func playFocusAnimation(withinViewBoundsRect rect: CGRect,
-                            withSound: Bool,
-                            completion: VoidBlock?) {
-        view?.playFocusAnimation(withinViewBoundsRect: rect,
-                                 withSound: withSound,
-                                 completion: completion)
+    func integrateOverlayView(_ view: UIView) {
+        self.view?.integrateOverlayView(view)
     }
     
     func stopCapture() {

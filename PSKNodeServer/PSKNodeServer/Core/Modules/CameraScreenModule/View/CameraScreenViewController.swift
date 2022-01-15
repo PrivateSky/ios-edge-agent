@@ -10,20 +10,16 @@ import UIKit
 protocol CameraScreenView: BaseModuleView {
     var onUserCancelAction: VoidBlock? { get set }
     func integratePreviewLayer(_ layer: CALayer)
-    func playCaptureAnimation(withSound: Bool)
-    func playFocusAnimation(withinViewBoundsRect rect: CGRect,
-                            withSound: Bool,
-                            completion: VoidBlock?)
+    func integrateOverlayView(_ view: UIView)
 }
 
-final class CameraScreenViewController: BaseModuleViewController, AVCaptureMetadataOutputObjectsDelegate {
+final class CameraScreenViewController: BaseModuleViewController {
     var onUserCancelAction: VoidBlock?
     
-    @IBOutlet private var scannerAnimationView: ScannerAnimationView?
     @IBOutlet private var previewHostView: UIView?
     @IBOutlet private var cancelButton: UIButton?
     
-    private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var previewLayer: CALayer?
     private let soundFile = CodeScannerSoundFile()
         
     convenience init() {
@@ -59,23 +55,14 @@ final class CameraScreenViewController: BaseModuleViewController, AVCaptureMetad
 }
 
 extension CameraScreenViewController: CameraScreenView {
-    func playCaptureAnimation(withSound: Bool) {
-        
+    func integrateOverlayView(_ view: UIView) {
+        self.view.constrainFull(other: view)
     }
-    
-    func playFocusAnimation(withinViewBoundsRect rect: CGRect, withSound: Bool, completion: VoidBlock?) {
-        scannerAnimationView?.focusOn(rect: rect, completion: { [weak self] in
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            if withSound {
-                self?.soundFile.play()
-            }
-            completion?()
-        })
-    }
-        
+            
     func integratePreviewLayer(_ layer: CALayer) {
         layer.frame = view.layer.bounds
         previewHostView?.layer.addSublayer(layer)
+        previewLayer = layer
     }
 }
 

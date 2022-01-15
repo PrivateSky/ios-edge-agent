@@ -8,7 +8,7 @@
 import UIKit
 
 enum ModuleInitialization<ModuleInputType, ErrorType: Error> {
-    typealias ControllerHierarchyInsertion = (UIViewController, _ completion: VoidBlock?) -> Void
+    typealias ControllerHierarchyInsertion = (UIViewController) -> Void
     typealias Completion = (Result<ModuleInputType, ErrorType>) -> Void
 }
 
@@ -20,14 +20,14 @@ protocol ModuleInitializer {
 }
 
 struct AnyModuleInitializer<ModuleInputType, ErrorType: Error>: ModuleInitializer {
-    private let initializeFn: (@escaping (UIViewController, VoidBlock?) -> Void,
+    private let initializeFn: (@escaping (UIViewController) -> Void,
                                @escaping ModuleInitialization<ModuleInputType, ErrorType>.Completion) -> Void
     
     init<T: ModuleInitializer>(aggregating instance: T) where T.ModuleInputType == ModuleInputType, T.ErrorType == ErrorType {
         initializeFn = instance.initializeModuleWith(controllerInHierarchyInsertion:completion:)
     }
     
-    func initializeModuleWith(controllerInHierarchyInsertion: @escaping (UIViewController, VoidBlock?) -> Void, completion: @escaping ModuleInitialization<ModuleInputType, ErrorType>.Completion) {
+    func initializeModuleWith(controllerInHierarchyInsertion: @escaping (UIViewController) -> Void, completion: @escaping ModuleInitialization<ModuleInputType, ErrorType>.Completion) {
         initializeFn(controllerInHierarchyInsertion, completion)
     }
 }

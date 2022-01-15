@@ -13,7 +13,6 @@
             <connections>
                 <outlet property="cancelButton" destination="wRM-hp-STv" id="VoS-wG-DbA"/>
                 <outlet property="previewHostView" destination="z04-Bt-auQ" id="mED-yW-Fg1"/>
-                <outlet property="scannerAnimationView" destination="eJC-Hx-qWY" id="Yex-RE-lFg"/>
                 <outlet property="view" destination="iN0-l3-epB" id="vJ3-xs-gjT"/>
             </connections>
         </placeholder>
@@ -23,10 +22,6 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z04-Bt-auQ" userLabel="previewHostView">
-                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-Hx-qWY" customClass="ScannerAnimationView" customModule="PSKNodeServer" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
@@ -48,14 +43,10 @@
             <constraints>
                 <constraint firstItem="z04-Bt-auQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="4br-UF-yYn"/>
                 <constraint firstAttribute="bottom" secondItem="z04-Bt-auQ" secondAttribute="bottom" id="K3I-HF-rQv"/>
-                <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerX" secondItem="z04-Bt-auQ" secondAttribute="centerX" id="K55-Zf-SO7"/>
                 <constraint firstItem="wRM-hp-STv" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="QTc-mN-nAq"/>
                 <constraint firstItem="z04-Bt-auQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eyg-Lw-V5U"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="z04-Bt-auQ" secondAttribute="trailing" id="jwg-lD-kjM"/>
                 <constraint firstItem="wRM-hp-STv" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-30" id="kv7-um-2BZ"/>
-                <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerY" secondItem="z04-Bt-auQ" secondAttribute="centerY" id="r6g-NS-Eje"/>
-                <constraint firstItem="eJC-Hx-qWY" firstAttribute="width" secondItem="z04-Bt-auQ" secondAttribute="width" id="xiu-nz-5th"/>
-                <constraint firstItem="eJC-Hx-qWY" firstAttribute="height" secondItem="z04-Bt-auQ" secondAttribute="height" id="zQx-zw-1Wd"/>
             </constraints>
             <point key="canvasLocation" x="-13.043478260869566" y="66.964285714285708"/>
         </view>

@@ -1,5 +1,5 @@
 //
-//  Camera2DMatrixScanModuleInput.swift
+//  CameraMetadataScanModule.swift
 //  PSKNodeServer
 //
 //  Created by Costin Andronache on 10.01.2022.
@@ -8,32 +8,41 @@
 import AVFoundation
 import UIKit
 
-enum Camera2DMatrixScanError: Error {
-    case cameraModuleInitializationError(CameraScreenModule.InitializationError)
-    case cameraModuleFunctionalityError(CameraScreenModule.AddOutputFailReason)
-    case userCancelled
-}
-
-typealias Camera2DMatrixScanCompletion = (Result<String, Camera2DMatrixScanError>) -> Void
-
-protocol Camera2DMatrixScanModuleInput {
-    func launchSingleScanOn(hostController: UIViewController, completion: Camera2DMatrixScanCompletion?)
-}
-
-final class Camera2DMatrixScanModule: NSObject {
-    private var cameraScreenModuleInput: CameraScreenModuleInput?
-    private var completion: Camera2DMatrixScanCompletion?
-    private let cameraScreenModuleBuilder: CameraScreenModuleBuildable
-    private let searchedMetadataTypes: [AVMetadataObject.ObjectType] = [.dataMatrix, .qr]
+enum CameraMetadataScan {
+    enum Error: Swift.Error {
+        case cameraModuleInitializationError(CameraScreenModule.InitializationError)
+        case cameraModuleFunctionalityError(CameraScreenModule.AddOutputFailReason)
+        case userCancelled
+    }
     
-    init(cameraScreenModuleBuilder: CameraScreenModuleBuildable) {
+    typealias Completion = (Result<String, Error>) -> Void
+}
+
+
+protocol CameraMetadataScanModuleInput {
+    func launchSingleScanOn(hostController: UIViewController, completion: CameraMetadataScan.Completion?)
+}
+
+final class CameraMetadataScanModule: NSObject {
+    private var cameraScreenModuleInput: CameraScreenModuleInput?
+    private var completion: CameraMetadataScan.Completion?
+    private let cameraScreenModuleBuilder: CameraScreenModuleBuildable
+    private let searchedMetadataTypes: [AVMetadataObject.ObjectType]
+    
+    private let scannerAnimationView: ScannerAnimationView = .init(frame: .zero)
+    private let soundFile = CodeScannerSoundFile()
+    
+    init(cameraScreenModuleBuilder: CameraScreenModuleBuildable, searchedMetadataTypes: [AVMetadataObject.ObjectType]) {
         self.cameraScreenModuleBuilder = cameraScreenModuleBuilder
+        self.searchedMetadataTypes = searchedMetadataTypes
     }
             
     private func beginScanningWith(cameraScreenModuleInput: CameraScreenModuleInput,
-                                   completion: Camera2DMatrixScanCompletion?) {
+                                   completion: CameraMetadataScan.Completion?) {
         self.cameraScreenModuleInput = cameraScreenModuleInput
         self.completion = completion
+        
+        cameraScreenModuleInput.integrateOverlayView(scannerAnimationView)
         
         let metadataOutput = AVCaptureMetadataOutput()
         let metadataTypes = searchedMetadataTypes
@@ -52,17 +61,26 @@ final class Camera2DMatrixScanModule: NSObject {
         })
     }
     
+    private func playFocusAnimation(withinViewBoundsRect rect: CGRect, withSound: Bool, completion: VoidBlock?) {
+        scannerAnimationView.focusOn(rect: rect, completion: { [weak self] in
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            if withSound {
+                self?.soundFile.play()
+            }
+            completion?()
+        })
+    }
 }
 
-extension Camera2DMatrixScanModule: Camera2DMatrixScanModuleInput {
-    func launchSingleScanOn(hostController: UIViewController, completion: Camera2DMatrixScanCompletion?) {
+extension CameraMetadataScanModule: CameraMetadataScanModuleInput {
+    func launchSingleScanOn(hostController: UIViewController, completion: CameraMetadataScan.Completion?) {
         var moduleController: UIViewController?
         
         cameraScreenModuleBuilder.build(completion: { [weak hostController] initializer in
-            initializer.initializeModuleWith(controllerInHierarchyInsertion: {
-                moduleController = $0
-                $0.modalPresentationStyle = .fullScreen
-                hostController?.present($0, animated: true, completion: $1)
+            initializer.initializeModuleWith(controllerInHierarchyInsertion: { controller in
+                moduleController = controller
+                controller.modalPresentationStyle = .fullScreen
+                hostController?.present(controller, animated: true, completion: nil)
             }, completion: { [weak self] in 
                 switch $0 {
                 case .failure(let initializationError):
@@ -84,7 +102,7 @@ extension Camera2DMatrixScanModule: Camera2DMatrixScanModuleInput {
     }
 }
 
-extension Camera2DMatrixScanModule: AVCaptureMetadataOutputObjectsDelegate {
+extension CameraMetadataScanModule: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject {
             guard let readableObject = cameraScreenModuleInput?.convertObjectCoordinatesIntoOwnBounds(object: metadataObject) else {
@@ -92,14 +110,14 @@ extension Camera2DMatrixScanModule: AVCaptureMetadataOutputObjectsDelegate {
             }
             
             guard let stringValue = readableObject.stringValue else { return }
-            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
-                self.cameraScreenModuleInput?.playFocusAnimation(withinViewBoundsRect: readableObject.bounds,
-                                                                  withSound: true,
-                                                                  completion: { [weak self] in
+                self.playFocusAnimation(withinViewBoundsRect: readableObject.bounds,
+                                        withSound: true,
+                                        completion: { [weak self] in
                     self?.completion?(.success(stringValue))
                 })
             }
+            
             cameraScreenModuleInput?.stopCapture()
             output.setMetadataObjectsDelegate(nil, queue: nil)
         }

@@ -22,7 +22,7 @@ extension CameraScreenModuleBuilder: ModuleInitializer {
     typealias ErrorType = CameraScreenModule.InitializationError
     typealias ModuleInputType = CameraScreenModuleInput
     
-    func initializeModuleWith(controllerInHierarchyInsertion: @escaping (UIViewController, VoidBlock?) -> Void,
+    func initializeModuleWith(controllerInHierarchyInsertion: @escaping (UIViewController) -> Void,
                               completion: @escaping ModuleInitialization<CameraScreenModuleInput, CameraScreenModule.InitializationError>.Completion) {
         
         let controller = CameraScreenViewController()
@@ -38,6 +38,6 @@ extension CameraScreenModuleBuilder: ModuleInitializer {
             }
         })
         
-        controllerInHierarchyInsertion(controller, nil)
+        controllerInHierarchyInsertion(controller)
     }
 }
