@@ -89,6 +89,11 @@ extension CameraScreenPresenter: CameraScreenModuleInput {
                   return
         }
         captureSession.addOutput(output)
+        completion?(.success(()))
+    }
+    
+    func convertObjectCoordinatesIntoOwnBounds<T>(object: T) -> T? where T : AVMetadataObject {
+        previewLayer?.transformedMetadataObject(for: object) as? T
     }
     
     func captureCurrentFrame(withAnimation: Bool, withSound: Bool, completion: CameraScreenModule.CaptureFrameCompletion?) {

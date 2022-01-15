@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CodeScannerViewController" customModule="PSKNodeServer" customModuleProvider="target">
+            <connections>
+                <outlet property="cancelButton" destination="wRM-hp-STv" id="VoS-wG-DbA"/>
+                <outlet property="previewHostView" destination="z04-Bt-auQ" id="mED-yW-Fg1"/>
+                <outlet property="scannerAnimationView" destination="eJC-Hx-qWY" id="Yex-RE-lFg"/>
+                <outlet property="view" destination="iN0-l3-epB" id="vJ3-xs-gjT"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z04-Bt-auQ" userLabel="previewHostView">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-Hx-qWY" customClass="ScannerAnimationView" customModule="PSKNodeServer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRM-hp-STv">
+                    <rect key="frame" x="162" y="787" width="90" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="90" id="31B-mQ-qnP"/>
+                        <constraint firstAttribute="height" constant="45" id="TdJ-bZ-mOU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="didPressCancel" destination="-1" eventType="touchUpInside" id="UPg-XO-jb3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="z04-Bt-auQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="4br-UF-yYn"/>
+                <constraint firstAttribute="bottom" secondItem="z04-Bt-auQ" secondAttribute="bottom" id="K3I-HF-rQv"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerX" secondItem="z04-Bt-auQ" secondAttribute="centerX" id="K55-Zf-SO7"/>
+                <constraint firstItem="wRM-hp-STv" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="QTc-mN-nAq"/>
+                <constraint firstItem="z04-Bt-auQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eyg-Lw-V5U"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="z04-Bt-auQ" secondAttribute="trailing" id="jwg-lD-kjM"/>
+                <constraint firstItem="wRM-hp-STv" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-30" id="kv7-um-2BZ"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="centerY" secondItem="z04-Bt-auQ" secondAttribute="centerY" id="r6g-NS-Eje"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="width" secondItem="z04-Bt-auQ" secondAttribute="width" id="xiu-nz-5th"/>
+                <constraint firstItem="eJC-Hx-qWY" firstAttribute="height" secondItem="z04-Bt-auQ" secondAttribute="height" id="zQx-zw-1Wd"/>
+            </constraints>
+            <point key="canvasLocation" x="-13.043478260869566" y="66.964285714285708"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

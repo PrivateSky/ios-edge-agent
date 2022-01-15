@@ -38,7 +38,7 @@ final class Camera2DMatrixScanModule: NSObject {
         let metadataOutput = AVCaptureMetadataOutput()
         let metadataTypes = searchedMetadataTypes
         metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        cameraScreenModuleInput.addOutput(metadataOutput, completion: { [weak self] in
+        cameraScreenModuleInput.addOutput(metadataOutput, completion: {
             switch $0 {
             case .success:
                 guard metadataOutput.availableMetadataObjectTypes.containsAll(metadataTypes) else {
@@ -74,7 +74,10 @@ extension Camera2DMatrixScanModule: Camera2DMatrixScanModuleInput {
                         moduleController?.dismiss(animated: true, completion: nil)
                     }
                     self?.beginScanningWith(cameraScreenModuleInput: input,
-                                            completion: completion)
+                                            completion: { [weak moduleController] in
+                        moduleController?.dismiss(animated: true, completion: nil)
+                        completion?($0)
+                    })
                 }
             })
         })
@@ -83,8 +86,8 @@ extension Camera2DMatrixScanModule: Camera2DMatrixScanModuleInput {
 
 extension Camera2DMatrixScanModule: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        if let metadataObject = metadataObjects.first {
-            guard let readableObject = connection.videoPreviewLayer?.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject else {
+        if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject {
+            guard let readableObject = cameraScreenModuleInput?.convertObjectCoordinatesIntoOwnBounds(object: metadataObject) else {
                 return
             }
             

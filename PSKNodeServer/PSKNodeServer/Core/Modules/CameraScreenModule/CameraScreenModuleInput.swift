@@ -27,6 +27,7 @@ protocol CameraScreenModuleInput: AnyObject {
     var onUserCancelAction: VoidBlock? { get set }
     func stopCapture()
     func addOutput(_ output: AVCaptureOutput, completion: CameraScreenModule.AddOutputCompletion?)
+    func convertObjectCoordinatesIntoOwnBounds<T: AVMetadataObject>(object: T) -> T?
     func captureCurrentFrame(withAnimation: Bool,
                              withSound: Bool,
                              completion: CameraScreenModule.CaptureFrameCompletion?)

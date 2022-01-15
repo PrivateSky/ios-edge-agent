@@ -52,6 +52,8 @@
 		8A88331E278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */; };
 		8A88D8F9278F6C440053C712 /* APICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A88D8F8278F6C440053C712 /* APICollection.swift */; };
 		8AD5387F2793144F00F28A81 /* ArrayUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */; };
+		8AD5388427931DD100F28A81 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */; };
+		8AD5388527931DD100F28A81 /* CodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,6 +121,8 @@
 		8A88331D278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera2DMatrixScanModuleInput.swift; sourceTree = "<group>"; };
 		8A88D8F8278F6C440053C712 /* APICollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICollection.swift; sourceTree = "<group>"; };
 		8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtilities.swift; sourceTree = "<group>"; };
+		8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodeScannerViewController.xib; sourceTree = "<group>"; };
+		8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeScannerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +260,7 @@
 		8A8832F2278C978B00FFB63C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8AD5388027931DC300F28A81 /* OldCodeScanner */,
 				8A8832FC278C980300FFB63C /* UtilityViews */,
 				8A8832F3278C978B00FFB63C /* PSKWebViewHostView.swift */,
 			);
@@ -349,6 +354,15 @@
 			path = APIList;
 			sourceTree = "<group>";
 		};
+		8AD5388027931DC300F28A81 /* OldCodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */,
+				8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */,
+			);
+			path = OldCodeScanner;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -416,6 +430,7 @@
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
 				0B2F95872593FDF200983BEE /* Main.storyboard in Resources */,
 				8A883307278C980300FFB63C /* CameraScreenViewController.xib in Resources */,
+				8AD5388427931DD100F28A81 /* CodeScannerViewController.xib in Resources */,
 				8A88330D278C980300FFB63C /* ScannerAnimationView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -431,6 +446,7 @@
 				8A88330C278C980300FFB63C /* MaskView.swift in Sources */,
 				0BCFE0A725AD9BCE003F7BC2 /* UIAlertController+Extensions.swift in Sources */,
 				8A8832F4278C978B00FFB63C /* PSKWebViewHostView.swift in Sources */,
+				8AD5388527931DD100F28A81 /* CodeScannerViewController.swift in Sources */,
 				8A88330E278C980300FFB63C /* ScannerAnimationView.swift in Sources */,
 				0BC9554025B1A44800522101 /* String+localized.swift in Sources */,
 				8A88331E278CCF6B00FFB63C /* Camera2DMatrixScanModuleInput.swift in Sources */,

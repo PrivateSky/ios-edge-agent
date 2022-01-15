@@ -21,6 +21,28 @@ struct DataMatrixScanAPI: APIImplementation {
     }
     
     func perform(_ inputArguments: [APIValue], _ completion: @escaping APIResultCompletion) {
+        performNew(inputArguments, completion)
+    }
+    
+    func performOld(_ inputArguments: [APIValue], _ completion: @escaping APIResultCompletion) {
+        let controller = CodeScannerViewController()
+        controller.searchedMetadata = [.dataMatrix]
+        
+        controller.completion = { [weak controller] in
+            switch $0 {
+            case .failure(let reason):
+                completion(.failure(.init(code: "ERR_USER_CANCEL")))
+            case .success(let code):
+                completion(.success([.string(code)]))
+            }
+            
+            controller?.dismiss(animated: true, completion: nil)
+        }
+        
+        hostControllerProvider().present(controller, animated: true, completion: nil)
+    }
+    
+    func performNew(_ inputArguments: [APIValue], _ completion: @escaping APIResultCompletion) {
         let hostController = hostControllerProvider()
         camera2DMatrixScanModule.launchSingleScanOn(hostController: hostController,
                                                      completion: {
