@@ -57,6 +57,9 @@ final class CameraScreenViewController: BaseModuleViewController {
 extension CameraScreenViewController: CameraScreenView {
     func integrateOverlayView(_ view: UIView) {
         self.view.constrainFull(other: view)
+        cancelButton.map({
+            self.view.bringSubviewToFront($0)
+        })
     }
             
     func integratePreviewLayer(_ layer: CALayer) {
