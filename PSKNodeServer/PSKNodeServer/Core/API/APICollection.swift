@@ -23,8 +23,10 @@ extension APICollection {
         
         let dataMatrixAPI = setupDataMatrixScanModule(viewControllerProvider: viewControllerProvider())
         
+        let photoCaptureStreamAPI = setupPhotoCaptureStreamAPI(viewControllerProvider: viewControllerProvider())
+        
         return APICollection(apiList: [("dataMatrixScan", dataMatrixAPI)],
-                             streamAPIList: [])
+                             streamAPIList: [("photoCaptureStream", photoCaptureStreamAPI)])
     }
 }
 
@@ -33,5 +35,11 @@ private extension APICollection {
         let camera2DMatrixScanModule = CameraMetadataScanModule(cameraScreenModuleBuilder: CameraScreenModuleBuilder(), searchedMetadataTypes: [.dataMatrix])
         return DataMatrixScanAPI(hostControllerProvider: viewControllerProvider(),
                                  camera2DMatrixScanModule: camera2DMatrixScanModule)
+    }
+    
+    static func setupPhotoCaptureStreamAPI(viewControllerProvider: @autoclosure @escaping PhotoCaptureStreamAPI.ViewControllerProvider) -> PhotoCaptureStreamAPI {
+        let frameCaptureModule = CameraFrameCaptureModule(cameraScreenModuleBuilder: CameraScreenModuleBuilder())
+        return PhotoCaptureStreamAPI(hostController: viewControllerProvider(),
+                                     frameCaptureModule: frameCaptureModule)
     }
 }
