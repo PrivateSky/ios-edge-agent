@@ -19,14 +19,14 @@ enum CameraScreenModule {
         case cameraNotAvailable
     }
     
-    typealias AddOutputCompletion = (Result<Void, AddOutputFailReason>) -> Void
     typealias CaptureFrameCompletion = (UIImage) -> Void
 }
 
 protocol CameraScreenModuleInput: AnyObject {
     var onUserCancelAction: VoidBlock? { get set }
     func stopCapture()
-    func addOutput(_ output: AVCaptureOutput, completion: CameraScreenModule.AddOutputCompletion?)
+    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreenModule.AddOutputFailReason>
+    func removeOutput(_ output: AVCaptureOutput)
     func convertObjectCoordinatesIntoOwnBounds<T: AVMetadataObject>(object: T) -> T?
     func integrateOverlayView(_ view: UIView)
 }

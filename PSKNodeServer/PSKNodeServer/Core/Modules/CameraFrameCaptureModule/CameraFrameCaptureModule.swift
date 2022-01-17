@@ -43,14 +43,13 @@ final class CameraFrameCaptureModule: NSObject {
     private func prepareFrameCaptureWith(cameraScreenModuleInput: CameraScreenModuleInput,
                                          completion: CameraFrameCapture.InitializationCompletion?) {
         self.cameraScreenModuleInput = cameraScreenModuleInput
-        cameraScreenModuleInput.addOutput(output, completion: {
-            switch $0 {
-            case .success:
-                completion?(.success(()))
-            case .failure(let error):
-                completion?(.failure(.cameraModuleFunctionalityError(error)))
-            }
-        })
+        switch cameraScreenModuleInput.addOutput(output) {
+        case .success:
+            completion?(.success(()))
+        case .failure(let error):
+            completion?(.failure(.cameraModuleFunctionalityError(error)))
+        }
+
     }
     
     private func initializeModuleOn(hostController: UIViewController,

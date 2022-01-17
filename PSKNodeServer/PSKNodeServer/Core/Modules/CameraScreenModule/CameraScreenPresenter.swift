@@ -71,25 +71,28 @@ final class CameraScreenPresenter {
             return
         }
 
+        captureSession.startRunning()
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
         view?.integratePreviewLayer(previewLayer)
         self.previewLayer = previewLayer
-        captureSession.startRunning()
         
         initializationCompletion(.success(()))
     }
 }
 
 extension CameraScreenPresenter: CameraScreenModuleInput {
-    func addOutput(_ output: AVCaptureOutput, completion: CameraScreenModule.AddOutputCompletion?) {
+    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreenModule.AddOutputFailReason> {
         guard let captureSession = self.captureSession,
               captureSession.canAddOutput(output) else {
-                  completion?(.failure(.featureNotAvailable))
-                  return
-        }
+                  return (.failure(.featureNotAvailable))
+              }
         captureSession.addOutput(output)
-        completion?(.success(()))
+        return .success(())
+    }
+    
+    func removeOutput(_ output: AVCaptureOutput) {
+        captureSession?.removeOutput(output)
     }
     
     func convertObjectCoordinatesIntoOwnBounds<T>(object: T) -> T? where T : AVMetadataObject {

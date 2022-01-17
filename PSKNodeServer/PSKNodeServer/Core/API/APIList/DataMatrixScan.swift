@@ -8,22 +8,34 @@
 import UIKit
 import PSSmartWalletNativeLayer
 
-struct DataMatrixScanAPI: APIImplementation {
+class DataMatrixScanAPI: APIImplementation {
     typealias ViewControllerProvider = () -> UIViewController
-
-    private let hostControllerProvider: ViewControllerProvider
-    private let camera2DMatrixScanModule: CameraMetadataScanModuleInput
+    private let camera2DMatrixScanModuleBuilder: CameraMetadataScanModuleBuildable
     
-    init(hostControllerProvider: @autoclosure @escaping ViewControllerProvider,
-         camera2DMatrixScanModule: CameraMetadataScanModuleInput) {
-        self.hostControllerProvider = hostControllerProvider
-        self.camera2DMatrixScanModule = camera2DMatrixScanModule
+    private var cameraMetadaScanModuleInput: CameraMetadataScanModuleInput?
+    
+    init(camera2DMatrixScanModuleBuilder: CameraMetadataScanModuleBuildable) {
+        self.camera2DMatrixScanModuleBuilder = camera2DMatrixScanModuleBuilder
     }
     
     func perform(_ inputArguments: [APIValue], _ completion: @escaping APIResultCompletion) {
-        let hostController = hostControllerProvider()
-        camera2DMatrixScanModule.launchSingleScanOn(hostController: hostController,
-                                                    completion: {
+        camera2DMatrixScanModuleBuilder.build(completion: { initializer in
+            initializer.initializeModuleWith(completion: { [weak self] in
+                switch $0 {
+                case .failure(let error):
+                    completion(.failure(.init(code: error.code)))
+                case .success(let metadaScanInput):
+                    self?.launchMetadataScanWith(input: metadaScanInput,
+                                                completion: completion)
+                }
+            })
+        })
+    }
+    
+    private func launchMetadataScanWith(input: CameraMetadataScanModuleInput,
+                                        completion: @escaping APIResultCompletion) {
+        self.cameraMetadaScanModuleInput = input
+        input.launchSingleScanOn(completion: {
             switch $0 {
             case .failure(let error):
                 completion(.failure(.init(code: error.code)))
