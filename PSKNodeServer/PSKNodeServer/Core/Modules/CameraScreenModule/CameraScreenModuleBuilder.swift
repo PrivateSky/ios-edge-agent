@@ -9,26 +9,27 @@ import UIKit
 
 protocol CameraScreenModuleBuildable {
     func build(completion: @escaping (AnyModuleInitializer<CameraScreenModuleInput,
-                                      CameraScreenModule.InitializationError>) -> Void)
+                                      CameraScreen.InitializationError>) -> Void)
 }
 
 struct CameraScreenModuleBuilder: CameraScreenModuleBuildable {
-    func build(completion: @escaping (AnyModuleInitializer<CameraScreenModuleInput, CameraScreenModule.InitializationError>) -> Void) {
+    func build(completion: @escaping (AnyModuleInitializer<CameraScreenModuleInput, CameraScreen.InitializationError>) -> Void) {
         completion(.init(aggregating: self))
     }
 }
 
 extension CameraScreenModuleBuilder: ModuleInitializer {
-    typealias ErrorType = CameraScreenModule.InitializationError
+    typealias ErrorType = CameraScreen.InitializationError
     typealias ModuleInputType = CameraScreenModuleInput
     
     func initializeModuleWith(controllerInHierarchyInsertion: @escaping (UIViewController) -> Void,
-                              completion: @escaping ModuleInitialization<CameraScreenModuleInput, CameraScreenModule.InitializationError>.Completion) {
+                              completion: @escaping ModuleInitialization<CameraScreenModuleInput, CameraScreen.InitializationError>.Completion) {
         
         let controller = CameraScreenViewController()
         let presenter = CameraScreenPresenter()
         
         presenter.prepareForInitializationWith(view: controller,
+                                               videoCaptureSessionBuilder: VideoCaptureSessionModule(),
                                                initializationCompletion: {
             switch $0 {
             case .success:

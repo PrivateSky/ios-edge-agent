@@ -9,8 +9,8 @@ import Foundation
 
 enum CameraMetadataScan {
     enum Error: Swift.Error {
-        case cameraModuleInitializationError(CameraScreenModule.InitializationError)
-        case cameraModuleFunctionalityError(CameraScreenModule.AddOutputFailReason)
+        case cameraModuleInitializationError(CameraScreen.InitializationError)
+        case cameraModuleFunctionalityError(CameraScreen.AddOutputFailReason)
         case userCancelled
     }
     typealias Result = Swift.Result<String, Error>

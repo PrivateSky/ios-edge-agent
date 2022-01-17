@@ -9,21 +9,25 @@ import AVFoundation
 import UIKit
 
 final class CameraScreenPresenter {
-    typealias InitializationCompletion = (Result<Void, CameraScreenModule.InitializationError>) -> Void
+    typealias InitializationCompletion = (Result<Void, CameraScreen.InitializationError>) -> Void
     
     var onUserCancelAction: VoidBlock?
     
-    private var captureSession: AVCaptureSession?
     private var previewLayer: AVCaptureVideoPreviewLayer?
     private var initializationCompletion: InitializationCompletion = { _ in }
     private weak var view: CameraScreenView?
+    
+    private var videoCaptureSession: VideoCaptureSessionModuleInput?
         
-    func prepareForInitializationWith(view: CameraScreenView, initializationCompletion: @escaping InitializationCompletion) {
+    func prepareForInitializationWith(view: CameraScreenView,
+                                      videoCaptureSessionBuilder: VideoCaptureSessionModuleBuildable,
+                                       initializationCompletion: @escaping InitializationCompletion) {
         self.view = view
         self.initializationCompletion = initializationCompletion
         
         view.onViewDidLoad = { [weak self] in
-            self?.begin()
+            self?.beginWith(videoCaptureSessionBuilder: videoCaptureSessionBuilder,
+                            initializationCompletion: initializationCompletion)
         }
         
         view.onUserCancelAction = { [weak self] in
@@ -32,67 +36,35 @@ final class CameraScreenPresenter {
         }
     }
     
-    private func begin() {
-        if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
-           beginVideoCapture()
-        } else {
-            AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] (granted: Bool) in
-                DispatchQueue.main.async {
-                    if granted {
-                        self?.beginVideoCapture()
-                    } else {
-                        self?.initializationCompletion(.failure(.cameraNotAvailable))
-                    }
+    private func beginWith(videoCaptureSessionBuilder: VideoCaptureSessionModuleBuildable, initializationCompletion: @escaping InitializationCompletion) {
+        videoCaptureSessionBuilder.build(completion: { initializer in
+            initializer.initializeModuleWith(completion: { [weak self] in
+                switch $0 {
+                case .failure(let error):
+                    initializationCompletion(.failure(error))
+                case .success(let videoCaptureModuleInput):
+                    self?.videoCaptureSession = videoCaptureModuleInput
+                    let layer = videoCaptureModuleInput.createVideoPreviewLayer()
+                    self?.previewLayer = layer
+                    self?.view?.integratePreviewLayer(layer)
+                    initializationCompletion(.success(()))
                 }
             })
-        }
-    }
-    
-    private func beginVideoCapture() {
-        let captureSession = AVCaptureSession()
-        self.captureSession = captureSession
-                
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
-            initializationCompletion(.failure(.cameraNotAvailable))
-            return
-        }
-        
-        let videoInput: AVCaptureDeviceInput
-        do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
-            if captureSession.canAddInput(videoInput) {
-                captureSession.addInput(videoInput)
-            } else {
-                initializationCompletion(.failure(.cameraNotAvailable))
-                return
-            }
-        } catch {
-            initializationCompletion(.failure(.cameraNotAvailable))
-            return
-        }
-
-        captureSession.startRunning()
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = .resizeAspectFill
-        view?.integratePreviewLayer(previewLayer)
-        self.previewLayer = previewLayer
-        
-        initializationCompletion(.success(()))
+        })
     }
 }
 
 extension CameraScreenPresenter: CameraScreenModuleInput {
-    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreenModule.AddOutputFailReason> {
-        guard let captureSession = self.captureSession,
-              captureSession.canAddOutput(output) else {
-                  return (.failure(.featureNotAvailable))
-              }
-        captureSession.addOutput(output)
-        return .success(())
+    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreen.AddOutputFailReason> {
+        guard let videoCaptureSession = self.videoCaptureSession else {
+            return (.failure(.featureNotAvailable))
+        }
+        
+        return videoCaptureSession.addOutput(output)
     }
     
     func removeOutput(_ output: AVCaptureOutput) {
-        captureSession?.removeOutput(output)
+        videoCaptureSession?.removeOutput(output)
     }
     
     func convertObjectCoordinatesIntoOwnBounds<T>(object: T) -> T? where T : AVMetadataObject {
@@ -104,8 +76,6 @@ extension CameraScreenPresenter: CameraScreenModuleInput {
     }
     
     func stopCapture() {
-        if captureSession?.isRunning == true {
-            captureSession?.stopRunning()
-        }
+        videoCaptureSession?.stopCapture()
     }
 }

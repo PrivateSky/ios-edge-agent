@@ -9,23 +9,16 @@ import Foundation
 import AVFoundation
 import UIKit
 
-enum CameraScreenModule {
+enum CameraScreen {
     typealias Initializer = AnyModuleInitializer<CameraScreenModuleInput, InitializationError>
-    enum AddOutputFailReason: Error {
-        case featureNotAvailable
-    }
-    
-    enum InitializationError: Error {
-        case cameraNotAvailable
-    }
-    
-    typealias CaptureFrameCompletion = (UIImage) -> Void
+    typealias AddOutputFailReason = VideoCaptureSession.AddOutputFailReason
+    typealias InitializationError = VideoCaptureSession.InitializationError
 }
 
 protocol CameraScreenModuleInput: AnyObject {
     var onUserCancelAction: VoidBlock? { get set }
     func stopCapture()
-    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreenModule.AddOutputFailReason>
+    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreen.AddOutputFailReason>
     func removeOutput(_ output: AVCaptureOutput)
     func convertObjectCoordinatesIntoOwnBounds<T: AVMetadataObject>(object: T) -> T?
     func integrateOverlayView(_ view: UIView)
