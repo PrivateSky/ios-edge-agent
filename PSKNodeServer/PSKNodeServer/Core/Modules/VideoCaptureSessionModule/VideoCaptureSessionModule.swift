@@ -11,47 +11,26 @@ protocol VideoCaptureSessionModuleInput {
     func stopCapture()
     func addOutput(_ output: AVCaptureOutput) -> Result<Void, VideoCaptureSession.AddOutputFailReason>
     func removeOutput(_ output: AVCaptureOutput)
+}
+
+protocol VideoPreviewCaptureSessionModuleInput: VideoCaptureSessionModuleInput {
     func createVideoPreviewLayer() -> AVCaptureVideoPreviewLayer
 }
 
 protocol VideoCaptureSessionModuleBuildable {
-    func build(completion: @escaping (AnyViewlessModuleInitializer<VideoCaptureSessionModuleInput,
+    func build(completion: @escaping (AnyViewlessModuleInitializer<VideoCaptureSessionModuleInput, VideoCaptureSession.InitializationError>) -> Void)
+}
+
+protocol VideoPreviewCaptureSessionModuleBuildable {
+    func build(completion: @escaping (AnyViewlessModuleInitializer<VideoPreviewCaptureSessionModuleInput,
                                       VideoCaptureSession.InitializationError>) -> Void)
 }
 
+
 final class VideoCaptureSessionModule {
     private let captureSession: AVCaptureSession = .init()
-}
-
-extension VideoCaptureSessionModule: VideoCaptureSessionModuleInput {
-    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreen.AddOutputFailReason> {
-        guard captureSession.canAddOutput(output) else {
-            return (.failure(.featureNotAvailable))
-        }
-        captureSession.addOutput(output)
-        return .success(())
-    }
     
-    func removeOutput(_ output: AVCaptureOutput) {
-        captureSession.removeOutput(output)
-    }
-    
-    func stopCapture() {
-        captureSession.stopRunning()
-    }
-    
-    func createVideoPreviewLayer() -> AVCaptureVideoPreviewLayer {
-        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = .resizeAspectFill
-        return previewLayer
-    }
-}
-
-extension VideoCaptureSessionModule: ViewlessModuleInitializer {
-    typealias ModuleInputType = VideoCaptureSessionModuleInput
-    typealias ErrorType = VideoCaptureSession.InitializationError
-    
-    func initializeModuleWith(completion: @escaping ViewlessModuleInitialization<VideoCaptureSessionModuleInput, VideoCaptureSession.InitializationError>.Completion) {
+    func finalizeInitialization(completion: @escaping (Result<VideoCaptureSessionModule, VideoCaptureSession.InitializationError>) -> Void) {
         if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
             beginVideoCapture(completion: completion)
         } else {
@@ -67,8 +46,7 @@ extension VideoCaptureSessionModule: ViewlessModuleInitializer {
         }
     }
     
-    private func beginVideoCapture(completion: @escaping ViewlessModuleInitialization<VideoCaptureSessionModuleInput, VideoCaptureSession.InitializationError>.Completion) {
-    
+    private func beginVideoCapture(completion: @escaping (Result<VideoCaptureSessionModule, VideoCaptureSession.InitializationError>) -> Void) {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
             completion(.failure(.cameraNotAvailable))
             return
@@ -93,8 +71,26 @@ extension VideoCaptureSessionModule: ViewlessModuleInitializer {
     }
 }
 
-extension VideoCaptureSessionModule: VideoCaptureSessionModuleBuildable {
-    func build(completion: @escaping (AnyViewlessModuleInitializer<VideoCaptureSessionModuleInput, VideoCaptureSession.InitializationError>) -> Void) {
-        completion(.init(aggregating: self))
+extension VideoCaptureSessionModule: VideoPreviewCaptureSessionModuleInput {
+    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreen.AddOutputFailReason> {
+        guard captureSession.canAddOutput(output) else {
+            return (.failure(.featureNotAvailable))
+        }
+        captureSession.addOutput(output)
+        return .success(())
+    }
+    
+    func removeOutput(_ output: AVCaptureOutput) {
+        captureSession.removeOutput(output)
+    }
+    
+    func stopCapture() {
+        captureSession.stopRunning()
+    }
+    
+    func createVideoPreviewLayer() -> AVCaptureVideoPreviewLayer {
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        previewLayer.videoGravity = .resizeAspectFill
+        return previewLayer
     }
 }

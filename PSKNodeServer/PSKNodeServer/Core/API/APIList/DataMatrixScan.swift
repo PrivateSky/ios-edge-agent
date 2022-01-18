@@ -46,19 +46,31 @@ class DataMatrixScanAPI: APIImplementation {
     }
 }
 
+extension VideoCaptureSession.InitializationError {
+    var code: String {
+        switch self {
+        case .cameraNotAvailable:
+            return "ERR_CAM_UNAVAILABLE"
+        }
+    }
+}
+
+extension VideoCaptureSession.AddOutputFailReason {
+    var code: String {
+        switch self {
+        case .featureNotAvailable:
+            return "ERR_SCAN_NOT_SUPPORTED"
+        }
+    }
+}
+
 extension CameraMetadataScan.Error {
     var code: String {
         switch self {
         case .cameraModuleInitializationError(let initError):
-            switch initError {
-            case .cameraNotAvailable:
-                return "ERR_CAM_UNAVAILABLE"
-            }
+            return initError.code
         case .cameraModuleFunctionalityError(let featureError):
-            switch featureError {
-            case .featureNotAvailable:
-                return "ERR_SCAN_NOT_SUPPORTED"
-            }
+            return featureError.code
         case .userCancelled:
             return "ERR_USER_CANCELLED"
         }

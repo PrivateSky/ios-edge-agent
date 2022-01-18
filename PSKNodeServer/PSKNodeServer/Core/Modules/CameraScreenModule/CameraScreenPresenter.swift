@@ -17,10 +17,10 @@ final class CameraScreenPresenter {
     private var initializationCompletion: InitializationCompletion = { _ in }
     private weak var view: CameraScreenView?
     
-    private var videoCaptureSession: VideoCaptureSessionModuleInput?
+    private var videoCaptureSession: VideoPreviewCaptureSessionModuleInput?
         
     func prepareForInitializationWith(view: CameraScreenView,
-                                      videoCaptureSessionBuilder: VideoCaptureSessionModuleBuildable,
+                                      videoCaptureSessionBuilder: VideoPreviewCaptureSessionModuleBuildable,
                                        initializationCompletion: @escaping InitializationCompletion) {
         self.view = view
         self.initializationCompletion = initializationCompletion
@@ -36,7 +36,7 @@ final class CameraScreenPresenter {
         }
     }
     
-    private func beginWith(videoCaptureSessionBuilder: VideoCaptureSessionModuleBuildable, initializationCompletion: @escaping InitializationCompletion) {
+    private func beginWith(videoCaptureSessionBuilder: VideoPreviewCaptureSessionModuleBuildable, initializationCompletion: @escaping InitializationCompletion) {
         videoCaptureSessionBuilder.build(completion: { initializer in
             initializer.initializeModuleWith(completion: { [weak self] in
                 switch $0 {

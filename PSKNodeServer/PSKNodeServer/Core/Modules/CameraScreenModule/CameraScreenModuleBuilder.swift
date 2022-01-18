@@ -29,7 +29,7 @@ extension CameraScreenModuleBuilder: ModuleInitializer {
         let presenter = CameraScreenPresenter()
         
         presenter.prepareForInitializationWith(view: controller,
-                                               videoCaptureSessionBuilder: VideoCaptureSessionModule(),
+                                               videoCaptureSessionBuilder: VideoCaptureSessionModuleBuilders.VideoPreviewCaptureSessionModuleBuilder(),
                                                initializationCompletion: {
             switch $0 {
             case .success:

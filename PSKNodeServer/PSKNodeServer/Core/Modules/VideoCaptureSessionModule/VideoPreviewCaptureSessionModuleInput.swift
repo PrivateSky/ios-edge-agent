@@ -8,7 +8,7 @@
 import Foundation
 
 enum VideoCaptureSession {
-    typealias Initializer = AnyViewlessModuleInitializer<VideoCaptureSessionModuleInput, InitializationError>
+    typealias Initializer = AnyViewlessModuleInitializer<VideoPreviewCaptureSessionModuleInput, InitializationError>
     enum AddOutputFailReason: Error {
         case featureNotAvailable
     }

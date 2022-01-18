@@ -17,7 +17,6 @@ final class CameraMetadataScanModule: NSObject {
     private let soundFile = CodeScannerSoundFile()
    
     private var completion: CameraMetadataScan.Completion?
-    private var currentMetadataOutput: AVCaptureMetadataOutput?
     
     init(cameraScreenModuleInput: CameraScreenModuleInput,
          searchedMetadataTypes: [AVMetadataObject.ObjectType],
@@ -27,31 +26,21 @@ final class CameraMetadataScanModule: NSObject {
         self.exitModuleHandler = exitModuleHandler
         cameraScreenModuleInput.integrateOverlayView(scannerAnimationView)
     }
-            
-    private func beginScanningWith(completion: CameraMetadataScan.Completion?) {
-        currentMetadataOutput.map {
-            $0.setMetadataObjectsDelegate(nil, queue: nil)
-            cameraScreenModuleInput.removeOutput($0)
-        }
-        
-        self.completion = completion
-
+    
+    func finalizeInitialization() -> Result<Void, CameraMetadataScan.Error> {
         let metadataOutput = AVCaptureMetadataOutput()
-        self.currentMetadataOutput = metadataOutput
-        
-        let metadataTypes = searchedMetadataTypes
         metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         switch cameraScreenModuleInput.addOutput(metadataOutput) {
         case .success:
-            guard metadataOutput.availableMetadataObjectTypes.containsAll(metadataTypes) else {
-                exitModuleWith(result: .failure(.cameraModuleFunctionalityError(.featureNotAvailable)))
-                return
+            guard metadataOutput.availableMetadataObjectTypes.containsAll(searchedMetadataTypes) else {
+                 return .failure(.cameraModuleFunctionalityError(.featureNotAvailable))
             }
-            metadataOutput.metadataObjectTypes = metadataTypes
+            metadataOutput.metadataObjectTypes = searchedMetadataTypes
         case .failure(let error):
-            exitModuleWith(result: .failure(.cameraModuleFunctionalityError(error)))
+            return  .failure(.cameraModuleFunctionalityError(error))
         }
         
+        return .success(())
     }
     
     private func playFocusAnimation(withinViewBoundsRect rect: CGRect, withSound: Bool, completion: VoidBlock?) {
@@ -72,7 +61,7 @@ final class CameraMetadataScanModule: NSObject {
 
 extension CameraMetadataScanModule: CameraMetadataScanModuleInput {
     func launchSingleScanOn(completion: CameraMetadataScan.Completion?) {
-        beginScanningWith(completion: completion)
+        self.completion = completion
     }
 }
 

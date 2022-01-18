@@ -15,11 +15,8 @@ enum CameraScreen {
     typealias InitializationError = VideoCaptureSession.InitializationError
 }
 
-protocol CameraScreenModuleInput: AnyObject {
+protocol CameraScreenModuleInput: AnyObject, VideoCaptureSessionModuleInput {
     var onUserCancelAction: VoidBlock? { get set }
-    func stopCapture()
-    func addOutput(_ output: AVCaptureOutput) -> Result<Void, CameraScreen.AddOutputFailReason>
-    func removeOutput(_ output: AVCaptureOutput)
     func convertObjectCoordinatesIntoOwnBounds<T: AVMetadataObject>(object: T) -> T?
     func integrateOverlayView(_ view: UIView)
 }
