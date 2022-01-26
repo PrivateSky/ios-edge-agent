@@ -13,13 +13,14 @@ final class CameraFrameCaptureModule: NSObject {
     private let videoCaptureInput: VideoCaptureSessionModuleInput
     private let exitHandler: VoidBlock?
     
-    private let output = AVCapturePhotoOutput()
-    private var photoCaptureCompletion: ((Result<AVCapturePhoto, Error>) -> Void)?
+    private let output = AVCaptureVideoDataOutput()
+    private var photoCaptureCompletion: ((Result<UIImage, Error>) -> Void)?
     
     
     init(videoCaptureInput: VideoCaptureSessionModuleInput, exitHandler: VoidBlock?) {
         self.videoCaptureInput = videoCaptureInput
         self.exitHandler = exitHandler
+        super.init()
     }
     
     func finalizeInitialization() -> Result<Void, CameraFrameCapture.Error> {
@@ -40,33 +41,35 @@ extension CameraFrameCaptureModule: CameraFrameCaptureModuleInput {
     }
     
     func captureNextFrame(handler: @escaping (Result<UIImage, CameraFrameCapture.PhotoCaptureError>) -> Void) {
-        photoCaptureCompletion = {
+        output.setSampleBufferDelegate(self, queue: .main)
+        photoCaptureCompletion = { [weak self] in
+            self?.output.setSampleBufferDelegate(nil, queue: nil)
             switch $0 {
             case .failure(let error):
                 handler(.failure(.photoCaptureFailure(error)))
-            case .success(let photo):
-                guard let data = photo.fileDataRepresentation(),
-                      let image = UIImage(data: data) else {
-                          handler(.failure(.photoCaptureFailure(nil)))
-                          return
-                      }
+            case .success(let image):
                 handler(.success(image))
             }
         }
         
-        output.capturePhoto(with: .init(format: nil),
-                            delegate: self)
+        
     }
 }
 
 
-extension CameraFrameCaptureModule: AVCapturePhotoCaptureDelegate {
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        guard let error = error else {
-            photoCaptureCompletion?(.success(photo))
-            return
-        }
-        
-        photoCaptureCompletion?(.failure(error))
+extension CameraFrameCaptureModule: AVCaptureVideoDataOutputSampleBufferDelegate {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
+        let ciimage = CIImage(cvPixelBuffer: imageBuffer)
+        let image = self.convert(cmage: ciimage)
+        photoCaptureCompletion?(.success(image))
+    }
+    
+    // Convert CIImage to UIImage
+    func convert(cmage: CIImage) -> UIImage {
+        let context = CIContext(options: nil)
+        let cgImage = context.createCGImage(cmage, from: cmage.extent)!
+        let image = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
+        return image
     }
 }
