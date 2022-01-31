@@ -10,7 +10,6 @@ import PSSmartWalletNativeLayer
 import WebKit
 
 class ViewController: UIViewController {
-    
     private let ac = ApplicationCore()
     
     private let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
@@ -21,8 +20,10 @@ class ViewController: UIViewController {
         view.backgroundColor = Configuration.defaultInstance.webviewBackgroundColor
         
         webHostView?.constrain(webView: webView)
+        let apiCollection = APICollection.setupAPICollection(viewControllerProvider: self)
         
-        ac.setupStackIn(hostController: self) { [weak self] (result) in
+        ac.setupStackWith(apiCollection: apiCollection,
+                          completion: { [weak self] (result) in
             switch result {
             case .success(let url):
                 self?.webView.load(.init(url: url))
@@ -30,15 +31,14 @@ class ViewController: UIViewController {
                 let message = "\(error.description)\n\("error_final_words".localized)"
                 UIAlertController.okMessage(in: self, message: message, completion: nil)
             }
-            
-        } reloadCallback: { [weak self] result in
+        }, reloadCallback: { [weak self] result in
             switch result {
             case .success:
                 return
             case .failure(let error):
                 UIAlertController.okMessage(in: self, message: "\(error.description)\n\("error_final_words".localized)", completion: nil)
             }
-        }
+        })
 
     }
 

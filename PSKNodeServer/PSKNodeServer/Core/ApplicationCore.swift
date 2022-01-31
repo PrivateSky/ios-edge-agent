@@ -6,20 +6,19 @@
 import UIKit
 import PSSmartWalletNativeLayer
 
-
-class ApplicationCore {
-    
+final class ApplicationCore {
     private var apiContainer: APIContainer?
     private var reloadCallback: ReloadCallback?
     private var rootInstallationFolder = ""
     private var indexPageURL: URL?
     private var ignoredFirstForeground: Bool = false
     
-    func setupStackIn(hostController: UIViewController, completion: Completion?, reloadCallback: ReloadCallback?) {
+    func setupStackWith(apiCollection: APICollection,
+                        completion: Completion?,
+                        reloadCallback: ReloadCallback?) {
         
         do {
-            let apiContainer = try
-                setupApiContainer(hostController: hostController)
+            let apiContainer = try setupApiContainer(apiCollection: apiCollection)
             self.apiContainer = apiContainer
             let indexPage = try setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port)
             
@@ -33,11 +32,9 @@ class ApplicationCore {
         } catch {
             completion?(.failure(.unknownError(error)))
         }
-        
     }
 
     private func setupNodeServer(path: String, apiContainerPort: UInt) throws -> URL {
-        
         guard let port = NetworkUtilities.findFreePort() else {
             throw ApplicationCore.SetupError.nodePortSearchFail
         }
@@ -68,9 +65,7 @@ class ApplicationCore {
         }
         
         let serverLauncher: String =  "\(path)/nodejsProject/MobileServerLauncher.js"
-        
         let pskServerPath =  "\(path)/nodejsProject/pskWebServer.js"
-        
         let apihubRootPath =  "\(path)/nodejsProject/apihub-root"
         
         let env: [String: String] = [
@@ -79,7 +74,6 @@ class ApplicationCore {
             "BDNS_ROOT_HOSTS": "http://localhost:\(port)"
         ]
         let envString = String(data: try! JSONEncoder().encode(env), encoding: .ascii)!
-        
         
         Thread {
             NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=\(port)",
@@ -90,23 +84,29 @@ class ApplicationCore {
         return URL(string: "http://localhost:\(port)/app/loader/index.html")!
     }
     
-    private func setupApiContainer(hostController: UIViewController) throws -> APIContainer {
+    private func setupApiContainer(apiCollection: APICollection) throws -> APIContainer {
         guard let port = NetworkUtilities.findFreePort() else {
             throw ApplicationCore.SetupError.apiContainerPortSearchFail
         }
+        
         do {
-            let ac = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
-            try ac.addAPI(name: "dataMatrixScan", implementation: DataMatrixScan.implementationIn(controllerProvider: hostController))
-            setupBackgroundListeners()
+            let apiContainer = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
+            try apiCollection.apiList.forEach {
+                try apiContainer.addAPI(name: $0.name, implementation: $0.impl)
+            }
             
-            return ac
+            try apiCollection.streamAPIList.forEach {
+                try apiContainer.addStreamAPI(name: $0.name, implementation: $0.impl)
+            }
+            
+            setupBackgroundListeners()
+            return apiContainer
         } catch let error {
             throw ApplicationCore.SetupError.apiContainerSetupFailed(error)
         }
     }
     
     private func setupBackgroundListeners() {
-        
         if #available(iOS 13.0, *) {
             NotificationCenter.default.addObserver(forName: UIScene.willEnterForegroundNotification, object: nil, queue: .main, using: { (_) in
                 self.restartServerOnForeground()
@@ -119,7 +119,6 @@ class ApplicationCore {
     }
     
     private func restartServerOnForeground() {
-        
         guard ignoredFirstForeground else {
             ignoredFirstForeground = true
             return
@@ -156,8 +155,6 @@ extension ApplicationCore {
 }
 
 extension ApplicationCore {
-    
     typealias Completion = (Result<URL, SetupError>) -> Void
-    
     typealias ReloadCallback = (Result<Void, RestartError>) -> Void
 }

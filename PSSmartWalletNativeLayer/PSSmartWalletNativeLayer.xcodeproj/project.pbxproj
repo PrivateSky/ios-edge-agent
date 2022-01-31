@@ -3,21 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		0BF91ADA2542049A001A9031 /* XCFramework */ = {
+		8A7C28E7276FD3FD001E7DBA /* BuildXCFramework */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 0BF91ADB2542049A001A9031 /* Build configuration list for PBXAggregateTarget "XCFramework" */;
+			buildConfigurationList = 8A7C28E8276FD3FD001E7DBA /* Build configuration list for PBXAggregateTarget "BuildXCFramework" */;
 			buildPhases = (
-				0BF91AE1254204A3001A9031 /* ShellScript */,
+				8A7C28EB276FDAFA001E7DBA /* ShellScript */,
 			);
 			dependencies = (
-				0B77D9A62545ECE3006E0CC3 /* PBXTargetDependency */,
 			);
-			name = XCFramework;
-			productName = XCFramework;
+			name = BuildXCFramework;
+			productName = BuildXCFramework;
 		};
 /* End PBXAggregateTarget section */
 
@@ -27,23 +26,18 @@
 		0B003A392540B724006A66C1 /* PSSmartWalletNativeLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B003A2B2540B723006A66C1 /* PSSmartWalletNativeLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B003A452540B7C1006A66C1 /* APIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A442540B7C1006A66C1 /* APIContainer.swift */; };
 		0B003A4F2540BAF3006A66C1 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A4E2540BAF3006A66C1 /* Errors.swift */; };
-		0B003A532540BF14006A66C1 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A522540BF14006A66C1 /* Definitions.swift */; };
+		0B003A532540BF14006A66C1 /* PublicDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A522540BF14006A66C1 /* PublicDefinitions.swift */; };
 		0B003A5F2540D474006A66C1 /* Curve25519KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B003A5E2540D474006A66C1 /* Curve25519KeyPair.swift */; };
 		0B16AD662550A6C5005821F7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B16AD652550A6C5005821F7 /* SystemConfiguration.framework */; };
 		0B16AD702550A722005821F7 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B16AD6F2550A722005821F7 /* CoreServices.framework */; };
-		0B2F959F2594007800983BEE /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B16AD892550B2EB005821F7 /* GCDWebServers.framework */; };
 		0BA02F0B254A03F90032FC96 /* ApiImplementationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA02F0A254A03F90032FC96 /* ApiImplementationContainer.swift */; };
+		8A707BC5278579F1002646A0 /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A707BC4278579F1002646A0 /* DataStorage.swift */; };
+		8A7C28E2276F79D7001E7DBA /* GCDWebServers.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28E1276F79D7001E7DBA /* GCDWebServers.xcframework */; };
+		8AA4DE72277DFF1A0047DA4B /* InternalDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA4DE71277DFF1A0047DA4B /* InternalDefinitions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		0B003A332540B724006A66C1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0B003A1F2540B723006A66C1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0B003A272540B723006A66C1;
-			remoteInfo = PSSmartWalletNativeLayer;
-		};
-		0B77D9A52545ECE3006E0CC3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0B003A1F2540B723006A66C1 /* Project object */;
 			proxyType = 1;
@@ -61,14 +55,16 @@
 		0B003A382540B724006A66C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B003A442540B7C1006A66C1 /* APIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIContainer.swift; sourceTree = "<group>"; };
 		0B003A4E2540BAF3006A66C1 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		0B003A522540BF14006A66C1 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
+		0B003A522540BF14006A66C1 /* PublicDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicDefinitions.swift; sourceTree = "<group>"; };
 		0B003A5E2540D474006A66C1 /* Curve25519KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Curve25519KeyPair.swift; sourceTree = "<group>"; };
 		0B16AD652550A6C5005821F7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0B16AD692550A704005821F7 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		0B16AD6F2550A722005821F7 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		0B16AD752550A7FC005821F7 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
-		0B16AD892550B2EB005821F7 /* GCDWebServers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GCDWebServers.framework; sourceTree = "<group>"; };
 		0BA02F0A254A03F90032FC96 /* ApiImplementationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiImplementationContainer.swift; sourceTree = "<group>"; };
+		8A707BC4278579F1002646A0 /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
+		8A7C28E1276F79D7001E7DBA /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = SOURCE_ROOT; };
+		8AA4DE71277DFF1A0047DA4B /* InternalDefinitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalDefinitions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B2F959F2594007800983BEE /* GCDWebServers.framework in Frameworks */,
 				0B16AD662550A6C5005821F7 /* SystemConfiguration.framework in Frameworks */,
+				8A7C28E2276F79D7001E7DBA /* GCDWebServers.xcframework in Frameworks */,
 				0B16AD702550A722005821F7 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +92,7 @@
 		0B003A1E2540B723006A66C1 = {
 			isa = PBXGroup;
 			children = (
+				8A7C28E1276F79D7001E7DBA /* GCDWebServers.xcframework */,
 				0B003A2A2540B723006A66C1 /* PSSmartWalletNativeLayer */,
 				0B003A352540B724006A66C1 /* PSSmartWalletNativeLayerTests */,
 				0B003A292540B723006A66C1 /* Products */,
@@ -115,7 +112,6 @@
 		0B003A2A2540B723006A66C1 /* PSSmartWalletNativeLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0B16AD892550B2EB005821F7 /* GCDWebServers.framework */,
 				0B003A592540D277006A66C1 /* Extensions */,
 				0B003A582540D258006A66C1 /* Core */,
 				0B003A2B2540B723006A66C1 /* PSSmartWalletNativeLayer.h */,
@@ -137,10 +133,8 @@
 		0B003A582540D258006A66C1 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				0B003A522540BF14006A66C1 /* Definitions.swift */,
-				0B003A4E2540BAF3006A66C1 /* Errors.swift */,
-				0B003A442540B7C1006A66C1 /* APIContainer.swift */,
-				0BA02F0A254A03F90032FC96 /* ApiImplementationContainer.swift */,
+				8A707BC627858CEE002646A0 /* Public */,
+				8A707BC727858D04002646A0 /* Private */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -161,6 +155,26 @@
 				0B16AD652550A6C5005821F7 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A707BC627858CEE002646A0 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				0B003A4E2540BAF3006A66C1 /* Errors.swift */,
+				0B003A522540BF14006A66C1 /* PublicDefinitions.swift */,
+				0B003A442540B7C1006A66C1 /* APIContainer.swift */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		8A707BC727858D04002646A0 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				0BA02F0A254A03F90032FC96 /* ApiImplementationContainer.swift */,
+				8AA4DE71277DFF1A0047DA4B /* InternalDefinitions.swift */,
+				8A707BC4278579F1002646A0 /* DataStorage.swift */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,8 +243,8 @@
 					0B003A302540B724006A66C1 = {
 						CreatedOnToolsVersion = 12.0;
 					};
-					0BF91ADA2542049A001A9031 = {
-						CreatedOnToolsVersion = 12.0;
+					8A7C28E7276FD3FD001E7DBA = {
+						CreatedOnToolsVersion = 13.1;
 					};
 				};
 			};
@@ -249,7 +263,7 @@
 			targets = (
 				0B003A272540B723006A66C1 /* PSSmartWalletNativeLayer */,
 				0B003A302540B724006A66C1 /* PSSmartWalletNativeLayerTests */,
-				0BF91ADA2542049A001A9031 /* XCFramework */,
+				8A7C28E7276FD3FD001E7DBA /* BuildXCFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -272,7 +286,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BF91AE1254204A3001A9031 /* ShellScript */ = {
+		8A7C28EB276FDAFA001E7DBA /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -286,8 +300,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Merge Script\n\n# 1\n# Set bash script to exit immediately if any commands fail.\nset -e\n\n# 2\n# Setup some constants for use later on.\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\n# 3\n# If remnants from a previous build exist, delete them.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 4\n# Build the framework for device and for simulator (using\n# all needed architectures).\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch arm64 -arch armv7 only_active_arch=no defines_module=yes -sdk \"iphoneos\"\nxcodebuild -target \"${FRAMEWORK_NAME}\" -configuration Release -arch x86_64 only_active_arch=no defines_module=yes -sdk \"iphonesimulator\"\n\n# 5\n# Remove file if exists from previous run.\nif [ -d \"${SRCROOT}/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\nfi\n\n# 6\n# Copy the device version of framework\ncp -r \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework\" \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\n\n# 7\n# Replace the framework executable within the framework with\n# a new version created by merging the device and simulator\n# frameworks' executables with lipo.\nlipo -create -output \"${SRCROOT}/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\" \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}\"\n\n# 8\n# Copy the Swift module mappings for the simulator into the\n# framework.  The device mappings already exist from step 6.\ncp -r \"${SRCROOT}/build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/\" \"${SRCROOT}/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule\"\n\n# 9\n# Delete the most recent build.\nif [ -d \"${SRCROOT}/build\" ]; then\nrm -rf \"${SRCROOT}/build\"\nfi\n\n# 10\n\necho \"All done\"\n\nif [ -d \"../PSKNodeServer/PSKNodeServer/Frameworks/${FRAMEWORK_NAME}.framework\" ]; then\nrm -rf \"../PSKNodeServer/PSKNodeServer/Frameworks/${FRAMEWORK_NAME}.framework\"\nfi\n\necho \"Source \" \"${SRCROOT}/${FRAMEWORK_NAME}.framework\"\ncd \"${SRCROOT}\"\ncp -r \"${FRAMEWORK_NAME}.framework\" \"../PSKNodeServer/PSKNodeServer/Frameworks/${FRAMEWORK_NAME}.framework\"\n\n\n\n\n\n\n\n";
+			shellPath = /bin/zsh;
+			shellScript = "\"${PROJECT_DIR}/scripts/buildXCFramework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -297,9 +311,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B003A4F2540BAF3006A66C1 /* Errors.swift in Sources */,
-				0B003A532540BF14006A66C1 /* Definitions.swift in Sources */,
+				0B003A532540BF14006A66C1 /* PublicDefinitions.swift in Sources */,
 				0B003A5F2540D474006A66C1 /* Curve25519KeyPair.swift in Sources */,
+				8AA4DE72277DFF1A0047DA4B /* InternalDefinitions.swift in Sources */,
 				0B003A452540B7C1006A66C1 /* APIContainer.swift in Sources */,
+				8A707BC5278579F1002646A0 /* DataStorage.swift in Sources */,
 				0BA02F0B254A03F90032FC96 /* ApiImplementationContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,11 +335,6 @@
 			isa = PBXTargetDependency;
 			target = 0B003A272540B723006A66C1 /* PSSmartWalletNativeLayer */;
 			targetProxy = 0B003A332540B724006A66C1 /* PBXContainerItemProxy */;
-		};
-		0B77D9A62545ECE3006E0CC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0B003A272540B723006A66C1 /* PSSmartWalletNativeLayer */;
-			targetProxy = 0B77D9A52545ECE3006E0CC3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -551,19 +562,17 @@
 			};
 			name = Release;
 		};
-		0BF91ADC2542049A001A9031 /* Debug */ = {
+		8A7C28E9276FD3FD001E7DBA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		0BF91ADD2542049A001A9031 /* Release */ = {
+		8A7C28EA276FD3FD001E7DBA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -599,11 +608,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0BF91ADB2542049A001A9031 /* Build configuration list for PBXAggregateTarget "XCFramework" */ = {
+		8A7C28E8276FD3FD001E7DBA /* Build configuration list for PBXAggregateTarget "BuildXCFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0BF91ADC2542049A001A9031 /* Debug */,
-				0BF91ADD2542049A001A9031 /* Release */,
+				8A7C28E9276FD3FD001E7DBA /* Debug */,
+				8A7C28EA276FD3FD001E7DBA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
