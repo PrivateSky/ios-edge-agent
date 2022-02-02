@@ -593,18 +593,6 @@
 			path = CameraFrameCaptureModule;
 			sourceTree = "<group>";
 		};
-		53E5B68D2679F1D300FCE2AC /* scanditScan */ = {
-			isa = PBXGroup;
-			children = (
-				53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */,
-				53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */,
-				53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */,
-				53B4DCFE268480C1003F5BC6 /* ScanditError.swift */,
-				53B4DD002684A69E003F5BC6 /* SymbologyExtension.swift */,
-			);
-			path = scanditScan;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */

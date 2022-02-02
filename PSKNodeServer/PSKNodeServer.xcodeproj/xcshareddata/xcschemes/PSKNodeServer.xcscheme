@@ -4,13 +4,13 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "NO">
       <PreActions>
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "&quot;${PROJECT_DIR}/../scripts/preBuild.sh&quot; &gt; &quot;${PROJECT_DIR}/PSKNodeServerPreActions.log&quot;&#10;">
+               scriptText = "&quot;${PROJECT_DIR}/../scripts/preBuild.sh&quot; &gt; &quot;${PROJECT_DIR}/PSKNodeServerPreActions.log&quot;&#10;&#10;projectDir=${PROJECT_DIR:-&quot;./../&quot;}&#10;cd &quot;$projectDir/../PSSmartWalletNativeLayer&quot;&#10;&#10;project=&quot;PSSmartWalletNativeLayer.xcodeproj&quot;&#10;iOSDeviceDestination=&quot;generic/platform=iOS&quot;&#10;&#10;function callXcodeBuild {&#10;&#10;xcodebuild \&#10;-scheme &quot;$1&quot; \&#10;-destination  &quot;$iOSDeviceDestination&quot; \&#10;SKIP_INSTALL=NO \&#10;BUILD_LIBRARY_FOR_DISTRIBUTION=YES \&#10;OTHER_CFLAGS=&quot;-fembed-bitcode&quot; \&#10;BITCODE_GENERATION_MODE=&quot;bitcode&quot; \&#10;ENABLE_BITCODE=YES&#10;&#10;}&#10;&#10;callXcodeBuild &quot;BuildXCFramework&quot;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
