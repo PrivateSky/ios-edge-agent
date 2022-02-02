@@ -1,6 +1,7 @@
 #!/bin/bash
 
 projDir=${PROJECT_DIR:-"./../"}
+scriptsDirectory="$projDir/../scripts"
 startingDir=$(pwd)
 
 cd "$projDir"
@@ -34,6 +35,15 @@ ensureCommandExists "carthage"
 
 carthage update --use-xcframeworks --cache-builds
 
-cd "$startingDir"
+carthageBinariesDirectory="$projDir/Carthage/Build/iOS"
 
+if [ -d "$carthageBinariesDirectory" ]; then
+    echo "Converting any fat binaries into xcframeworks from $carthageBinariesDirectory"
+    cd "$scriptsDirectory"
+    pwd
+    ./processFatFrameworks.sh "$carthageBinariesDirectory"
+fi
+
+cd "$startingDir"
 echo "Dependency fetch done"
+

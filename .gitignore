@@ -1,13 +1,12 @@
 
 PSSmartWalletNativeLayer/Carthage/*
+PSKNodeServer/Carthage/*
 .DS_Store
+*.log
 PSKNodeServer/PSKNodeServer/Assets.xcassets/*
 PSKNodeServer/PSKNodeServer/nodejsProject/*
 PSKNodeServer/PSKNodeServer/Resources/*
 PSSmartWalletNativeLayer.xcworkspace/xcuserdata/*
 PSSmartWalletNativeLayer/build/*
-
 PSSmartWalletNativeLayer/PSSmartWalletNativeLayer.xcodeproj/xcuserdata/*
-
-
 PSKNodeServer/PSKNodeServer.xcodeproj/xcuserdata/*
