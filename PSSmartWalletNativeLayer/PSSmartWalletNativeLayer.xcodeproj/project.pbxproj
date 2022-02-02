@@ -301,7 +301,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "\"${PROJECT_DIR}/scripts/buildXCFramework.sh\"\n";
+			shellScript = "projectDir=${PROJECT_DIR:-\"./../\"}\ncd \"$projectDir\"\n\nproject=\"PSSmartWalletNativeLayer.xcodeproj\"\niOSDeviceDestination=\"generic/platform=iOS\"\n\nfunction callXcodeBuild {\n\nxcodebuild \\\n-scheme \"$1\" \\\n-destination  \"$iOSDeviceDestination\" \\\nSKIP_INSTALL=NO \\\nBUILD_LIBRARY_FOR_DISTRIBUTION=YES \\\nOTHER_CFLAGS=\"-fembed-bitcode\" \\\nBITCODE_GENERATION_MODE=\"bitcode\" \\\nENABLE_BITCODE=YES\n\n}\n\ncallXcodeBuild \"PSSmartWalletNativeLayer\"\n\n\"${PROJECT_DIR}/scripts/buildXCFramework.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

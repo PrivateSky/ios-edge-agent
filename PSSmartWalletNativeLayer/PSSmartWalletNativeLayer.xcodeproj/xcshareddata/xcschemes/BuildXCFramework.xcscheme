@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0B003A272540B723006A66C1"
-               BuildableName = "PSSmartWalletNativeLayer.framework"
-               BlueprintName = "PSSmartWalletNativeLayer"
-               ReferencedContainer = "container:PSSmartWalletNativeLayer.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "8A7C28E7276FD3FD001E7DBA"
                BuildableName = "BuildXCFramework"
                BlueprintName = "BuildXCFramework"

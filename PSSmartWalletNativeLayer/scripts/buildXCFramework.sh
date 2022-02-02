@@ -3,7 +3,7 @@
 projectDir=${PROJECT_DIR:-"./../"}
 cd "$projectDir"
 
-source ./scripts/preBuild.sh
+source ./../scripts/preBuild.sh
 
 projectDir=$(pwd)
 outputDir=${1:-"$projectDir/xcframeworkOutput"}
