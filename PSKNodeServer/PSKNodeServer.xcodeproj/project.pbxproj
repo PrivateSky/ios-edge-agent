@@ -593,6 +593,18 @@
 			path = CameraFrameCaptureModule;
 			sourceTree = "<group>";
 		};
+		53E5B68D2679F1D300FCE2AC /* scanditScan */ = {
+			isa = PBXGroup;
+			children = (
+				53E5B68E2679F1EF00FCE2AC /* ScanditScan.swift */,
+				53E5B692267A25D900FCE2AC /* ScanditScannerViewController.swift */,
+				53E5B693267A25D900FCE2AC /* ScanditScannerViewController.xib */,
+				53B4DCFE268480C1003F5BC6 /* ScanditError.swift */,
+				53B4DD002684A69E003F5BC6 /* SymbologyExtension.swift */,
+			);
+			path = scanditScan;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -604,6 +616,7 @@
 				0BF91AEB2542058A001A9031 /* Frameworks */,
 				0BF91B0E2542186E001A9031 /* Embed Frameworks */,
 				0B2F95842593FDE400983BEE /* Resources */,
+				53D40BE7267CC48A0000822D /* Carthage Copy Framework Files */,
 			);
 			buildRules = (
 			);
@@ -704,6 +717,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		53D40BE7267CC48A0000822D /* Carthage Copy Framework Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditBarcodeCapture.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditCaptureCore.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditIdCapture.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditOCR.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditParser.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ScanditTextCapture.framework",
+			);
+			name = "Carthage Copy Framework Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0BF91AEA2542058A001A9031 /* Sources */ = {
