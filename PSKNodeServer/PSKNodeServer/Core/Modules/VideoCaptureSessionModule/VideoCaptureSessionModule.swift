@@ -34,10 +34,10 @@ final class VideoCaptureSessionModule {
         if AVCaptureDevice.authorizationStatus(for: .video) ==  .authorized {
             beginVideoCapture(completion: completion)
         } else {
-            AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] (granted: Bool) in
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) in
                 DispatchQueue.main.async {
                     if granted {
-                        self?.beginVideoCapture(completion: completion)
+                        self.beginVideoCapture(completion: completion)
                     } else {
                         completion(.failure(.cameraNotAvailable))
                     }
