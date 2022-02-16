@@ -151,10 +151,16 @@
 		8AA1B54B27A9E9EF00A1D454 /* ScanditScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1B54227A9E9EF00A1D454 /* ScanditScannerViewController.swift */; };
 		8AA1B54C27A9E9EF00A1D454 /* SymbologyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1B54327A9E9EF00A1D454 /* SymbologyExtension.swift */; };
 		8AA1B54D27A9E9EF00A1D454 /* SymbologyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AA1B54327A9E9EF00A1D454 /* SymbologyExtension.swift */; };
+		8AC1D99427B2FB9000826E3F /* PharmaLedgerCamera.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */; };
+		8AC1D99527B2FB9000826E3F /* PharmaLedgerCamera.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8AC1D99627B2FBA600826E3F /* PharmaLedgerCamera.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */; };
+		8AC1D99727B2FBA600826E3F /* PharmaLedgerCamera.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8AD5387F2793144F00F28A81 /* ArrayUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */; };
 		8AD5388427931DD100F28A81 /* CodeScannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */; };
 		8AD5388527931DD100F28A81 /* CodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */; };
 		8AD538C227934C3200F28A81 /* CameraFrameCaptureModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD538C127934C3200F28A81 /* CameraFrameCaptureModule.swift */; };
+		8AE46F1D27B6CD7E0048B476 /* ImageConversionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE46F1C27B6CD7E0048B476 /* ImageConversionUtilities.swift */; };
+		8AE46F1E27B6CD7E0048B476 /* ImageConversionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE46F1C27B6CD7E0048B476 /* ImageConversionUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -170,6 +176,7 @@
 				8AA1B52F27A9E83B00A1D454 /* ScanditParser.xcframework in Embed Frameworks */,
 				8A7C28F5276FE9A0001E7DBA /* NodeMobile.xcframework in Embed Frameworks */,
 				8AA1B52727A9E83B00A1D454 /* ScanditIdCapture.xcframework in Embed Frameworks */,
+				8AC1D99527B2FB9000826E3F /* PharmaLedgerCamera.xcframework in Embed Frameworks */,
 				8AA1B53127A9E83B00A1D454 /* ScanditBarcodeCapture.xcframework in Embed Frameworks */,
 				8A7C28F7276FE9A1001E7DBA /* PSSmartWalletNativeLayer.xcframework in Embed Frameworks */,
 				8AA1B52D27A9E83B00A1D454 /* ScanditTextCapture.xcframework in Embed Frameworks */,
@@ -189,6 +196,7 @@
 				8AA1B53B27A9E84800A1D454 /* ScanditParser.xcframework in Embed Frameworks */,
 				8AA1B53D27A9E84800A1D454 /* ScanditTextCapture.xcframework in Embed Frameworks */,
 				8AA1B53327A9E84800A1D454 /* ScanditBarcodeCapture.xcframework in Embed Frameworks */,
+				8AC1D99727B2FBA600826E3F /* PharmaLedgerCamera.xcframework in Embed Frameworks */,
 				8AA1B53927A9E84800A1D454 /* ScanditOCR.xcframework in Embed Frameworks */,
 				8A83E42E27A861D000176C53 /* PSSmartWalletNativeLayer.xcframework in Embed Frameworks */,
 				8AA1B53527A9E84800A1D454 /* ScanditCaptureCore.xcframework in Embed Frameworks */,
@@ -274,10 +282,12 @@
 		8AA1B54127A9E9EF00A1D454 /* ScanditScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanditScannerViewController.xib; sourceTree = "<group>"; };
 		8AA1B54227A9E9EF00A1D454 /* ScanditScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanditScannerViewController.swift; sourceTree = "<group>"; };
 		8AA1B54327A9E9EF00A1D454 /* SymbologyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbologyExtension.swift; sourceTree = "<group>"; };
+		8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = PharmaLedgerCamera.xcframework; path = "../PharmaLedger Camera/xcframeworkOutput/PharmaLedgerCamera.xcframework"; sourceTree = "<group>"; };
 		8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtilities.swift; sourceTree = "<group>"; };
 		8AD5388127931DD100F28A81 /* CodeScannerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodeScannerViewController.xib; sourceTree = "<group>"; };
 		8AD5388227931DD100F28A81 /* CodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeScannerViewController.swift; sourceTree = "<group>"; };
 		8AD538C127934C3200F28A81 /* CameraFrameCaptureModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFrameCaptureModule.swift; sourceTree = "<group>"; };
+		8AE46F1C27B6CD7E0048B476 /* ImageConversionUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConversionUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +301,7 @@
 				8AA1B52E27A9E83B00A1D454 /* ScanditParser.xcframework in Frameworks */,
 				8A7C28F4276FE9A0001E7DBA /* NodeMobile.xcframework in Frameworks */,
 				8AA1B52627A9E83B00A1D454 /* ScanditIdCapture.xcframework in Frameworks */,
+				8AC1D99427B2FB9000826E3F /* PharmaLedgerCamera.xcframework in Frameworks */,
 				8AA1B53027A9E83B00A1D454 /* ScanditBarcodeCapture.xcframework in Frameworks */,
 				8A7C28F6276FE9A1001E7DBA /* PSSmartWalletNativeLayer.xcframework in Frameworks */,
 				8AA1B52C27A9E83B00A1D454 /* ScanditTextCapture.xcframework in Frameworks */,
@@ -307,6 +318,7 @@
 				8AA1B53A27A9E84800A1D454 /* ScanditParser.xcframework in Frameworks */,
 				8AA1B53C27A9E84800A1D454 /* ScanditTextCapture.xcframework in Frameworks */,
 				8AA1B53227A9E84800A1D454 /* ScanditBarcodeCapture.xcframework in Frameworks */,
+				8AC1D99627B2FBA600826E3F /* PharmaLedgerCamera.xcframework in Frameworks */,
 				8AA1B53827A9E84800A1D454 /* ScanditOCR.xcframework in Frameworks */,
 				8A83E42A27A861D000176C53 /* PSSmartWalletNativeLayer.xcframework in Frameworks */,
 				8AA1B53427A9E84800A1D454 /* ScanditCaptureCore.xcframework in Frameworks */,
@@ -347,6 +359,7 @@
 		0B77D9BB2545F100006E0CC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */,
 				8AA1B52527A9E83B00A1D454 /* ScanditBarcodeCapture.xcframework */,
 				8AA1B52227A9E83B00A1D454 /* ScanditCaptureCore.xcframework */,
 				8AA1B52027A9E83B00A1D454 /* ScanditIdCapture.xcframework */,
@@ -373,6 +386,7 @@
 				0BC9553F25B1A44800522101 /* String+localized.swift */,
 				8A883311278C998A00FFB63C /* Definitions.swift */,
 				8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */,
+				8AE46F1C27B6CD7E0048B476 /* ImageConversionUtilities.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -754,6 +768,7 @@
 				8A883309278C980300FFB63C /* LineAnimationView.swift in Sources */,
 				8A883306278C980300FFB63C /* CodeScannerSoundFile.swift in Sources */,
 				8A883319278CCA1400FFB63C /* CameraScreenModuleBuilder.swift in Sources */,
+				8AE46F1D27B6CD7E0048B476 /* ImageConversionUtilities.swift in Sources */,
 				8A8C318427AB1163001B63BC /* ScanditScanAPI.swift in Sources */,
 				0B2F95732593F9D600983BEE /* AppDelegate.swift in Sources */,
 				8AA1B54627A9E9EF00A1D454 /* ScanditError.swift in Sources */,
@@ -806,6 +821,7 @@
 				8A83E40A27A861D000176C53 /* LineAnimationView.swift in Sources */,
 				8A83E40B27A861D000176C53 /* CodeScannerSoundFile.swift in Sources */,
 				8A83E40C27A861D000176C53 /* CameraScreenModuleBuilder.swift in Sources */,
+				8AE46F1E27B6CD7E0048B476 /* ImageConversionUtilities.swift in Sources */,
 				8A8C318527AB1530001B63BC /* ScanditScanAPI.swift in Sources */,
 				8A83E40D27A861D000176C53 /* AppDelegate.swift in Sources */,
 				8AA1B54727A9E9EF00A1D454 /* ScanditError.swift in Sources */,

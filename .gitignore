@@ -11,3 +11,5 @@ PSSmartWalletNativeLayer/build/*
 PSSmartWalletNativeLayer/PSSmartWalletNativeLayer.xcodeproj/xcuserdata/*
 PSKNodeServer/PSKNodeServer.xcodeproj/xcuserdata/*
 PSSmartWalletNativeLayer/xcframeworkOutput
+*.xcuserdatad
+*/xcframeworkOutput

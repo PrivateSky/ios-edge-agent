@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no">
+<title>Camera Test</title>
+<script src="three.min.js" type="text/javascript"></script>
+<script src="OrbitControls.js" type="text/javascript"></script>
+<script src="bridge.js" type="text/javascript"></script>
+<script src="index.js" type="text/javascript"></script>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h2 id="title_id">Camera Test</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-">
+            <select class="form-control form-control-sm" id="select_preset" onchange="ChangePresetList()">
+            </select>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-danger btn-sm" id='stopCameraButton'>Stop</button><br/>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <label for="select_cameras">Desired Cameras</label>
+        <select class="form-control form-control-sm" id="select_cameras" multiple onchange="ChangeDesiredCamerasList()"></select>
+    </div>
+    <div class="row top-buffer">
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="flashButton" >F off</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="continuousAFButton" >AF ON</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="selectCameraButton" >Back Cam</button>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="colorspaceButton" >Change colorspace</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="getConfigButton" >GetConfig</button>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col">
+            <span id="configInfo">Tap Start Before Getting Config</span>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <label for="torchLevelRange" id="torchLevelRangeLabel"></label>
+        <input type="range" class="custom-range" min="0" max="1" step="0.1" id="torchLevelRange">
+    </div>
+    <div class="row top-buffer">
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id='startCameraButtonGL'>Start(GL)</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id='startCameraButtonMJPEG'>Start(MJPEG)</button>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="takePictureButton1" >Picture (base64)</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-sm" id="takePictureButton2" >Picture (bytes)</button>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <input class="col form-control" type="text" id="rawCropRoiInput" placeholder="enter roi as x,y,w,h"/>
+    </div>
+    <div class="row">
+        <div class="col custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="cropRawFrameCheck"/>
+            <label class="custom-control-label" for="cropRawFrameCheck">Crop</label>
+        </div>
+        <div class="col custom-control custom-switch">
+            <input class="custom-control-input" type="checkbox" id="invertRawFrameCheck" />
+            <label class="custom-control-label" for="invertRawFrameCheck">Invert</label>
+        </div>
+        <div class="col custom-control custom-switch">
+            <input class="custom-control-input" type="checkbox" id="ycbcrCheck" />
+            <label class="custom-control-label" for="ycbcrCheck">YCbCr</label>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col">
+            <canvas id='cameraCanvas'></canvas>    
+        </div>
+        <div class="col">
+            <img id='streamPreview'/>
+        </div>
+        <div class="col">
+            <canvas id='rawCropCanvas'></canvas>
+        </div>
+        <div class="col">
+            <canvas id='rawCropCbCanvas'></canvas>
+        </div>
+        <div class="col">
+            <canvas id='rawCropCrCanvas'></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <p id='status_test'></p>
+    </div>
+    <div class="row">
+        <p id='status_fps_preview'></p>
+    </div>
+    <div class="row">
+        <p id='status_fps_raw'></p>
+    </div>
+</div>
+<div>
+    <img id='snapshotImage'/>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

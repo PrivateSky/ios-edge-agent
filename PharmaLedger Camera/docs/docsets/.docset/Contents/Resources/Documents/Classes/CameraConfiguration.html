@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CameraConfiguration Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/CameraConfiguration" class="dashAnchor"></a>
+    <a title="CameraConfiguration Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> 0.2.0 Docs</a> (91% documented)</p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CameraConfiguration Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CameraConfiguration.html">CameraConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CameraPreview.html">CameraPreview</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CameraSession.html">CameraSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CMSampleBuffer.html">CMSampleBuffer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CameraEventListener.html">CameraEventListener</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CameraConfiguration</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CameraConfiguration</span></code></pre>
+
+                </div>
+              </div>
+            <p>CameraConfiguration class that contains all the necessary configurations for the camera</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initialization"></a>
+                <a name="//apple_ref/swift/Section/Initialization" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Initialization"></a>
+                  <h3 class="section-name"><p>Initialization</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes the camera confifugration with default values. To further customize the configuration, call any</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC10flash_mode11color_spaceACSSSg_AFtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(flash_mode:color_space:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC10flash_mode11color_spaceACSSSg_AFtcfc">init(flash_mode:<wbr>color_space:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize the camera session with customizable configurations. Parameters that don&rsquo;t need to be configured can be left as nil.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">flash_mode</span><span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="nv">color_space</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flash_mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Available modes are &ldquo;torch&rdquo;, &ldquo;flash&rdquo;, &ldquo;off&rdquo; and &ldquo;auto&rdquo;</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>color_space</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Possible values are &ldquo;sRGB&rdquo;, &ldquo;P3_D65&rdquo; or &ldquo;HLG_BT2020&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Public%20functions"></a>
+                <a name="//apple_ref/swift/Section/Public functions" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Public%20functions"></a>
+                  <h3 class="section-name"><p>Public functions</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC05applyD0yyF"></a>
+                    <a name="//apple_ref/swift/Method/applyConfiguration()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC05applyD0yyF">applyConfiguration()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Applys the configurations to the current AVCaptureSession. This should be executed each time the configurations are changed during session runtime.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">applyConfiguration</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Flash%20and%20torch%20mode"></a>
+                <a name="//apple_ref/swift/Section/Flash and torch mode" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Flash%20and%20torch%20mode"></a>
+                  <h3 class="section-name"><p>Flash and torch mode</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC12getTorchModeSo09AVCapturefG0VyF"></a>
+                    <a name="//apple_ref/swift/Method/getTorchMode()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC12getTorchModeSo09AVCapturefG0VyF">getTorchMode()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the current torch mode in AVCaptureDevice.TorchMode format</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getTorchMode</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVCaptureDevice</span><span class="o">.</span><span class="kt">TorchMode</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>TorchMode (.on, .auto or .off)</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC08getFlashD0SSSgyF"></a>
+                    <a name="//apple_ref/swift/Method/getFlashConfiguration()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC08getFlashD0SSSgyF">getFlashConfiguration()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the current flash and torch mode in String format</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getFlashConfiguration</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>&ldquo;torch&rdquo;, &ldquo;flash&rdquo;, &ldquo;off&rdquo; or &ldquo;auto&rdquo;</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC12getFlashModeSo09AVCapturefG0VyF"></a>
+                    <a name="//apple_ref/swift/Method/getFlashMode()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC12getFlashModeSo09AVCapturefG0VyF">getFlashMode()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the current torch mode in AVCaptureDevice.FlashMode format to be used with the photo capture</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getFlashMode</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVCaptureDevice</span><span class="o">.</span><span class="kt">FlashMode</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>FlashMode (.on, .auto or .off)</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC13getTorchLevelSfyF"></a>
+                    <a name="//apple_ref/swift/Method/getTorchLevel()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC13getTorchLevelSfyF">getTorchLevel()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the current torch level</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getTorchLevel</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Float</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Torch level from 0-1.0. Default is 1.0</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC08setFlashD010flash_modeySS_tF"></a>
+                    <a name="//apple_ref/swift/Method/setFlashConfiguration(flash_mode:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC08setFlashD010flash_modeySS_tF">setFlashConfiguration(flash_mode:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the camera torch and flash mode</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setFlashConfiguration</span><span class="p">(</span><span class="nv">flash_mode</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>flash_mode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Available modes are &ldquo;torch&rdquo;, &ldquo;flash&rdquo;, &ldquo;off&rdquo; and &ldquo;auto&rdquo;</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC13setTorchLevel5levelySf_tF"></a>
+                    <a name="//apple_ref/swift/Method/setTorchLevel(level:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC13setTorchLevel5levelySf_tF">setTorchLevel(level:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets the torch level</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setTorchLevel</span><span class="p">(</span><span class="nv">level</span><span class="p">:</span> <span class="kt">Float</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>level</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Float in the range of 0 to 1.0</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Color%20space"></a>
+                <a name="//apple_ref/swift/Section/Color space" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Color%20space"></a>
+                  <h3 class="section-name"><p>Color space</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC22getPreferredColorSpaceSo09AVCapturegH0VSgyF"></a>
+                    <a name="//apple_ref/swift/Method/getPreferredColorSpace()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC22getPreferredColorSpaceSo09AVCapturegH0VSgyF">getPreferredColorSpace()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets the current preference for color space as AVCaptureColorSpace enum value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPreferredColorSpace</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">AVCaptureColorSpace</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Returns .sRGB, .P3_D65 or .HLG_BT2020. Returns nil if the color space configuration was undefined</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC28getPreferredColorSpaceStringSSyF"></a>
+                    <a name="//apple_ref/swift/Method/getPreferredColorSpaceString()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC28getPreferredColorSpaceStringSSyF">getPreferredColorSpaceString()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets the current preference for color space as String.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPreferredColorSpaceString</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Returns &ldquo;sRGB&rdquo;, &ldquo;P3_D65&rdquo; or &ldquo;HLG_BT2020&rdquo; or &ldquo;undefined&rdquo;</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:19PharmaLedger_Camera0C13ConfigurationC22setPreferredColorSpace11color_spaceySS_tF"></a>
+                    <a name="//apple_ref/swift/Method/setPreferredColorSpace(color_space:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:19PharmaLedger_Camera0C13ConfigurationC22setPreferredColorSpace11color_spaceySS_tF">setPreferredColorSpace(color_space:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <pre class="highlight swift"><code><span class="kt">Sets</span> <span class="n">the</span> <span class="n">preferred</span> <span class="n">color</span> <span class="n">space</span><span class="o">.</span>
+
+ <span class="kt">Depending</span> <span class="n">on</span> <span class="n">the</span> <span class="n">device</span> <span class="kd">some</span> <span class="n">color</span> <span class="n">spaces</span> <span class="n">might</span> <span class="n">not</span> <span class="n">be</span> <span class="n">supported</span><span class="o">.</span>
+ <span class="n">sRGB</span> <span class="k">is</span> <span class="n">supported</span> <span class="n">on</span> <span class="n">all</span> <span class="n">devices</span><span class="o">.</span>
+ <span class="kt">HLG_BT2020</span> <span class="n">available</span> <span class="n">from</span> <span class="n">iOS</span> <span class="n">v14</span><span class="o">.</span><span class="mi">1</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setPreferredColorSpace</span><span class="p">(</span><span class="nv">color_space</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>color_space</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Possible values are &ldquo;sRGB&rdquo;, &ldquo;P3_D65&rdquo; or &ldquo;HLG_BT2020&rdquo;.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

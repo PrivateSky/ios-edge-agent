@@ -46,12 +46,6 @@ private extension APICollection {
         return DataMatrixScanAPI(camera2DMatrixScanModuleBuilder: camera2DMatrixScanModuleBuilder)
     }
     
-    static func setupPreviewPhotoCaptureStreamAPI(viewControllerProvider: @autoclosure @escaping PhotoCaptureStreamAPI.ViewControllerProvider) -> PhotoCaptureStreamAPI {
-        let frameCaptureModuleBuilder = CameraFrameCapturePreviewModuleBuilder(hostController: viewControllerProvider(),
-                                                                        cameraScreenModuleBuilder: CameraScreenModuleBuilder())
-        return PhotoCaptureStreamAPI(frameCaptureModuleBuilder: frameCaptureModuleBuilder)
-    }
-    
     static func setupPhotoCaptureStreamAPI() -> PhotoCaptureStreamAPI {
         .init(frameCaptureModuleBuilder: CameraFrameCaptureModuleBuilder(videoCaptureSessionModuleBuilder: VideoCaptureSessionModuleBuilders.VideoCaptureSessionModuleBuilder()))
     }

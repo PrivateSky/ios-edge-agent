@@ -14,6 +14,8 @@ class ImplementationContainer {
     private var streamAPIImplementationMap: [String: StreamAPIImplementation] = [:]
     private let dataStorage = DataStorage()
     
+    private var webServer: GCDWebServer?
+    
     private let internalResultProcessingQueue = DispatchQueue(label: "PSSmartWalletNativeLayer.internalResultProcessingQueue",
                                                               qos: .default,
                                                               attributes: [],
@@ -49,6 +51,7 @@ class ImplementationContainer {
     }
     
     func setupEndpointIn(server: GCDWebServer) {
+        webServer = server
         setupBytesDownloadEndpointIn(server: server)
         setupAPICallEndpointIn(server: server)
     }
@@ -180,9 +183,11 @@ class ImplementationContainer {
     }
     
     private func completeWith(values: [APIValue], completion: @escaping GCDWebServerCompletionBlock) {
+        let port = webServer?.port ?? 0
+        let origin = "http://localhost:\(port)"
         let jsonArray = values.map({ (value) -> [String: Any] in
-            value.jsonWithMetadata(bytesIdGenerator: { self.dataStorage.insert(data: $0)
-            })
+            value.jsonWithMetadata(origin: origin,
+                                   bytesIdGenerator: { self.dataStorage.insert(data: $0) })
         })
         completion(GCDWebServerDataResponse(jsonObject: ["result": jsonArray])?.applyCORSHeaders())
     }
@@ -251,12 +256,12 @@ private extension GCDWebServerMultiPartArgument {
 }
 
 private extension APIValue {
-    func jsonWithMetadata(bytesIdGenerator: @escaping (Data) -> String) -> [String: Any] {
+    func jsonWithMetadata(origin: String, bytesIdGenerator: @escaping (Data) -> String) -> [String: Any] {
         switch self {
         case .string(let string): return ["type": "string", "value": string]
         case .number(let double): return ["type": "number", "value": double]
         case .bytes(let data): return ["type": "bytes",
-                                       "path": "/retrieve-resource?id=\(bytesIdGenerator(data))"]
+                                       "path": "\(origin)/retrieve-resource?id=\(bytesIdGenerator(data))"]
         }
     }
 }

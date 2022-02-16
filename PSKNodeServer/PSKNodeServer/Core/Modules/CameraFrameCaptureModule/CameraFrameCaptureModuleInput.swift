@@ -10,11 +10,22 @@ import AVFoundation
 import UIKit
 
 enum CameraFrameCapture {
-    typealias Error = CameraMetadataScan.Error
-    enum PhotoCaptureError: Swift.Error {
-        case photoCaptureFailure(Swift.Error?)
+    enum InitializationError: Swift.Error {
+        case cameraModuleInitializationError(VideoCaptureSession.InitializationError)
+        case cameraModuleFunctionalityError(VideoCaptureSession.AddOutputFailReason)
+        case unsupportedPixelFormatError(PixelFormat)
     }
-    typealias CapturedFrameHandler = (Result<UIImage, PhotoCaptureError>) -> Void
+    
+    enum FrameCaptureError: Swift.Error {
+        case frameCaptureFailure(Swift.Error?)
+    }
+    
+    enum PixelFormat {
+        case BGRA32
+        case defaultDeviceFormat
+    }
+    
+    typealias CapturedFrameHandler = (Result<CVImageBuffer, FrameCaptureError>) -> Void
     typealias InitializationCompletion = (Result<Void, Error>) -> Void
 }
 
