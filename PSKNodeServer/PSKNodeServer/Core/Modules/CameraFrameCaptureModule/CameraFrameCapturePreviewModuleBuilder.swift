@@ -8,27 +8,31 @@
 import UIKit
 
 protocol CameraFrameCaptureModuleBuildable {
-    func build(completion: @escaping (AnyViewlessModuleInitializer<CameraFrameCaptureModuleInput, CameraFrameCapture.Error>) -> Void)
+    func build(pixelFormat: CameraFrameCapture.PixelFormat,
+               completion: @escaping (AnyViewlessModuleInitializer<CameraFrameCaptureModuleInput, CameraFrameCapture.InitializationError>) -> Void)
 }
 
 final class CameraFrameCaptureModuleBuilder: CameraFrameCaptureModuleBuildable, ViewlessModuleInitializer {
     typealias ModuleInputType = CameraFrameCaptureModuleInput
-    typealias ErrorType = CameraFrameCapture.Error
+    typealias ErrorType = CameraFrameCapture.InitializationError
     
     private let videoCaptureSessionModuleBuilder: VideoCaptureSessionModuleBuildable
+    private var pixelFormat = CameraFrameCapture.PixelFormat.defaultDeviceFormat
     
     init(videoCaptureSessionModuleBuilder: VideoCaptureSessionModuleBuildable) {
         self.videoCaptureSessionModuleBuilder = videoCaptureSessionModuleBuilder
     }
     
-    func initializeModuleWith(completion: @escaping ViewlessModuleInitialization<CameraFrameCaptureModuleInput, CameraFrameCapture.Error>.Completion) {
+    func initializeModuleWith(completion: @escaping ViewlessModuleInitialization<CameraFrameCaptureModuleInput, CameraFrameCapture.InitializationError>.Completion) {
+        let pixelFormat = self.pixelFormat
         videoCaptureSessionModuleBuilder.build(completion: { initializer in
             initializer.initializeModuleWith(completion: {
                 switch $0 {
                 case .failure(let error):
                     completion(.failure(.cameraModuleInitializationError(error)))
                 case .success(let videoCaptureSessionInput):
-                    let module = CameraFrameCaptureModule(videoCaptureInput: videoCaptureSessionInput, exitHandler: nil)
+                    let module = CameraFrameCaptureModule(pixelFormat: pixelFormat,
+                                                          videoCaptureInput: videoCaptureSessionInput, exitHandler: nil)
                     switch module.finalizeInitialization() {
                     case .failure(let error):
                         completion(.failure(error))
@@ -40,31 +44,9 @@ final class CameraFrameCaptureModuleBuilder: CameraFrameCaptureModuleBuildable, 
         })
     }
     
-    func build(completion: @escaping (AnyViewlessModuleInitializer<CameraFrameCaptureModuleInput, CameraFrameCapture.Error>) -> Void) {
+    func build(pixelFormat: CameraFrameCapture.PixelFormat,
+               completion: @escaping (AnyViewlessModuleInitializer<CameraFrameCaptureModuleInput, CameraFrameCapture.InitializationError>) -> Void) {
+        self.pixelFormat = pixelFormat
         completion(.init(aggregating: self))
     }
-}
-
-final class CameraFrameCapturePreviewModuleBuilder:
-    GenericCameraScreenModuleClientBuilder<CameraFrameCaptureModuleInput, CameraFrameCapture.Error>,
-    CameraFrameCaptureModuleBuildable {
-    init(hostController: UIViewController, cameraScreenModuleBuilder: CameraScreenModuleBuildable) {
-        let frameCaptureInitializer: ClientModuleSpecificInitialization = {
-            let module = CameraFrameCaptureModule(videoCaptureInput: $0, exitHandler: $1)
-            switch module.finalizeInitialization() {
-            case .success:
-                $2(.success(module))
-            case .failure(let error):
-                $2(.failure(error))
-            }
-        }
-        super.init(hostController: hostController,
-                   cameraScreenModuleBuilder: cameraScreenModuleBuilder,
-                   clientModuleInitialization: frameCaptureInitializer)
-    }
-    
-    func build(completion: @escaping (AnyViewlessModuleInitializer<CameraFrameCaptureModuleInput, CameraFrameCapture.Error>) -> Void) {
-        completion(.init(aggregating: self))
-    }
-   
 }

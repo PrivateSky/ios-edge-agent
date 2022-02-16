@@ -25,7 +25,7 @@ class CallableObject extends Function {
     return this._bound;
   }
   
-  _call(...args) {
+  _call(args) {
     console.log(this, args);
   }
     
@@ -152,8 +152,9 @@ class NativeApiCall extends CallableObject {
         this.url = url;
     }
 
-    _call(...args) {
+    _call(args) {
         const self = this;
+        args = args || [];
 
         return new Promise((resolve, reject) => {
             const formData = new FormData();
@@ -237,7 +238,7 @@ class NativeApiCall extends CallableObject {
             reject(`Path field non-existend or wrong type: ${bytesItem}; ${results}, ${self.url}`);
             return;
         }
-        const url = `${this.origin}${bytesItem.path}`;
+        const url = bytesItem.path;
         const options = {
         method: 'GET',
         mode: 'cors'
@@ -245,11 +246,14 @@ class NativeApiCall extends CallableObject {
         fetch(url, options)
         .then((response) => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status} for ${self.url} retrieving ${bytesItem.path}`);
+                reject(`HTTP error! status: ${response.status} for ${self.url} retrieving ${bytesItem.path}`);
             }
-            return response.blob();
-        })
-        .then(resolve, reject);
+            
+            response.blob().then((theBlob) => {
+                console.log(theBlob);
+                resolve(theBlob);
+            });
+        });
     }
     
     insert(element, name, formData) {
@@ -295,11 +299,11 @@ class NativeStreamAPI {
         this.closeCall = new NativeApiCall(closeURL);
     }
 
-    openStream(...args) {
+    openStream(args) {
         return this.openCall(args);
     }
 
-    retrieveNextValue(...args) {
+    retrieveNextValue(args) {
         return this.nextValueCall(args);
     }
 

@@ -1,0 +1,17 @@
+#cameraCanvas {
+    display: block;
+    margin-left: 1px;
+    width: 49vw;
+}
+
+.top-buffer { margin-top:10px; }
+
+#snapshotImage {
+    width: 100%;
+}
+
+#streamPreview {
+    display: block;
+    margin-left: 1px;
+    width: 49vw;
+}
