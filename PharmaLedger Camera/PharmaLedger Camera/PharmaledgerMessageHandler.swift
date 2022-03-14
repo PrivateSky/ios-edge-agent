@@ -17,99 +17,7 @@ import AVFoundation
 import Accelerate
 import GCDWebServers
 
-public enum MessageNames: String, CaseIterable {
-    case StartCamera = "StartCamera"
-    case StartCameraWithConfig = "StartCameraWithConfig"
-    case StopCamera = "StopCamera"
-    case TakePicture = "TakePicture"
-    case SetFlashMode = "SetFlashMode"
-    case SetTorchLevel = "SetTorchLevel"
-    case SetPreferredColorSpace = "SetPreferredColorSpace"
-}
-
-enum StreamResponseError: Error {
-    case cannotCreateCIImage
-    case cannotCreateCGImage
-    case cannotCreateFrameHeadersData
-}
-
-public class PharmaledgerMessageHandler: NSObject, CameraEventListener, WKScriptMessageHandler {
-    // const method to run inside the iframe from the leaflet app...
-    private var jsWindowPrefix = "";
-    
-    // MARK: public vars
-    public var cameraSession: CameraSession?
-    public var cameraConfiguration: CameraConfiguration?
-    public var webserverPort: UInt {
-        if let webserver = webserver {
-            return webserver.port
-        } else {
-            return 0
-        }
-    }
-    
-    // MARK: WKScriptMessageHandler Protocol
-    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        var args: [String: AnyObject]? = nil
-        var jsCallback: String? = nil
-        if let messageName = MessageNames(rawValue: message.name) {
-            if let bodyDict = message.body as? [String: AnyObject] {
-                args = bodyDict["args"] as? [String: AnyObject]
-                jsCallback = bodyDict["callback"] as? String
-            }
-            self.handleMessage(message: messageName, args: args, jsCallback: jsCallback, completion: {result in
-                if let result = result {
-                    print("result from js: \(result)")
-                }
-            })
-        } else {
-            print("Unrecognized message")
-        }
-    }
-    
-    // MARK: CameraEventListener Protocol
-    public func onCameraPermissionDenied() {
-        print("Permission denied")
-    }
-    
-    public func onPreviewFrame(sampleBuffer: CMSampleBuffer) {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            print("Cannot get imageBuffer")
-            return
-        }
-        currentCIImage = CIImage(cvImageBuffer: imageBuffer, options: nil)
-    }
-    
-    public func onCapture(imageData: Data) {
-        print("captureCallback")
-//        if let image = UIImage.init(data: imageData){
-//            print("image acquired \(image.size.width)x\(image.size.height)")
-//        }
-        if let jsCallback = self.onCaptureJsCallback {
-            guard let webview = self.webview else {
-                print("WebView was nil")
-                return
-            }
-            let base64 = "data:image/jpeg;base64, " + imageData.base64EncodedString()
-            let js = "\(jsWindowPrefix)\(jsCallback)(\"\(base64)\")"
-            DispatchQueue.main.async {
-                webview.evaluateJavaScript(js, completionHandler: {result, error in
-                    guard error == nil else {
-                        print(error!)
-                        return
-                    }
-                })
-            }
-        }
-    }
-    
-    public func onCameraInitialized() {
-        print("Camera initialized")
-        DispatchQueue.main.async {
-            self.callJsAfterCameraStart()
-        }
-    }
-    
+public class PharmaledgerMessageHandler: NSObject, CameraEventListener {
     // MARK: privates vars
     private var hasOwnWebserver = false
     private var ypCbCrPixelRange = vImage_YpCbCrPixelRange(Yp_bias: 0,
@@ -131,6 +39,7 @@ public class PharmaledgerMessageHandler: NSObject, CameraEventListener, WKScript
                                                       vImage_Flags(kvImageNoFlags))
         return outInfo
     }
+    
     private var dataBuffer_w = -1
     private var dataBuffer_h = -1
     private var dataBufferRGBA: UnsafeMutableRawPointer? = nil
@@ -146,162 +55,144 @@ public class PharmaledgerMessageHandler: NSObject, CameraEventListener, WKScript
     private let ciContext = CIContext(options: nil)
     private var previewWidth = 640;
     private var previewHeight = -1;
-    private var onCameraInitializedJsCallback: String?
     private var onCaptureJsCallback: String?
-    var webserver: GCDWebServer?
-    let mjpegQueue = DispatchQueue(label: "stream-queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: nil)
-    let rawframeQueue = DispatchQueue(label: "rawframe-queue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem, target: nil)
-    let previewframeQueue = DispatchQueue(label: "previewframe-queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: nil)
+    private let mjpegQueue = DispatchQueue(label: "stream-queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: nil)
+    private let rawframeQueue = DispatchQueue(label: "rawframe-queue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem, target: nil)
+    private let previewframeQueue = DispatchQueue(label: "previewframe-queue", qos: .userInteractive, attributes: [], autoreleaseFrequency: .workItem, target: nil)
     
+    private var onJPEGBase64Ready: ((String) -> Void)?
+    private var onCameraInitializedHandler: (() -> Void)?
+    private var onCameraPermissionDeniedHandler: (() -> Void)?
     
-    // MARK: public methods
-    
-    /// Initialisation
-    /// - Parameters:
-    ///   - staticPath: internal bundle filepath that will be served as '/'.
-    ///   - jsWindowPrefix: string that will be prepended to all callbacks evaluated with evaluateJavascript webview method.
-    ///   - webserver: an already available GCDWebServer instance can be re-used. WARNING: if some endpoints are already defined in the instance passed as parameter, they will be replaced.
-    public convenience init(staticPath: String? = nil, jsWindowPrefix: String = "", webserver: GCDWebServer? = nil) {
-        self.init()
-        if let webserver = webserver {
-            self.webserver = webserver
-        } else {
-            self.webserver = GCDWebServer()
-            self.hasOwnWebserver = true
-        }
-        self.jsWindowPrefix = jsWindowPrefix
-        addWebserverHandlers(staticPath: staticPath)
-        // start server only if not provided from outside
-        if webserver == nil {
-            startWebserver()
-        }
+    // MARK: public vars
+    public var cameraSession: CameraSession?
+    public var cameraConfiguration: CameraConfiguration?
+        
+
+    public func setupInWebServer(webserver: GCDWebServer) {
+        addWebserverHandlers(webserver: webserver)
+    }
+                
+    // MARK: CameraEventListener Protocol
+    public func onCameraPermissionDenied() {
+        onCameraPermissionDeniedHandler?()
     }
     
-    public override init() {
-        super.init()
-    }
-    
-    /// To use when you want to initialise with default constructor (for example to get the webview from this instance that implements WKScriptMessageHandler
-    /// - Parameters:
-    ///   - webserver: an already available GCDWebServer instance. WARNING: if some endpoints are already defined in the instance passed as parameter, they will be replaced.
-    ///   - jsWindowPrefix: string that will be prepended to all callbacks evaluated with evaluateJavascript webview method.
-    ///   - staticPath: internal bundle filepath that will be served as '/'.
-    public func setWebserver(webserver: GCDWebServer, jsWindowPrefix: String = "", staticPath: String? = nil) {
-        self.webserver = webserver
-        self.jsWindowPrefix = jsWindowPrefix
-        addWebserverHandlers(staticPath: staticPath)
-    }
-    
-    deinit {
-        if let webview = webview {
-            if let cameraSession = self.cameraSession {
-                if let captureSession = cameraSession.captureSession {
-                    if captureSession.isRunning {
-                        cameraSession.stopCamera()
-                    }
-                }
-                self.cameraSession = nil
-            }
-            for m in MessageNames.allCases {
-                webview.configuration.userContentController.removeScriptMessageHandler(forName: m.rawValue)
-            }
-            self.webview = nil
-            if let webserver = webserver {
-                if (self.hasOwnWebserver) {
-                    webserver.stop()
-                    webserver.removeAllHandlers()
-                } 
-            }
-        }
-    }
-    
-    /// Returns a WKWebView with custom messages needed for native camera
-    /// - Parameters:
-    ///   - frame: the webview frame
-    public func getWebview(frame: CGRect) -> WKWebView {
-        let configuration = WKWebViewConfiguration()
-        configuration.userContentController = WKUserContentController()
-        // add all messages defined in MessageNames
-        for m in MessageNames.allCases {
-            configuration.userContentController.add(self, name: m.rawValue)
-        }
-        self.webview = WKWebView(frame: frame, configuration: configuration)
-        return self.webview!
-    }
-    
-    public func handleMessage(message: MessageNames, args: [String: AnyObject]? = nil, jsCallback: String? = nil, completion: ( (Any?) -> Void )? = nil) {
-        guard let webview = self.webview else {
-            print("WebView was nil")
+    public func onPreviewFrame(sampleBuffer: CMSampleBuffer) {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            print("Cannot get imageBuffer")
             return
         }
-        // string used as returned argument that can be passed back to js with the callback
-        var jsonString: String = ""
-        switch message {
-        case .StartCamera:
-            if let pWidth = args?["previewWidth"] as? Int {
-                self.previewWidth = pWidth
-            }
-            handleCameraStart(onCameraInitializedJsCallback: args?["onInitializedJsCallback"] as? String,
-                              sessionPreset: args?["sessionPreset"] as! String,
-                              flash_mode: args?["flashMode"] as? String,
-                              auto_orientation_enabled: args?["auto_orientation_enabled"] as? Bool)
-            jsonString = ""
-        case .StartCameraWithConfig:
-            if let pWidth = args?["previewWidth"] as? Int {
-                self.previewWidth = pWidth
-            }
-            if let configDict = args?["config"] as? [String: AnyObject] {
-                handleCameraStart(onCameraInitializedJsCallback: args?["onInitializedJsCallback"] as? String, configDict: configDict)
-            }
-            jsonString = ""
-        case .StopCamera:
-            stopCameraSession()
-            jsonString = ""
-        case .TakePicture:
-            handleTakePicture(onCaptureJsCallback: args?["onCaptureJsCallback"] as? String)
-        case .SetFlashMode:
-            handleSetFlashMode(mode: args?["mode"] as? String)
-        case .SetTorchLevel:
-            if let level = args?["level"] as? NSNumber {
-                let levelVal = level.floatValue
-                if levelVal > 0.0 {
-                    handleSetTorchLevel(level: levelVal)
-                } else {
-                    print("Torch level must be greater than 0.0")
-                }
-            } else {
-                print("JsMessageHandler: cannot convert argument to NSNumber")
-                return
-            }
-        case .SetPreferredColorSpace:
-            if let colorspace = args?["colorspace"] as? String {
-                if let cameraConfiguration = self.cameraConfiguration {
-                    cameraConfiguration.setPreferredColorSpace(color_space: colorspace)
-                    cameraConfiguration.applyConfiguration()
-                }
-            } else {
-                print("JsMessageHandler: cannot convert argument to String")
-                return
-            }
+        currentCIImage = CIImage(cvImageBuffer: imageBuffer, options: nil)
+    }
+    
+    public func onCapture(imageData: Data) {
+        let base64 = "data:image/jpeg;base64, " + imageData.base64EncodedString()
+        onJPEGBase64Ready?(base64)
+    }
+    
+    public func onCameraInitialized() {
+        onCameraInitializedHandler?()
+    }
+    
+    // MARK: Public interface
+    
+    public func startCamera(args: [String: Any],
+                            cameraReadyHandler: (() -> Void)?,
+                            permissionDeniedHandler: (() -> Void)?) {
+        if let pWidth = args["previewWidth"] as? Int {
+            self.previewWidth = pWidth
         }
-        if let callback = jsCallback {
-            if !callback.isEmpty {
-                DispatchQueue.main.async {
-                    let js = "\(self.jsWindowPrefix)\(callback)(\(jsonString))"
-                    webview.evaluateJavaScript(js, completionHandler: {result, error in
-                        guard error == nil else {
-                            print(error!)
-                            return
-                        }
-                        if let completion = completion {
-                            completion(result)
-                        }
-                    })
-                }
-            }
+        
+        handleCameraStart(sessionPreset: args["sessionPreset"] as! String,
+                          flash_mode: args["flashMode"] as? String,
+                          auto_orientation_enabled: args["auto_orientation_enabled"] as? Bool)
+        onCameraInitializedHandler = cameraReadyHandler
+        onCameraPermissionDeniedHandler = permissionDeniedHandler
+    }
+    
+    public func startCameraWithConfig(args: [String: Any],
+                                      cameraReadyHandler: (() -> Void)?,
+                                      permissionDeniedHandler: (() -> Void)?) {
+        if let pWidth = args["previewWidth"] as? Int {
+            self.previewWidth = pWidth
+        }
+        if let configDict = args["config"] as? [String: Any] {
+            handleCameraStart(configDict: configDict)
         }
     }
     
+    public func stopCameraSession() {
+        if let cameraSession = self.cameraSession {
+            if let captureSession = cameraSession.captureSession {
+                if captureSession.isRunning {
+                    cameraSession.stopCamera()
+                }
+            }
+        }
+        self.cameraConfiguration = nil
+        self.cameraSession = nil
+        if dataBufferRGBA != nil {
+            free(dataBufferRGBA!)
+            dataBufferRGBA = nil
+        }
+        if dataBufferRGB != nil {
+            free(dataBufferRGB)
+            dataBufferRGB = nil
+        }
+        if dataBufferYp != nil {
+            free(dataBufferYp)
+            dataBufferYp = nil
+        }
+        if dataBufferCbCr != nil {
+            free(dataBufferCbCr)
+            dataBufferCbCr = nil
+        }
+        if dataBufferRGBsmall != nil {
+            free(dataBufferRGBsmall)
+            dataBufferRGBsmall = nil
+        }
+        self.previewWidth = -1
+        self.previewHeight = -1
+        dataBuffer_w = -1
+        dataBuffer_h = -1
+        self.currentCIImage = nil
+    }
+    
+    public func setFlashMode(args: [String: Any]) {
+        handleSetFlashMode(mode: args["mode"] as? String)
+    }
+    
+    public func takeBase64Picture(args: [String: Any], completion: ((String) -> Void)?) {
+        handleTakePicture(onCaptureBase64CaptureHandler: completion)
+    }
+    
+    public func setTorchLevel(args: [String: Any]) {
+        if let level = args["level"] as? NSNumber {
+            let levelVal = level.floatValue
+            if levelVal > 0.0 {
+                handleSetTorchLevel(level: levelVal)
+            } else {
+                print("Torch level must be greater than 0.0")
+            }
+        } else {
+            print("JsMessageHandler: cannot convert argument to NSNumber")
+            return
+        }
+    }
+    
+    public func setColorSpace(args: [String: Any]) {
+        if let colorspace = args["colorspace"] as? String {
+            if let cameraConfiguration = self.cameraConfiguration {
+                cameraConfiguration.setPreferredColorSpace(color_space: colorspace)
+                cameraConfiguration.applyConfiguration()
+            }
+        } else {
+            print("JsMessageHandler: cannot convert argument to String")
+            return
+        }
+    }
+        
     // MARK: private methods
     private func enforceRawBuffer(cgImage: CGImage) {
         if cgImage.width != dataBuffer_w || cgImage.height != dataBuffer_h {
@@ -431,208 +322,187 @@ public class PharmaledgerMessageHandler: NSObject, CameraEventListener, WKScript
         return (data, self.previewWidth, previewHeight)
     }
     
-    
-    private func startWebserver() {
-        let options: [String: Any] = [
-            GCDWebServerOption_Port: findFreePort(),
-            GCDWebServerOption_BindToLocalhost: true
-        ]
-        do {
-            if let webserver = webserver {
-                try webserver.start(options: options)
-                print("*** camera webserver: http://localhost:\(options[GCDWebServerOption_Port]!)")
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
     // MARK: webserver endpoints definitions
-    private func addWebserverHandlers(staticPath: String?) {
-        if let webserver = webserver {
-            if let staticPath = staticPath {
-                webserver.addGETHandler(forBasePath: "/", directoryPath: staticPath, indexFilename: nil, cacheAge: 0, allowRangeRequests: false)
-            }
-            webserver.addHandler(forMethod: "GET", path: "/mjpeg", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: {(request, completion) in
-                let response = GCDWebServerStreamedResponse(contentType: "multipart/x-mixed-replace; boundary=0123456789876543210", asyncStreamBlock: {completion in
-                    self.mjpegQueue.async {
-                        if let ciImage = self.currentCIImage {
-                            if let tempImage = self.ciContext.createCGImage(ciImage, from: ciImage.extent) {
-                                let image = UIImage(cgImage: tempImage)
-                                let jpegData = image.jpegData(compressionQuality: 0.5)!
-                                
-                                let frameHeaders = [
-                                    "",
-                                    "--0123456789876543210",
-                                    "Content-Type: image/jpeg",
-                                    "Content-Length: \(jpegData.count)",
-                                    "",
-                                    ""
-                                ]
-                                if let frameHeadersData = frameHeaders.joined(separator: "\r\n").data(using: String.Encoding.utf8) {
-                                    var allData = Data()
-                                    allData.append(frameHeadersData)
-                                    allData.append(jpegData)
-                                    let footersData = ["", ""].joined(separator: "\r\n").data(using: String.Encoding.utf8)!
-                                    allData.append(footersData)
-                                    completion(allData, nil)
-                                } else {
-                                    print("Could not make frame headers data")
-                                    completion(nil, StreamResponseError.cannotCreateFrameHeadersData)
-                                }
+    private func addWebserverHandlers(webserver: GCDWebServer) {
+        webserver.addHandler(forMethod: "GET", path: "/mjpeg", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: {(request, completion) in
+            let response = GCDWebServerStreamedResponse(contentType: "multipart/x-mixed-replace; boundary=0123456789876543210", asyncStreamBlock: {completion in
+                self.mjpegQueue.async {
+                    if let ciImage = self.currentCIImage {
+                        if let tempImage = self.ciContext.createCGImage(ciImage, from: ciImage.extent) {
+                            let image = UIImage(cgImage: tempImage)
+                            let jpegData = image.jpegData(compressionQuality: 0.5)!
+                            
+                            let frameHeaders = [
+                                "",
+                                "--0123456789876543210",
+                                "Content-Type: image/jpeg",
+                                "Content-Length: \(jpegData.count)",
+                                "",
+                                ""
+                            ]
+                            if let frameHeadersData = frameHeaders.joined(separator: "\r\n").data(using: String.Encoding.utf8) {
+                                var allData = Data()
+                                allData.append(frameHeadersData)
+                                allData.append(jpegData)
+                                let footersData = ["", ""].joined(separator: "\r\n").data(using: String.Encoding.utf8)!
+                                allData.append(footersData)
+                                completion(allData, nil)
                             } else {
-                                completion(nil, StreamResponseError.cannotCreateCGImage)
+                                print("Could not make frame headers data")
+                                completion(nil, StreamResponseError.cannotCreateFrameHeadersData)
                             }
                         } else {
-                            completion(nil, StreamResponseError.cannotCreateCIImage)
+                            completion(nil, StreamResponseError.cannotCreateCGImage)
                         }
-                    }
-                })
-                response.setValue("keep-alive", forAdditionalHeader: "Connection")
-                response.setValue("0", forAdditionalHeader: "Ma-age")
-                response.setValue("0", forAdditionalHeader: "Expires")
-                response.setValue("no-store,must-revalidate", forAdditionalHeader: "Cache-Control")
-                response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-                response.setValue("accept,content-type", forAdditionalHeader: "Access-Control-Allow-Headers")
-                response.setValue("GET", forAdditionalHeader: "Access-Control-Allow-Methods")
-                response.setValue("Cache-Control,Content-Encoding", forAdditionalHeader: "Access-Control-expose-headers")
-                response.setValue("no-cache", forAdditionalHeader: "Pragma")
-                completion(response)
-            })
-            
-            webserver.addHandler(forMethod: "GET", path: "/rawframe", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: { (request, completion) in
-                self.rawframeQueue.async {
-                    var roi: CGRect? = nil
-                    if let query = request.query {
-                        if query.count > 0 {
-                            guard let x = query["x"], let y = query["y"], let w = query["w"], let h = query["h"] else {
-                                let response = GCDWebServerErrorResponse.init(text: "Must specify exactly 4 params (x, y, w, h) or none.")
-                                response?.statusCode = 400
-                                completion(response)
-                                return
-                            }
-                            guard let x = Int(x), let y = Int(y), let w = Int(w), let h = Int(h) else {
-                                let response = GCDWebServerErrorResponse.init(text: "(x, y, w, h) must be integers.")
-                                response?.statusCode = 400
-                                completion(response)
-                                return
-                            }
-                            roi = CGRect(x: x, y: y, width: w, height: h)
-                        }
-                    }
-                    if let ciImage = self.currentCIImage {
-                        let data = self.prepareRGBData(ciImage: ciImage, roi: roi)
-                        let contentType = "application/octet-stream"
-                        let response = GCDWebServerDataResponse(data: data, contentType: contentType)
-                        response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-                        let imageSize: CGSize = roi?.size ?? ciImage.extent.size
-                        response.setValue(String(Int(imageSize.width)), forAdditionalHeader: "image-width")
-                        response.setValue(String(Int(imageSize.height)), forAdditionalHeader: "image-height")
-                        response.setValue("image-width,image-height", forAdditionalHeader: "Access-Control-Expose-Headers")
-                        completion(response)
                     } else {
-                        completion(GCDWebServerErrorResponse.init(statusCode: 500))
+                        completion(nil, StreamResponseError.cannotCreateCIImage)
                     }
                 }
             })
-            webserver.addHandler(forMethod: "GET", path: "/rawframe_ycbcr", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: { (request, completion) in
-                self.rawframeQueue.async {
-                    var roi: CGRect? = nil
-                    if let query = request.query {
-                        if query.count > 0 {
-                            guard let x = query["x"], let y = query["y"], let w = query["w"], let h = query["h"] else {
-                                let response = GCDWebServerErrorResponse.init(text: "Must specify exactly 4 params (x, y, w, h) or none.")
-                                response?.statusCode = 400
-                                completion(response)
-                                return
-                            }
-                            guard let x = Int(x), let y = Int(y), let w = Int(w), let h = Int(h) else {
-                                let response = GCDWebServerErrorResponse.init(text: "(x, y, w, h) must be integers.")
-                                response?.statusCode = 400
-                                completion(response)
-                                return
-                            }
-                            roi = CGRect(x: x, y: y, width: w, height: h)
+            response.setValue("keep-alive", forAdditionalHeader: "Connection")
+            response.setValue("0", forAdditionalHeader: "Ma-age")
+            response.setValue("0", forAdditionalHeader: "Expires")
+            response.setValue("no-store,must-revalidate", forAdditionalHeader: "Cache-Control")
+            response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+            response.setValue("accept,content-type", forAdditionalHeader: "Access-Control-Allow-Headers")
+            response.setValue("GET", forAdditionalHeader: "Access-Control-Allow-Methods")
+            response.setValue("Cache-Control,Content-Encoding", forAdditionalHeader: "Access-Control-expose-headers")
+            response.setValue("no-cache", forAdditionalHeader: "Pragma")
+            completion(response)
+        })
+        
+        webserver.addHandler(forMethod: "GET", path: "/rawframe", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: { (request, completion) in
+            self.rawframeQueue.async {
+                var roi: CGRect? = nil
+                if let query = request.query {
+                    if query.count > 0 {
+                        guard let x = query["x"], let y = query["y"], let w = query["w"], let h = query["h"] else {
+                            let response = GCDWebServerErrorResponse.init(text: "Must specify exactly 4 params (x, y, w, h) or none.")
+                            response?.statusCode = 400
+                            completion(response)
+                            return
                         }
-                    }
-                    if let ciImage = self.currentCIImage {
-                        let data = self.prepare420Yp8_CbCr8Data(ciImage: ciImage, roi: roi)
-                        let contentType = "application/octet-stream"
-                        let response = GCDWebServerDataResponse(data: data, contentType: contentType)
-                        let imageSize: CGSize = roi?.size ?? ciImage.extent.size
-                        response.setValue(String(Int(imageSize.width)), forAdditionalHeader: "image-width")
-                        response.setValue(String(Int(imageSize.height)), forAdditionalHeader: "image-height")
-                        response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-                        response.setValue("image-width,image-height", forAdditionalHeader: "Access-Control-Expose-Headers")
-                        completion(response)
-                    } else {
-                        completion(GCDWebServerErrorResponse.init(statusCode: 500))
+                        guard let x = Int(x), let y = Int(y), let w = Int(w), let h = Int(h) else {
+                            let response = GCDWebServerErrorResponse.init(text: "(x, y, w, h) must be integers.")
+                            response?.statusCode = 400
+                            completion(response)
+                            return
+                        }
+                        roi = CGRect(x: x, y: y, width: w, height: h)
                     }
                 }
-            })
-            
-            webserver.addHandler(forMethod: "GET", path: "/previewframe", request: GCDWebServerRequest.self, asyncProcessBlock: {(request, completion) in
-                self.previewframeQueue.async {
-                    if let ciImage = self.currentCIImage {
-                        let (data, w, h) = self.preparePreviewData(ciImage: ciImage)
-                        let contentType = "application/octet-stream"
-                        let response = GCDWebServerDataResponse(data: data, contentType: contentType)
-                        response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-                        response.setValue(String(w), forAdditionalHeader: "image-width")
-                        response.setValue(String(h), forAdditionalHeader: "image-height")
-                        response.setValue("image-width,image-height", forAdditionalHeader: "Access-Control-Expose-Headers")
-                        completion(response)
-                    } else {
-                        completion(GCDWebServerErrorResponse(statusCode: 500))
-                    }
-                }
-            })
-            
-            webserver.addHandler(forMethod: "GET", path: "/snapshot", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: {(request, completion) in
-                DispatchQueue.global().async {
-                    let semaphore = DispatchSemaphore(value: 0)
-                    let photoSettings = AVCapturePhotoSettings()
-                    photoSettings.isHighResolutionPhotoEnabled = true
-                    guard let flashMode = self.cameraSession?.getConfig()?.getFlashMode() else {
-                        completion(nil)
-                        return
-                    }
-                    photoSettings.flashMode = flashMode
-                    var response: GCDWebServerResponse? = nil
-                    let processor = CaptureProcessor(completion: {data in
-                        let contentType = "image/jpeg"
-                        response = GCDWebServerDataResponse(data: data, contentType: contentType)
-                        response?.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-                        semaphore.signal()
-                    })
-                    guard let photoOutput = self.cameraSession?.getPhotoOutput() else {
-                        completion(nil)
-                        return
-                    }
-                    photoOutput.capturePhoto(with: photoSettings, delegate: processor)
-                    _ = semaphore.wait(timeout: DispatchTime.now().advanced(by: DispatchTimeInterval.seconds(10)))
+                if let ciImage = self.currentCIImage {
+                    let data = self.prepareRGBData(ciImage: ciImage, roi: roi)
+                    let contentType = "application/octet-stream"
+                    let response = GCDWebServerDataResponse(data: data, contentType: contentType)
+                    response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+                    let imageSize: CGSize = roi?.size ?? ciImage.extent.size
+                    response.setValue(String(Int(imageSize.width)), forAdditionalHeader: "image-width")
+                    response.setValue(String(Int(imageSize.height)), forAdditionalHeader: "image-height")
+                    response.setValue("image-width,image-height", forAdditionalHeader: "Access-Control-Expose-Headers")
                     completion(response)
+                } else {
+                    completion(GCDWebServerErrorResponse.init(statusCode: 500))
                 }
-            })
-            
-            webserver.addHandler(forMethod: "GET", path: "/cameraconfig", request: GCDWebServerRequest.classForCoder(), processBlock: {request in
-                var response: GCDWebServerDataResponse!
-                let cameraConfigDict: [String: AnyObject] = self.cameraConfiguration?.toDict() ?? [String: AnyObject]()
-                response = GCDWebServerDataResponse(jsonObject: cameraConfigDict)
+            }
+        })
+        webserver.addHandler(forMethod: "GET", path: "/rawframe_ycbcr", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: { (request, completion) in
+            self.rawframeQueue.async {
+                var roi: CGRect? = nil
+                if let query = request.query {
+                    if query.count > 0 {
+                        guard let x = query["x"], let y = query["y"], let w = query["w"], let h = query["h"] else {
+                            let response = GCDWebServerErrorResponse.init(text: "Must specify exactly 4 params (x, y, w, h) or none.")
+                            response?.statusCode = 400
+                            completion(response)
+                            return
+                        }
+                        guard let x = Int(x), let y = Int(y), let w = Int(w), let h = Int(h) else {
+                            let response = GCDWebServerErrorResponse.init(text: "(x, y, w, h) must be integers.")
+                            response?.statusCode = 400
+                            completion(response)
+                            return
+                        }
+                        roi = CGRect(x: x, y: y, width: w, height: h)
+                    }
+                }
+                if let ciImage = self.currentCIImage {
+                    let data = self.prepare420Yp8_CbCr8Data(ciImage: ciImage, roi: roi)
+                    let contentType = "application/octet-stream"
+                    let response = GCDWebServerDataResponse(data: data, contentType: contentType)
+                    let imageSize: CGSize = roi?.size ?? ciImage.extent.size
+                    response.setValue(String(Int(imageSize.width)), forAdditionalHeader: "image-width")
+                    response.setValue(String(Int(imageSize.height)), forAdditionalHeader: "image-height")
+                    response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+                    response.setValue("image-width,image-height", forAdditionalHeader: "Access-Control-Expose-Headers")
+                    completion(response)
+                } else {
+                    completion(GCDWebServerErrorResponse.init(statusCode: 500))
+                }
+            }
+        })
+        
+        webserver.addHandler(forMethod: "GET", path: "/previewframe", request: GCDWebServerRequest.self, asyncProcessBlock: {(request, completion) in
+            self.previewframeQueue.async {
+                if let ciImage = self.currentCIImage {
+                    let (data, w, h) = self.preparePreviewData(ciImage: ciImage)
+                    let contentType = "application/octet-stream"
+                    let response = GCDWebServerDataResponse(data: data, contentType: contentType)
+                    response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+                    response.setValue(String(w), forAdditionalHeader: "image-width")
+                    response.setValue(String(h), forAdditionalHeader: "image-height")
+                    response.setValue("image-width,image-height", forAdditionalHeader: "Access-Control-Expose-Headers")
+                    completion(response)
+                } else {
+                    completion(GCDWebServerErrorResponse(statusCode: 500))
+                }
+            }
+        })
+        
+        webserver.addHandler(forMethod: "GET", path: "/snapshot", request: GCDWebServerRequest.classForCoder(), asyncProcessBlock: {(request, completion) in
+            DispatchQueue.global().async {
+                let semaphore = DispatchSemaphore(value: 0)
+                let photoSettings = AVCapturePhotoSettings()
+                photoSettings.isHighResolutionPhotoEnabled = true
+                guard let flashMode = self.cameraSession?.getConfig()?.getFlashMode() else {
+                    completion(nil)
+                    return
+                }
+                photoSettings.flashMode = flashMode
+                var response: GCDWebServerResponse? = nil
+                let processor = CaptureProcessor(completion: {data in
+                    let contentType = "image/jpeg"
+                    response = GCDWebServerDataResponse(data: data, contentType: contentType)
+                    response?.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+                    semaphore.signal()
+                })
+                guard let photoOutput = self.cameraSession?.getPhotoOutput() else {
+                    completion(nil)
+                    return
+                }
+                photoOutput.capturePhoto(with: photoSettings, delegate: processor)
+                _ = semaphore.wait(timeout: DispatchTime.now().advanced(by: DispatchTimeInterval.seconds(10)))
+                completion(response)
+            }
+        })
+        
+        webserver.addHandler(forMethod: "GET", path: "/cameraconfig", request: GCDWebServerRequest.classForCoder(), processBlock: {request in
+            var response: GCDWebServerDataResponse!
+            let cameraConfigDict: [String: AnyObject] = self.cameraConfiguration?.toDict() ?? [String: AnyObject]()
+            response = GCDWebServerDataResponse(jsonObject: cameraConfigDict)
+            response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+            return response
+        })
+        
+        webserver.addHandler(forMethod: "GET", path: "/deviceinfo", request: GCDWebServerRequest.classForCoder(), processBlock: {rerquest in
+            let deviceInfoDict = UIDevice.getDeviceInfo()
+            if let response = GCDWebServerDataResponse(jsonObject: deviceInfoDict) {
                 response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
                 return response
-            })
-            
-            webserver.addHandler(forMethod: "GET", path: "/deviceinfo", request: GCDWebServerRequest.classForCoder(), processBlock: {rerquest in
-                let deviceInfoDict = UIDevice.getDeviceInfo()
-                if let response = GCDWebServerDataResponse(jsonObject: deviceInfoDict) {
-                    response.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
-                    return response
-                } else {
-                    return nil
-                }
-            })
-        }
+            } else {
+                return nil
+            }
+        })
     }
     
     // MARK: Public functionalities
@@ -641,59 +511,20 @@ public class PharmaledgerMessageHandler: NSObject, CameraEventListener, WKScript
         self.cameraSession = .init(cameraEventListener: self, cameraConfiguration: self.cameraConfiguration!)
     }
     
-    private func stopCameraSession() {
-        if let cameraSession = self.cameraSession {
-            if let captureSession = cameraSession.captureSession {
-                if captureSession.isRunning {
-                    cameraSession.stopCamera()
-                }
-            }
-        }
-        self.cameraConfiguration = nil
-        self.cameraSession = nil
-        if dataBufferRGBA != nil {
-            free(dataBufferRGBA!)
-            dataBufferRGBA = nil
-        }
-        if dataBufferRGB != nil {
-            free(dataBufferRGB)
-            dataBufferRGB = nil
-        }
-        if dataBufferYp != nil {
-            free(dataBufferYp)
-            dataBufferYp = nil
-        }
-        if dataBufferCbCr != nil {
-            free(dataBufferCbCr)
-            dataBufferCbCr = nil
-        }
-        if dataBufferRGBsmall != nil {
-            free(dataBufferRGBsmall)
-            dataBufferRGBsmall = nil
-        }
-        self.previewWidth = -1
-        self.previewHeight = -1
-        dataBuffer_w = -1
-        dataBuffer_h = -1
-        self.currentCIImage = nil
-    }
-    
     // MARK: js message handlers implementations
-    private func handleCameraStart(onCameraInitializedJsCallback: String?, sessionPreset: String, flash_mode: String?, auto_orientation_enabled: Bool?) {
-        self.onCameraInitializedJsCallback = onCameraInitializedJsCallback
+    private func handleCameraStart(sessionPreset: String,
+                                   flash_mode: String?,
+                                   auto_orientation_enabled: Bool?) {
         let configuration: CameraConfiguration = .init(flash_mode: flash_mode, color_space: nil, session_preset: sessionPreset, device_types: ["wideAngleCamera"], camera_position: "back", continuous_focus: true, highResolutionCaptureEnabled: true, auto_orientation_enabled: auto_orientation_enabled ?? false)
         startCameraSessionWith(configuration: configuration)
     }
     
-    private func handleCameraStart(onCameraInitializedJsCallback: String?, configDict: [String: AnyObject]) {
-        self.onCameraInitializedJsCallback = onCameraInitializedJsCallback
+    private func handleCameraStart(configDict: [String: Any]) {
         startCameraSessionWith(configuration: CameraConfiguration.createFromConfig(configDict: configDict))
     }
     
-   
-    
-    private func handleTakePicture(onCaptureJsCallback: String?) {
-        self.onCaptureJsCallback = onCaptureJsCallback
+    private func handleTakePicture(onCaptureBase64CaptureHandler: ((String) -> Void)?) {
+        self.onJPEGBase64Ready = onCaptureBase64CaptureHandler
         self.cameraSession?.takePicture()
     }
     
@@ -724,22 +555,23 @@ public class PharmaledgerMessageHandler: NSObject, CameraEventListener, WKScript
             }
         }
     }
-    
-    private func callJsAfterCameraStart() {
-        if let jsCallback = self.onCameraInitializedJsCallback {
-            guard let webview = self.webview else {
-                print("WebView was nil")
-                return
-            }
-            DispatchQueue.main.async {
-                webview.evaluateJavaScript("\(self.jsWindowPrefix)\(jsCallback)(\(self.webserverPort))", completionHandler: {result, error in
-                    guard error == nil else {
-                        print(error!)
-                        return
-                    }
-                })
-            }
-        }
+}
+
+public extension PharmaledgerMessageHandler {
+    enum MessageName: String, Decodable, CaseIterable {
+        case StartCamera = "StartCamera"
+        case StartCameraWithConfig = "StartCameraWithConfig"
+        case StopCamera = "StopCamera"
+        case TakePicture = "TakePicture"
+        case SetFlashMode = "SetFlashMode"
+        case SetTorchLevel = "SetTorchLevel"
+        case SetPreferredColorSpace = "SetPreferredColorSpace"
+    }
+
+    enum StreamResponseError: Error {
+        case cannotCreateCIImage
+        case cannotCreateCGImage
+        case cannotCreateFrameHeadersData
     }
 }
 

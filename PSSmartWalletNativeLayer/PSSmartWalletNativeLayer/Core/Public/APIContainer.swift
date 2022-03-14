@@ -38,7 +38,6 @@ public class APIContainer {
     }
     
     public init(mode: Mode) throws {
-        
         implementationContainer.setupEndpointIn(server: webserver)
         webserver.addDefaultHandler(forMethod: "OPTIONS", request: GCDWebServerRequest.classForCoder()) { (req) -> GCDWebServerResponse? in
             return GCDWebServerResponse().applyCORSHeaders()
