@@ -33,7 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8AC1D98427B2EB3D00826E3F /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = "/Users/costinandronache/Desktop/Projects/PharmaLedger-IMI/ios-edge-agent/PSKNodeServer/PSKNodeServer/Frameworks/../../../PSSmartWalletNativeLayer/Carthage/Build/GCDWebServers.xcframework"; sourceTree = "<absolute>"; };
+		8A83323127DE239100D6FA64 /* PharmaledgerMessageHandler_original.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PharmaledgerMessageHandler_original.swift; sourceTree = "<group>"; };
+		8AC1D98427B2EB3D00826E3F /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = ../PSSmartWalletNativeLayer/Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
 		B55389512671FD6E0064A5D5 /* CameraEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraEventListener.swift; sourceTree = "<group>"; };
 		B57070DD266DEC5700E917B2 /* PharmaLedgerCamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PharmaLedgerCamera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57070E0266DEC5700E917B2 /* PharmaLedger_Camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PharmaLedger_Camera.h; sourceTree = "<group>"; };
@@ -41,7 +42,6 @@
 		B57070EA266DF32800E917B2 /* CameraSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSession.swift; sourceTree = "<group>"; };
 		B57F115B2678944400C3C19C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		B58A16222680962E00BBD843 /* CameraConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraConfiguration.swift; sourceTree = "<group>"; };
-		D276229F270B2D0E004620E6 /* GCDWebServers.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GCDWebServers.xcframework; path = Carthage/Build/GCDWebServers.xcframework; sourceTree = "<group>"; };
 		D2E65B2D270AF591003B9E94 /* PharmaledgerMessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PharmaledgerMessageHandler.swift; sourceTree = "<group>"; };
 		D2E65B2E270AF591003B9E94 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		D2E65B2F270AF591003B9E94 /* CaptureProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureProcessor.swift; sourceTree = "<group>"; };
@@ -86,6 +86,7 @@
 				B57F115B2678944400C3C19C /* Helpers.swift */,
 				B58A16222680962E00BBD843 /* CameraConfiguration.swift */,
 				D2E65B2F270AF591003B9E94 /* CaptureProcessor.swift */,
+				8A83323127DE239100D6FA64 /* PharmaledgerMessageHandler_original.swift */,
 				D2E65B2D270AF591003B9E94 /* PharmaledgerMessageHandler.swift */,
 				D2E65B2E270AF591003B9E94 /* Utilities.swift */,
 			);
@@ -96,7 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				8AC1D98427B2EB3D00826E3F /* GCDWebServers.xcframework */,
-				D276229F270B2D0E004620E6 /* GCDWebServers.xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

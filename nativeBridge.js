@@ -176,7 +176,6 @@ class NativeApiCall extends CallableObject {
         };
         fetch(url, options)
         .then((response) => {
-            console.log("HEEELP");
             if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status} for ${self.url} and ${formData}`);
             }
@@ -250,7 +249,6 @@ class NativeApiCall extends CallableObject {
             }
             
             response.blob().then((theBlob) => {
-                console.log(theBlob);
                 resolve(theBlob);
             });
         });

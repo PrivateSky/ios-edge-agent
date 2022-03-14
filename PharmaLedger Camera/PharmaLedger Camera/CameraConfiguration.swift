@@ -150,7 +150,7 @@ public class CameraConfiguration {
      - "initOrientation" (String)
 - Returns: CameraConfiguration
  */
-    public class func createFromConfig(configDict: [String: AnyObject]) -> CameraConfiguration {
+    public class func createFromConfig(configDict: [String: Any]) -> CameraConfiguration {
         let colorspace = configDict["preferredColorSpace"] as? String
         let session_preset = configDict["sessionPreset"] as? String
         let flash_config = configDict["flashConfiguration"] as? String
