@@ -36,6 +36,7 @@
 		8A7C28F5276FE9A0001E7DBA /* NodeMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28F0276FE970001E7DBA /* NodeMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8A7C28F6276FE9A1001E7DBA /* PSSmartWalletNativeLayer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28EE276FE7FE001E7DBA /* PSSmartWalletNativeLayer.xcframework */; };
 		8A7C28F7276FE9A1001E7DBA /* PSSmartWalletNativeLayer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28EE276FE7FE001E7DBA /* PSSmartWalletNativeLayer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8A7EAD3027E1F02B00D37FD2 /* PLCameraAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83323227DE41B400D6FA64 /* PLCameraAPI.swift */; };
 		8A83323327DE41B400D6FA64 /* PLCameraAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83323227DE41B400D6FA64 /* PLCameraAPI.swift */; };
 		8A83E3FD27A861D000176C53 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883311278C998A00FFB63C /* Definitions.swift */; };
 		8A83E3FE27A861D000176C53 /* PhotoCaptureStreamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */; };
@@ -241,7 +242,6 @@
 		8A7C28F0276FE970001E7DBA /* NodeMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = NodeMobile.xcframework; sourceTree = "<group>"; };
 		8A83323227DE41B400D6FA64 /* PLCameraAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLCameraAPI.swift; sourceTree = "<group>"; };
 		8A83E43D27A861D000176C53 /* PSKNodeServer_x86.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSKNodeServer_x86.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A83E43E27A861D000176C53 /* PSKNodeServer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PSKNodeServer copy-Info.plist"; path = "/Users/costinandronache/Desktop/Projects/PharmaLedger-IMI/ios-edge-agent/PSKNodeServer/PSKNodeServer copy-Info.plist"; sourceTree = "<absolute>"; };
 		8A83E43F27A8877200176C53 /* ScanditOCR.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditOCR.framework; path = Carthage/Build/iOS/ScanditOCR.framework; sourceTree = "<group>"; };
 		8A83E44027A8877200176C53 /* ScanditBarcodeCapture.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditBarcodeCapture.framework; path = Carthage/Build/iOS/ScanditBarcodeCapture.framework; sourceTree = "<group>"; };
 		8A83E44127A8877300176C53 /* ScanditCaptureCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditCaptureCore.framework; path = Carthage/Build/iOS/ScanditCaptureCore.framework; sourceTree = "<group>"; };
@@ -433,7 +433,6 @@
 				0B2F62452593F9A000983BEE /* PSKNodeServer */,
 				0BF91AEF2542058A001A9031 /* Products */,
 				0B77D9BB2545F100006E0CC3 /* Frameworks */,
-				8A83E43E27A861D000176C53 /* PSKNodeServer copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -621,7 +620,6 @@
 				0BF91AEB2542058A001A9031 /* Frameworks */,
 				0BF91B0E2542186E001A9031 /* Embed Frameworks */,
 				0B2F95842593FDE400983BEE /* Resources */,
-				53D40BE7267CC48A0000822D /* Carthage Copy Framework Files */,
 			);
 			buildRules = (
 			);
@@ -723,33 +721,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		53D40BE7267CC48A0000822D /* Carthage Copy Framework Files */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/ScanditBarcodeCapture.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ScanditCaptureCore.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ScanditIdCapture.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ScanditOCR.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ScanditParser.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ScanditTextCapture.framework",
-			);
-			name = "Carthage Copy Framework Files";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		0BF91AEA2542058A001A9031 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -825,6 +796,7 @@
 				8A83E40A27A861D000176C53 /* LineAnimationView.swift in Sources */,
 				8A83E40B27A861D000176C53 /* CodeScannerSoundFile.swift in Sources */,
 				8A83E40C27A861D000176C53 /* CameraScreenModuleBuilder.swift in Sources */,
+				8A7EAD3027E1F02B00D37FD2 /* PLCameraAPI.swift in Sources */,
 				8AE46F1E27B6CD7E0048B476 /* ImageConversionUtilities.swift in Sources */,
 				8A8C318527AB1530001B63BC /* ScanditScanAPI.swift in Sources */,
 				8A83E40D27A861D000176C53 /* AppDelegate.swift in Sources */,
@@ -1013,7 +985,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VG2HGP7PFP;
+				DEVELOPMENT_TEAM = W46NRY8G6Y;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1023,12 +995,20 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to the camera. Camera is used to scan barcode, so we can provide leaflet information to you.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = intern.privatesky.iosEdge;
+				PRODUCT_BUNDLE_IDENTIFIER = intern.privatesky.epidev;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1049,7 +1029,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = VG2HGP7PFP;
+				DEVELOPMENT_TEAM = W46NRY8G6Y;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1059,12 +1039,20 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to the camera. Camera is used to scan barcode, so we can provide leaflet information to you.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = intern.PSSmartWalletNativeLayerDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = intern.privatesky.epidev;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME)";
 				PRODUCT_NAME = "$(PRODUCT_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1093,8 +1081,9 @@
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "PSKNodeServer copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				INFOPLIST_FILE = PSKNodeServer/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1131,8 +1120,9 @@
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				INFOPLIST_FILE = "PSKNodeServer copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				INFOPLIST_FILE = PSKNodeServer/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
