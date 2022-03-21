@@ -36,6 +36,7 @@
 		8A7C28F5276FE9A0001E7DBA /* NodeMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28F0276FE970001E7DBA /* NodeMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8A7C28F6276FE9A1001E7DBA /* PSSmartWalletNativeLayer.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28EE276FE7FE001E7DBA /* PSSmartWalletNativeLayer.xcframework */; };
 		8A7C28F7276FE9A1001E7DBA /* PSSmartWalletNativeLayer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28EE276FE7FE001E7DBA /* PSSmartWalletNativeLayer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8A7EAD3027E1F02B00D37FD2 /* PLCameraAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83323227DE41B400D6FA64 /* PLCameraAPI.swift */; };
 		8A83323327DE41B400D6FA64 /* PLCameraAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A83323227DE41B400D6FA64 /* PLCameraAPI.swift */; };
 		8A83E3FD27A861D000176C53 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A883311278C998A00FFB63C /* Definitions.swift */; };
 		8A83E3FE27A861D000176C53 /* PhotoCaptureStreamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */; };
@@ -231,7 +232,6 @@
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 		8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureStreamAPI.swift; sourceTree = "<group>"; };
 		8A2C70BF278E0D50003547EF /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
-		8A540BA927E0DCE900FB006E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A7AC88B2795F123003D4A0B /* ViewlessModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewlessModule.swift; sourceTree = "<group>"; };
 		8A7AC88D2795F350003D4A0B /* CameraMetadataScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMetadataScanModuleInput.swift; sourceTree = "<group>"; };
 		8A7AC88F2795F3D5003D4A0B /* CameraMetadataScanModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMetadataScanModuleBuilder.swift; sourceTree = "<group>"; };
@@ -430,7 +430,6 @@
 		0BF91AE52542058A001A9031 = {
 			isa = PBXGroup;
 			children = (
-				8A540BA927E0DCE900FB006E /* Info.plist */,
 				0B2F62452593F9A000983BEE /* PSKNodeServer */,
 				0BF91AEF2542058A001A9031 /* Products */,
 				0B77D9BB2545F100006E0CC3 /* Frameworks */,
@@ -797,6 +796,7 @@
 				8A83E40A27A861D000176C53 /* LineAnimationView.swift in Sources */,
 				8A83E40B27A861D000176C53 /* CodeScannerSoundFile.swift in Sources */,
 				8A83E40C27A861D000176C53 /* CameraScreenModuleBuilder.swift in Sources */,
+				8A7EAD3027E1F02B00D37FD2 /* PLCameraAPI.swift in Sources */,
 				8AE46F1E27B6CD7E0048B476 /* ImageConversionUtilities.swift in Sources */,
 				8A8C318527AB1530001B63BC /* ScanditScanAPI.swift in Sources */,
 				8A83E40D27A861D000176C53 /* AppDelegate.swift in Sources */,
@@ -994,7 +994,6 @@
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to the camera. Camera is used to scan barcode, so we can provide leaflet information to you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1039,7 +1038,6 @@
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to the camera. Camera is used to scan barcode, so we can provide leaflet information to you.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1083,7 +1081,6 @@
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1123,7 +1120,6 @@
 					"$(PROJECT_DIR)/PSKNodeServer/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PSKNodeServer/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
