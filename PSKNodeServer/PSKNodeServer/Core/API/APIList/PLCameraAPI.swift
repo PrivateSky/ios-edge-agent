@@ -18,59 +18,68 @@ struct PLCameraAPI: StreamAPIImplementation {
     }
     
     func openStream(input: [APIValue], completion: @escaping (Result<Void, APIError>) -> Void) {
-        close() // precautionary
-        
-        messageHandler.setupInWebServer(webserver: cameraServer)
-        if !cameraServer.start() {
-            completion(.failure(.init(code: "PLCAMERAAPI_SERVER_START_FAILURE")))
-        } else {
-            completion(.success(()))
+        DispatchQueue.main.async {
+            close() // precautionary
+            guard let port = NetworkUtilities.findFreePort() else {
+                completion(.failure(.init(code: "PLCAMERAAPI_SERVER_START_FAILURE")))
+                return
+            }
+
+            messageHandler.setupInWebServer(webserver: cameraServer)
+            if !cameraServer.start(withPort: .init(port), bonjourName: nil) {
+                completion(.failure(.init(code: "PLCAMERAAPI_SERVER_START_FAILURE")))
+            } else {
+                completion(.success(()))
+            }
         }
     }
     
     func retrieveNext(input: [APIValue], into: @escaping (Result<[APIValue], APIError>) -> Void) {
-        guard let encodedJSON = input.first?.stringCaseValue,
-              let message = PLCameraMessage(encodedJSON: encodedJSON) else {
-                  into(.failure(.init(code: ErrorCodes.messageDecodingFailure)))
-                  return
-              }
-        
-        switch message.name {
-        case .StartCamera:
-            messageHandler.startCamera(args: message.args,
-                                       cameraReadyHandler: {
-                into(.success([.string(self.cameraServerHost)]))
-            },
-                                       permissionDeniedHandler: {
-                into(.failure(.init(code: ErrorCodes.cameraPermissionDenided)))
-            })
-        case .StartCameraWithConfig:
-            messageHandler.startCameraWithConfig(args: message.args,
-                                                 cameraReadyHandler: {
-                into(.success([.string(self.cameraServerHost)]))
-            },
-                                       permissionDeniedHandler: {
-                into(.failure(.init(code: ErrorCodes.cameraPermissionDenided)))
-            })
-        case .SetFlashMode:
-            messageHandler.setFlashMode(args: message.args)
-            into(.success([]))
-        case .SetPreferredColorSpace:
-            messageHandler.setColorSpace(args: message.args)
-            into(.success([]))
-        case .SetTorchLevel:
-            messageHandler.setTorchLevel(args: message.args)
-            into(.success([]))
-        case .TakePicture:
-            messageHandler.takeBase64Picture(args: message.args, completion: {
-                into(.success([.string($0)]))
-            })
-        case .StopCamera:
-            messageHandler.stopCameraSession()
-            into(.success([]))
-        @unknown default:
-            into(.failure(.init(code: ErrorCodes.messageDecodingFailure))) 
-            break
+        DispatchQueue.main.async {
+            guard let encodedJSON = input.first?.stringCaseValue,
+                  let message = PLCameraMessage(encodedJSON: encodedJSON) else {
+                      into(.failure(.init(code: ErrorCodes.messageDecodingFailure)))
+                      return
+                  }
+            
+            switch message.name {
+            case .StartCamera:
+                messageHandler.startCamera(args: message.args,
+                                           cameraReadyHandler: {
+                    into(.success([.string(self.cameraServerHost)]))
+                },
+                                           permissionDeniedHandler: {
+                    into(.failure(.init(code: ErrorCodes.cameraPermissionDenided)))
+                })
+            case .StartCameraWithConfig:
+                messageHandler.startCameraWithConfig(args: message.args,
+                                                     cameraReadyHandler: {
+                    into(.success([.string(self.cameraServerHost)]))
+                },
+                                                     permissionDeniedHandler: {
+                    into(.failure(.init(code: ErrorCodes.cameraPermissionDenided)))
+                })
+                break
+            case .SetFlashMode:
+                messageHandler.setFlashMode(args: message.args)
+                into(.success([]))
+            case .SetPreferredColorSpace:
+                messageHandler.setColorSpace(args: message.args)
+                into(.success([]))
+            case .SetTorchLevel:
+                messageHandler.setTorchLevel(args: message.args)
+                into(.success([]))
+            case .TakePicture:
+                messageHandler.takeBase64Picture(args: message.args, completion: {
+                    into(.success([.string($0)]))
+                })
+            case .StopCamera:
+                messageHandler.stopCameraSession()
+                into(.success([]))
+            @unknown default:
+                into(.failure(.init(code: ErrorCodes.messageDecodingFailure)))
+                break
+            }
         }
     }
     

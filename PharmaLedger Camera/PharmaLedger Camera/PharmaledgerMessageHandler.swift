@@ -114,11 +114,17 @@ public class PharmaledgerMessageHandler: NSObject, CameraEventListener {
     public func startCameraWithConfig(args: [String: Any],
                                       cameraReadyHandler: (() -> Void)?,
                                       permissionDeniedHandler: (() -> Void)?) {
+        onCameraInitializedHandler = cameraReadyHandler
+        onCameraPermissionDeniedHandler = permissionDeniedHandler
+        
         if let pWidth = args["previewWidth"] as? Int {
             self.previewWidth = pWidth
         }
+        
         if let configDict = args["config"] as? [String: Any] {
             handleCameraStart(configDict: configDict)
+        } else {
+            handleCameraStart(configDict: [:])
         }
     }
     
