@@ -22,9 +22,10 @@
 		0BCFE0AF25AD9DA4003F7BC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0BCFE0AD25AD9DA4003F7BC2 /* Localizable.strings */; };
 		0BCFE0B725B0975E003F7BC2 /* ApplicationCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCFE0B625B0975E003F7BC2 /* ApplicationCore.swift */; };
 		0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */; };
-		0BFBD24F259518ED009EACAF /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 		8A171D07279464C600A302BE /* PhotoCaptureStreamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */; };
 		8A2C70C0278E0D50003547EF /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C70BF278E0D50003547EF /* Module.swift */; };
+		8A61940527FB914900B66122 /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
+		8A61940627FB914900B66122 /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 		8A7AC88C2795F123003D4A0B /* ViewlessModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC88B2795F123003D4A0B /* ViewlessModule.swift */; };
 		8A7AC88E2795F350003D4A0B /* CameraMetadataScanModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC88D2795F350003D4A0B /* CameraMetadataScanModuleInput.swift */; };
 		8A7AC8902795F3D5003D4A0B /* CameraMetadataScanModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC88F2795F3D5003D4A0B /* CameraMetadataScanModuleBuilder.swift */; };
@@ -86,7 +87,6 @@
 		8A83E42D27A861D000176C53 /* NodeMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28F0276FE970001E7DBA /* NodeMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8A83E42E27A861D000176C53 /* PSSmartWalletNativeLayer.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7C28EE276FE7FE001E7DBA /* PSSmartWalletNativeLayer.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8A83E43027A861D000176C53 /* AppConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 0BCFE0A125AD0011003F7BC2 /* AppConfig.json */; };
-		8A83E43127A861D000176C53 /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 		8A83E43227A861D000176C53 /* ScannerFocusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A883301278C980300FFB63C /* ScannerFocusView.xib */; };
 		8A83E43327A861D000176C53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B2F76B92593F9BA00983BEE /* Assets.xcassets */; };
 		8A83E43427A861D000176C53 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0BCFE0AD25AD9DA4003F7BC2 /* Localizable.strings */; };
@@ -688,10 +688,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BCFE0A225AD0011003F7BC2 /* AppConfig.json in Resources */,
-				0BFBD24F259518ED009EACAF /* nodejsProject in Resources */,
 				8A88330B278C980300FFB63C /* ScannerFocusView.xib in Resources */,
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
 				0BCFE0AF25AD9DA4003F7BC2 /* Localizable.strings in Resources */,
+				8A61940527FB914900B66122 /* nodejsProject in Resources */,
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
 				0B2F95872593FDF200983BEE /* Main.storyboard in Resources */,
 				8AA1B54827A9E9EF00A1D454 /* ScanditScannerViewController.xib in Resources */,
@@ -706,10 +706,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A83E43027A861D000176C53 /* AppConfig.json in Resources */,
-				8A83E43127A861D000176C53 /* nodejsProject in Resources */,
 				8A83E43227A861D000176C53 /* ScannerFocusView.xib in Resources */,
 				8A83E43327A861D000176C53 /* Assets.xcassets in Resources */,
 				8A83E43427A861D000176C53 /* Localizable.strings in Resources */,
+				8A61940627FB914900B66122 /* nodejsProject in Resources */,
 				8A83E43527A861D000176C53 /* LaunchScreen.storyboard in Resources */,
 				8A83E43627A861D000176C53 /* Main.storyboard in Resources */,
 				8AA1B54927A9E9EF00A1D454 /* ScanditScannerViewController.xib in Resources */,
@@ -985,7 +985,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W46NRY8G6Y;
+				DEVELOPMENT_TEAM = VG2HGP7PFP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1029,7 +1029,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEPLOYMENT_POSTPROCESSING = YES;
-				DEVELOPMENT_TEAM = W46NRY8G6Y;
+				DEVELOPMENT_TEAM = VG2HGP7PFP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

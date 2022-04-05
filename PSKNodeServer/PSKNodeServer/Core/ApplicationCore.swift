@@ -81,7 +81,7 @@ final class ApplicationCore {
             "--env=\(envString)"])
         }.start()
         
-        return URL(string: "http://localhost:\(port)/app/loader/index.html")!
+        return URL(string: "http://localhost:\(port)/app/loader/")!
     }
     
     private func setupApiContainer(apiCollection: APICollection) throws -> APIContainer {
