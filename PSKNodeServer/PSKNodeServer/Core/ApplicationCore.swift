@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import GCDWebServers
 import PSSmartWalletNativeLayer
 
 final class ApplicationCore {
@@ -14,11 +15,13 @@ final class ApplicationCore {
     private var ignoredFirstForeground: Bool = false
     
     func setupStackWith(apiCollection: APICollection,
+                        webServer: GCDWebServer,
                         completion: Completion?,
                         reloadCallback: ReloadCallback?) {
         
         do {
-            let apiContainer = try setupApiContainer(apiCollection: apiCollection)
+            let apiContainer = try setupApiContainer(apiCollection: apiCollection,
+                                                     webServer: webServer)
             self.apiContainer = apiContainer
             let indexPage = try setupNodeServer(path: FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path, apiContainerPort: apiContainer.port)
             
@@ -84,13 +87,14 @@ final class ApplicationCore {
         return URL(string: "http://localhost:\(port)/app/loader/")!
     }
     
-    private func setupApiContainer(apiCollection: APICollection) throws -> APIContainer {
+    func setupApiContainer(apiCollection: APICollection, webServer: GCDWebServer) throws -> APIContainer {
         guard let port = NetworkUtilities.findFreePort() else {
             throw ApplicationCore.SetupError.apiContainerPortSearchFail
         }
         
         do {
-            let apiContainer = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)))
+            let apiContainer = try APIContainer(mode: .apiOnly(selectedPort: UInt(port)),
+                                                webserver: webServer)
             try apiCollection.apiList.forEach {
                 try apiContainer.addAPI(name: $0.name, implementation: $0.impl)
             }

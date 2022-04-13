@@ -12,25 +12,19 @@ import GCDWebServers
 
 struct PLCameraAPI: StreamAPIImplementation {
     private let messageHandler: PharmaledgerMessageHandler = .init()
-    private let cameraServer: GCDWebServer = .init()
+    private let webServer: GCDWebServer
     private var cameraServerHost: String {
-        "http://localhost:\(cameraServer.port)"
+        "http://localhost:\(webServer.port)"
+    }
+    
+    init(webServer: GCDWebServer) {
+        self.webServer = webServer
+        messageHandler.setupInWebServer(webserver: webServer)
     }
     
     func openStream(input: [APIValue], completion: @escaping (Result<Void, APIError>) -> Void) {
         DispatchQueue.main.async {
-            close() // precautionary
-            guard let port = NetworkUtilities.findFreePort() else {
-                completion(.failure(.init(code: "PLCAMERAAPI_SERVER_START_FAILURE")))
-                return
-            }
-
-            messageHandler.setupInWebServer(webserver: cameraServer)
-            if !cameraServer.start(withPort: .init(port), bonjourName: nil) {
-                completion(.failure(.init(code: "PLCAMERAAPI_SERVER_START_FAILURE")))
-            } else {
-                completion(.success(()))
-            }
+            completion(.success(()))
         }
     }
     
@@ -83,10 +77,7 @@ struct PLCameraAPI: StreamAPIImplementation {
         }
     }
     
-    func close() {
-        cameraServer.stop()
-        cameraServer.removeAllHandlers()
-    }
+    func close() { }
 }
 
 private enum ErrorCodes {

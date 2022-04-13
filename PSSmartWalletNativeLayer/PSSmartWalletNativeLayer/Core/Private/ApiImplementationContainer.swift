@@ -209,9 +209,7 @@ private extension ImplementationContainer {
     func determineAPITypeCall(from url: URL) -> APITypeCall? {
         // general API call: <server_url>/apiName
         // stream API call: <server_url>/apiName/{action}
-        
-        print("Determining APIType from: \(url)")
-        
+                
         let components = url.pathComponents
         guard let lastComponent = components.last else {
             print("Empty components, no APIType");

@@ -28,7 +28,7 @@ public class APIContainer {
     }
     
     private let implementationContainer = ImplementationContainer()
-    private let webserver = GCDWebServer()
+    private let webserver: GCDWebServer
     public let port: UInt
     public var serverOrigin: String {
         "http://localhost:\(port)"
@@ -37,7 +37,8 @@ public class APIContainer {
         serverOrigin + "/web-app/"
     }
     
-    public init(mode: Mode) throws {
+    public init(mode: Mode, webserver: GCDWebServer) throws {
+        self.webserver = webserver
         implementationContainer.setupEndpointIn(server: webserver)
         webserver.addDefaultHandler(forMethod: "OPTIONS", request: GCDWebServerRequest.classForCoder()) { (req) -> GCDWebServerResponse? in
             return GCDWebServerResponse().applyCORSHeaders()
@@ -66,7 +67,7 @@ public class APIContainer {
             port = try startFromPort(selectedPort, self.webserver)
         }
         
-        GCDWebServer.setLogLevel(0)
+        GCDWebServer.setLogLevel(4)
     }
     
     public func addAPI(name: String, implementation: @escaping APIClosureImplementation) throws {

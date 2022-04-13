@@ -6,6 +6,7 @@
 //
 
 import PSSmartWalletNativeLayer
+import GCDWebServers
 import UIKit
 
 struct APICollection {
@@ -18,14 +19,15 @@ struct APICollection {
 
 
 extension APICollection {
-    static func setupAPICollection(viewControllerProvider: @autoclosure @escaping DataMatrixScanAPI.ViewControllerProvider) -> APICollection {
+    static func setupAPICollection(webServer: GCDWebServer,
+                                   viewControllerProvider: @autoclosure @escaping DataMatrixScanAPI.ViewControllerProvider) -> APICollection {
         /* This is the main function where each native API may be constructed/initialized */
         
         let dataMatrixAPI = setupDataMatrixScanAPI(viewControllerProvider: viewControllerProvider())
         
         let scanditScanAPI = setupScanditScanAPI(viewControllerProvider: viewControllerProvider())
         let photoCaptureStreamAPI = setupPhotoCaptureStreamAPI()
-        let pharmaLedgerCameraAPI = PLCameraAPI()
+        let pharmaLedgerCameraAPI = PLCameraAPI(webServer: webServer)
         
         return APICollection(apiList: [("dataMatrixScan", dataMatrixAPI),
                                        ("scanditScan", scanditScanAPI)],

@@ -5,13 +5,14 @@
 //  Created by Costin Andronache on 10/22/20.
 //
 
-import UIKit
 import PSSmartWalletNativeLayer
+import GCDWebServers
 import WebKit
+import UIKit
 
 class ViewController: UIViewController {
     private let ac = ApplicationCore()
-    
+    private let mainWebServer = GCDWebServer()
     private let webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
     @IBOutlet private var webHostView: PSKWebViewHostView?
     
@@ -20,9 +21,11 @@ class ViewController: UIViewController {
         view.backgroundColor = Configuration.defaultInstance.webviewBackgroundColor
         
         webHostView?.constrain(webView: webView)
-        let apiCollection = APICollection.setupAPICollection(viewControllerProvider: self)
+        let apiCollection = APICollection.setupAPICollection(webServer: mainWebServer,
+                                                             viewControllerProvider: self)
         
         ac.setupStackWith(apiCollection: apiCollection,
+                          webServer: mainWebServer,
                           completion: { [weak self] (result) in
             switch result {
             case .success(let url):
@@ -39,7 +42,8 @@ class ViewController: UIViewController {
                 UIAlertController.okMessage(in: self, message: "\(error.description)\n\("error_final_words".localized)", completion: nil)
             }
         })
-
+        
+        GCDWebServer.setLogLevel(0)
     }
 
     func loadURL(string: String) {
