@@ -99,8 +99,6 @@
 		8A84B45B27973DC50063355C /* CameraFrameCaptureModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A84B45A27973DC50063355C /* CameraFrameCaptureModuleInput.swift */; };
 		8A84B45D27973DD70063355C /* CameraFrameCapturePreviewModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A84B45C27973DD70063355C /* CameraFrameCapturePreviewModuleBuilder.swift */; };
 		8A84B45F27975DD10063355C /* VideoCaptureSessionModuleBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A84B45E27975DD10063355C /* VideoCaptureSessionModuleBuilders.swift */; };
-		8A877FB3280606F000AA7FA4 /* nativePageDemo in Resources */ = {isa = PBXBuildFile; fileRef = 8A877FB2280606F000AA7FA4 /* nativePageDemo */; };
-		8A877FB4280606F000AA7FA4 /* nativePageDemo in Resources */ = {isa = PBXBuildFile; fileRef = 8A877FB2280606F000AA7FA4 /* nativePageDemo */; };
 		8A8832ED278C976700FFB63C /* DataMatrixScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8832EB278C976700FFB63C /* DataMatrixScan.swift */; };
 		8A8832F1278C977B00FFB63C /* NodeRunner.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A8832EF278C977B00FFB63C /* NodeRunner.mm */; };
 		8A8832F4278C978B00FFB63C /* PSKWebViewHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8832F3278C978B00FFB63C /* PSKWebViewHostView.swift */; };
@@ -232,7 +230,7 @@
 		0BCFE0B625B0975E003F7BC2 /* ApplicationCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCore.swift; sourceTree = "<group>"; };
 		0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtilities.swift; sourceTree = "<group>"; };
 		0BEBA0D525B617610045D32E /* Version.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Version.xcconfig; sourceTree = "<group>"; };
-		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BF91AEE2542058A001A9031 /* EPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = EPI.app; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 		8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureStreamAPI.swift; sourceTree = "<group>"; };
 		8A2C70BF278E0D50003547EF /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
@@ -256,7 +254,6 @@
 		8A84B45A27973DC50063355C /* CameraFrameCaptureModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFrameCaptureModuleInput.swift; sourceTree = "<group>"; };
 		8A84B45C27973DD70063355C /* CameraFrameCapturePreviewModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFrameCapturePreviewModuleBuilder.swift; sourceTree = "<group>"; };
 		8A84B45E27975DD10063355C /* VideoCaptureSessionModuleBuilders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCaptureSessionModuleBuilders.swift; sourceTree = "<group>"; };
-		8A877FB2280606F000AA7FA4 /* nativePageDemo */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nativePageDemo; sourceTree = "<group>"; };
 		8A8832EB278C976700FFB63C /* DataMatrixScan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMatrixScan.swift; sourceTree = "<group>"; };
 		8A8832EF278C977B00FFB63C /* NodeRunner.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NodeRunner.mm; sourceTree = "<group>"; };
 		8A8832F0278C977B00FFB63C /* NodeRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeRunner.h; sourceTree = "<group>"; };
@@ -291,7 +288,6 @@
 		8AA1B54327A9E9EF00A1D454 /* SymbologyExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SymbologyExtension.swift; sourceTree = "<group>"; };
 		8AC0D076280725B500B66E05 /* StaticPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticPageViewController.swift; sourceTree = "<group>"; };
 		8AC1D99327B2FB9000826E3F /* PharmaLedgerCamera.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = PharmaLedgerCamera.xcframework; path = "../PharmaLedger Camera/xcframeworkOutput/PharmaLedgerCamera.xcframework"; sourceTree = "<group>"; };
-		8AC56CFE27FE1D1D00B8C503 /* PSKNodeServer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PSKNodeServer copy-Info.plist"; path = "/Users/costinandronache/Desktop/Projects/PharmaLedger-IMI/ios-edge-agent/PSKNodeServer/PSKNodeServer copy-Info.plist"; sourceTree = "<absolute>"; };
 		8AC56CFF27FE1D4300B8C503 /* PSSmartWalletNativeLayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PSSmartWalletNativeLayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC56D0227FE1D4B00B8C503 /* PharmaLedgerCamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PharmaLedgerCamera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD5387E2793144F00F28A81 /* ArrayUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtilities.swift; sourceTree = "<group>"; };
@@ -343,7 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				0BEBA0D625B645410045D32E /* UI */,
-				8A877FB2280606F000AA7FA4 /* nativePageDemo */,
 				0BFBD24E259518ED009EACAF /* nodejsProject */,
 				0BCFE0A025ACFFEA003F7BC2 /* Resources */,
 				0BD719F8259C6A9900151CB9 /* Core */,
@@ -446,7 +441,6 @@
 				0B2F62452593F9A000983BEE /* PSKNodeServer */,
 				0BF91AEF2542058A001A9031 /* Products */,
 				0B77D9BB2545F100006E0CC3 /* Frameworks */,
-				8AC56CFE27FE1D1D00B8C503 /* PSKNodeServer copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -704,7 +698,6 @@
 				0BCFE0A225AD0011003F7BC2 /* AppConfig.json in Resources */,
 				8A88330B278C980300FFB63C /* ScannerFocusView.xib in Resources */,
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
-				8A877FB3280606F000AA7FA4 /* nativePageDemo in Resources */,
 				0BCFE0AF25AD9DA4003F7BC2 /* Localizable.strings in Resources */,
 				8A61940527FB914900B66122 /* nodejsProject in Resources */,
 				0B2F95862593FDF200983BEE /* LaunchScreen.storyboard in Resources */,
@@ -723,7 +716,6 @@
 				8A83E43027A861D000176C53 /* AppConfig.json in Resources */,
 				8A83E43227A861D000176C53 /* ScannerFocusView.xib in Resources */,
 				8A83E43327A861D000176C53 /* Assets.xcassets in Resources */,
-				8A877FB4280606F000AA7FA4 /* nativePageDemo in Resources */,
 				8A83E43427A861D000176C53 /* Localizable.strings in Resources */,
 				8A61940627FB914900B66122 /* nodejsProject in Resources */,
 				8A83E43527A861D000176C53 /* LaunchScreen.storyboard in Resources */,
