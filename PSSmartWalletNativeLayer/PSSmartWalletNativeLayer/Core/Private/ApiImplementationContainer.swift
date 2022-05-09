@@ -15,6 +15,7 @@ class ImplementationContainer {
     private let dataStorage = DataStorage()
     
     private var webServer: GCDWebServer?
+    var authorizationCookie = AuthorizationCookie(name: "", token: "", origin: "")
     
     private let internalResultProcessingQueue = DispatchQueue(label: "PSSmartWalletNativeLayer.internalResultProcessingQueue",
                                                               qos: .default,
@@ -57,19 +58,22 @@ class ImplementationContainer {
     }
     
     private func setupBytesDownloadEndpointIn(server: GCDWebServer) {
-        server.addHandler(forMethod: "GET", path: "/retrieve-resource", request: GCDWebServerRequest.classForCoder()) { (request, completion) in
-            guard let id = request.query?["id"], let data = self.dataStorage.removeFrom(id: id)  else {
+        server.addHandler(forMethod: "GET", path: "/retrieve-resource", request: GCDWebServerRequest.classForCoder()) { [weak self] (request, completion) in
+            guard let id = request.query?["id"],
+                  let data = self?.dataStorage.removeFrom(id: id),
+                  self?.authorizationCookie.verifiedIn(request: request) == true  else {
                 completion(nil)
                 return
             }
-            completion(GCDWebServerDataResponse(data: data, contentType: "application/octet-stream").applyCORSHeaders())
+            completion(GCDWebServerDataResponse(data: data, contentType: "application/octet-stream").applyCORSHeaders(serverOrigin: self?.authorizationCookie.origin))
         }
     }
     
     private func setupAPICallEndpointIn(server: GCDWebServer) {
         server.addDefaultHandler(forMethod: "POST", request: GCDWebServerMultiPartFormRequest.classForCoder()) { [weak self] (request, completion) in
             guard let multiPartRequest = request as? GCDWebServerMultiPartFormRequest,
-                  let callType = self?.determineAPITypeCall(from: multiPartRequest.url) else {
+                  let callType = self?.determineAPITypeCall(from: multiPartRequest.url),
+                  self?.authorizationCookie.verifiedIn(request: request) == true else {
                       self?.completeWith(error: .noSuchApiError,
                                          completion: completion)
                       return
@@ -122,6 +126,7 @@ class ImplementationContainer {
     private func handleDataStreamCall(api: @escaping DataStreamAPIImplementation,
                                       arguments: [APIValue],
                                       completion: @escaping GCDWebServerCompletionBlock) {
+        let authorizationCookie = self.authorizationCookie
         DispatchQueue.main.async {
             api(arguments) { result in
                 switch result {
@@ -135,7 +140,7 @@ class ImplementationContainer {
                                 bodyBlock(Data(), nil)
                             }
                         }
-                    }).applyCORSHeaders().applyStreamHeader())
+                    }).applyCORSHeaders(serverOrigin: authorizationCookie.origin).applyStreamHeader())
                 case .failure(let error):
                     self.completeWith(error: error, completion: completion)
                 }
@@ -179,19 +184,29 @@ class ImplementationContainer {
     }
     
     private func completeWith(error: APIError, completion: @escaping GCDWebServerCompletionBlock) {
-        completion(GCDWebServerDataResponse(jsonObject: ["error": error.code])?.applyCORSHeaders())
+        completion(GCDWebServerDataResponse(jsonObject: ["error": error.code])?.applyCORSHeaders(serverOrigin: authorizationCookie.origin))
     }
     
     private func completeWith(values: [APIValue], completion: @escaping GCDWebServerCompletionBlock) {
-        let port = webServer?.port ?? 0
-        let origin = "http://localhost:\(port)"
+
         let jsonArray = values.map({ (value) -> [String: Any] in
-            value.jsonWithMetadata(origin: origin,
+            value.jsonWithMetadata(origin: webServer?.serverOrigin ?? "",
                                    bytesIdGenerator: { self.dataStorage.insert(data: $0) })
         })
-        completion(GCDWebServerDataResponse(jsonObject: ["result": jsonArray])?.applyCORSHeaders())
+        completion(GCDWebServerDataResponse(jsonObject: ["result": jsonArray])?.applyCORSHeaders(serverOrigin: authorizationCookie.origin))
     }
-    
+}
+
+private extension AuthorizationCookie {
+    func verifiedIn(request: GCDWebServerRequest) -> Bool {
+        guard let requestCookie = (request.headers["Cookie"] ?? request.headers["cookie"]) else {
+            print("NO COOKIES")
+            return false
+        }
+        let verified = requestCookie.contains(name) && requestCookie.contains(token)
+        print("COOKIE VERIFIED: \(verified)")
+        return verified
+    }
 }
 
 private extension ImplementationContainer {

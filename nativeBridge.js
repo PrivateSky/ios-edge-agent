@@ -172,7 +172,8 @@ class NativeApiCall extends CallableObject {
         const options = {
           method: 'POST',
           mode: 'cors',
-          body: formData
+          body: formData,
+          credentials: 'include'
         };
         fetch(url, options)
         .then((response) => {
@@ -240,7 +241,8 @@ class NativeApiCall extends CallableObject {
         const url = bytesItem.path;
         const options = {
         method: 'GET',
-        mode: 'cors'
+        mode: 'cors',
+        credentials: 'include'
         };
         fetch(url, options)
         .then((response) => {

@@ -60,3 +60,15 @@ public protocol DataStreamSessionDelegate {
 
 public typealias DataStreamSessionDelegateCompletion = (Result<DataStreamSessionDelegate, APIError>) -> Void
 public typealias DataStreamAPIImplementation = ([Any], @escaping DataStreamSessionDelegateCompletion) -> Void
+
+public struct AuthorizationCookie {
+    public let name: String
+    public let token: String
+    public let origin: String
+    
+    public init(name: String, token: String, origin: String) {
+        self.name = name
+        self.token = token
+        self.origin = origin
+    }
+}

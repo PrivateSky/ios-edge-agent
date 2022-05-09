@@ -17,7 +17,6 @@ final class StaticPageViewController: UIViewController {
     private let ac = ApplicationCore()
     private let webView = WKWebView(frame: .zero, configuration: .init())
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.constrainFull(other: webView)

@@ -30,21 +30,23 @@ public class APIContainer {
     private let implementationContainer = ImplementationContainer()
     private let webserver: GCDWebServer
     public let port: UInt
+    public var authorizationCookie = AuthorizationCookie(name: "", token: "", origin: "") {
+        didSet {
+            implementationContainer.authorizationCookie = authorizationCookie
+        }
+    }
     public var serverOrigin: String {
-        "http://localhost:\(port)"
+        webserver.serverOrigin
     }
     public var webAppOrigin: String {
         serverOrigin + "/web-app/"
     }
     
-    public init(mode: Mode, webserver: GCDWebServer) throws {
+    public init(mode: Mode,
+                webserver: GCDWebServer) throws {
         self.webserver = webserver
         implementationContainer.setupEndpointIn(server: webserver)
-        webserver.addDefaultHandler(forMethod: "OPTIONS", request: GCDWebServerRequest.classForCoder()) { (req) -> GCDWebServerResponse? in
-            return GCDWebServerResponse().applyCORSHeaders()
-        }
-        
-        
+
         let startFromPort: (UInt?, GCDWebServer) throws -> UInt = {
             var port: UInt = $0 ?? 8600
             while !$1.start(withPort: port, bonjourName: nil) && port < maxPortSearched {
@@ -67,6 +69,9 @@ public class APIContainer {
             port = try startFromPort(selectedPort, self.webserver)
         }
         
+        webserver.addDefaultHandler(forMethod: "OPTIONS", request: GCDWebServerRequest.classForCoder()) { [weak self] (req) -> GCDWebServerResponse? in
+            return GCDWebServerResponse().applyCORSHeaders(serverOrigin: self?.authorizationCookie.origin)
+        }
         GCDWebServer.setLogLevel(4)
     }
     
@@ -89,10 +94,16 @@ public class APIContainer {
     
 }
 
+public extension GCDWebServer {
+    var serverOrigin: String {
+        "http://localhost:\(port)"
+    }
+}
+
 extension GCDWebServerResponse {
-    func applyCORSHeaders() -> Self {
+    func applyCORSHeaders(serverOrigin: String?) -> Self {
         let resp = self
-        resp.setValue("*", forAdditionalHeader: "Access-Control-Allow-Origin")
+        resp.setValue(serverOrigin ?? "*", forAdditionalHeader: "Access-Control-Allow-Origin")
         resp.setValue("*", forAdditionalHeader: "Access-Control-Allow-Methods")
         resp.setValue("*", forAdditionalHeader: "Access-Control-Allow-Headers")
         resp.setValue("true", forAdditionalHeader: "Access-Control-Allow-Credentials")
