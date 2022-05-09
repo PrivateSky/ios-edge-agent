@@ -14,12 +14,17 @@ final class ApplicationCore {
     private var indexPageURL: URL?
     private var ignoredFirstForeground: Bool = false
     
+    func setSecurityCookie(cookie: AuthorizationCookie) {
+        apiContainer?.authorizationCookie = cookie
+    }
+    
     func setupStackWith(apiCollection: APICollection,
                         webServer: GCDWebServer,
                         completion: Completion?,
                         reloadCallback: ReloadCallback?) {
         
         do {
+            self.reloadCallback = reloadCallback
             let apiContainer = try setupApiContainer(apiCollection: apiCollection,
                                                      webServer: webServer)
             self.apiContainer = apiContainer
@@ -79,15 +84,16 @@ final class ApplicationCore {
         let envString = String(data: try! JSONEncoder().encode(env), encoding: .ascii)!
         
         Thread {
-            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)", "--port=\(port)",
-            "--rootFolder=\(apihubRootPath)",
-            "--env=\(envString)"])
+            NodeRunner.startEngine(withArguments: ["node", serverLauncher, "--bundle=\(pskServerPath)",
+                                                   "--port=\(port)", "--rootFolder=\(apihubRootPath)",
+                                                   "--env=\(envString)"])
         }.start()
         
         return URL(string: "http://localhost:\(port)/app/loader/")!
     }
     
-    func setupApiContainer(apiCollection: APICollection, webServer: GCDWebServer) throws -> APIContainer {
+    func setupApiContainer(apiCollection: APICollection,
+                           webServer: GCDWebServer) throws -> APIContainer {
         guard let port = NetworkUtilities.findFreePort() else {
             throw ApplicationCore.SetupError.apiContainerPortSearchFail
         }
