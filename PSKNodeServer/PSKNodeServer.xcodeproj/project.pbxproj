@@ -24,6 +24,9 @@
 		0BD719FC259C6B8E00151CB9 /* NetworkUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD719FB259C6B8E00151CB9 /* NetworkUtilities.swift */; };
 		8A171D07279464C600A302BE /* PhotoCaptureStreamAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */; };
 		8A2C70C0278E0D50003547EF /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2C70BF278E0D50003547EF /* Module.swift */; };
+		8A2CE18828AA3A4C002BFBE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A2CE18628AA3A4C002BFBE1 /* InfoPlist.strings */; };
+		8A2CE18928AA3A4C002BFBE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A2CE18628AA3A4C002BFBE1 /* InfoPlist.strings */; };
+		8A2CE18A28AA3A4C002BFBE1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8A2CE18628AA3A4C002BFBE1 /* InfoPlist.strings */; };
 		8A61940527FB914900B66122 /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 		8A61940627FB914900B66122 /* nodejsProject in Resources */ = {isa = PBXBuildFile; fileRef = 0BFBD24E259518ED009EACAF /* nodejsProject */; };
 		8A7AC88C2795F123003D4A0B /* ViewlessModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC88B2795F123003D4A0B /* ViewlessModule.swift */; };
@@ -333,6 +336,7 @@
 		0BFBD24E259518ED009EACAF /* nodejsProject */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nodejsProject; sourceTree = "<group>"; };
 		8A171D06279464C600A302BE /* PhotoCaptureStreamAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptureStreamAPI.swift; sourceTree = "<group>"; };
 		8A2C70BF278E0D50003547EF /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		8A2CE18728AA3A4C002BFBE1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = PSKNodeServer/Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8A7AC88B2795F123003D4A0B /* ViewlessModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewlessModule.swift; sourceTree = "<group>"; };
 		8A7AC88D2795F350003D4A0B /* CameraMetadataScanModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMetadataScanModuleInput.swift; sourceTree = "<group>"; };
 		8A7AC88F2795F3D5003D4A0B /* CameraMetadataScanModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraMetadataScanModuleBuilder.swift; sourceTree = "<group>"; };
@@ -548,6 +552,7 @@
 				0B2F76BB2593F9BA00983BEE /* LaunchScreen.storyboard */,
 				0B2F76BD2593F9BA00983BEE /* Main.storyboard */,
 				0BCFE0AD25AD9DA4003F7BC2 /* Localizable.strings */,
+				8A2CE18628AA3A4C002BFBE1 /* InfoPlist.strings */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -833,6 +838,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BCFE0A225AD0011003F7BC2 /* AppConfig.json in Resources */,
+				8A2CE18828AA3A4C002BFBE1 /* InfoPlist.strings in Resources */,
 				8A88330B278C980300FFB63C /* ScannerFocusView.xib in Resources */,
 				0B2F95852593FDF200983BEE /* Assets.xcassets in Resources */,
 				0BCFE0AF25AD9DA4003F7BC2 /* Localizable.strings in Resources */,
@@ -851,6 +857,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A83E43027A861D000176C53 /* AppConfig.json in Resources */,
+				8A2CE18928AA3A4C002BFBE1 /* InfoPlist.strings in Resources */,
 				8A83E43227A861D000176C53 /* ScannerFocusView.xib in Resources */,
 				8A83E43327A861D000176C53 /* Assets.xcassets in Resources */,
 				8A83E43427A861D000176C53 /* Localizable.strings in Resources */,
@@ -869,6 +876,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8AC08A9D28285B0F0050B99B /* AppConfig.json in Resources */,
+				8A2CE18A28AA3A4C002BFBE1 /* InfoPlist.strings in Resources */,
 				8AC08A9E28285B0F0050B99B /* ScannerFocusView.xib in Resources */,
 				8AC08A9F28285B0F0050B99B /* Assets.xcassets in Resources */,
 				8AC08AA028285B0F0050B99B /* Localizable.strings in Resources */,
@@ -1075,6 +1083,14 @@
 				0BCFE0AE25AD9DA4003F7BC2 /* Base */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		8A2CE18628AA3A4C002BFBE1 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8A2CE18728AA3A4C002BFBE1 /* Base */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
