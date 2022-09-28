@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CameraEventListener Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/CameraEventListener" class="dashAnchor"></a>
+    <a title="CameraEventListener Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">PharmaLedger_Camera 1.1.1 Docs</a></p>
+        <p class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">PharmaLedger_Camera Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CameraEventListener Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Guides.html">Guides</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../readme.html">README</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CameraConfiguration.html">CameraConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CameraSession.html">CameraSession</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/CMSampleBuffer.html">CMSampleBuffer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIDevice.html">UIDevice</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/CameraEventListener.html">CameraEventListener</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CameraEventListener</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">CameraEventListener</span></code></pre>
+
+                </div>
+              </div>
+            <p>Public event listener for camera callbacks, such as preview frames, photo capture and initialization</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onPreviewFrameWithSampleBuffer:"></a>
+                    <a name="//apple_ref/swift/Method/onPreviewFrame(sampleBuffer:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onPreviewFrameWithSampleBuffer:">onPreviewFrame(sampleBuffer:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provides the sample buffer of the camera preview feed</p>
+<h1 id='code' class='heading'>Code</h1>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">onPreviewFrame</span><span class="p">(</span><span class="nv">sampleBuffer</span><span class="p">:</span> <span class="kt">CMSampleBuffer</span><span class="p">){</span>
+   <span class="c1">// Convert the sample buffer into an UI image so that it can be displayed in UIImage view</span>
+   <span class="k">guard</span> <span class="k">let</span> <span class="nv">image</span><span class="p">:</span><span class="kt">UIImage</span> <span class="o">=</span> <span class="n">sampleBuffer</span><span class="o">.</span><span class="nf">bufferToUIImage</span><span class="p">(</span><span class="nv">ciContext</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">ciContext</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+   <span class="c1">// Display the image without blocking the main thread</span>
+   <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">async</span> <span class="p">{</span>
+       <span class="k">self</span><span class="o">.</span><span class="n">mImageView</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">sampleBuffer</span><span class="o">.</span><span class="nf">bufferToUIImage</span><span class="p">(</span><span class="nv">ciContext</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">ciContext</span><span class="p">)</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">onPreviewFrame</span><span class="p">(</span><span class="nv">sampleBuffer</span><span class="p">:</span> <span class="kt">CMSampleBuffer</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sampleBuffer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>CMSampleBuffer that can be buffered into an image or data object</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onCaptureWithImageData:"></a>
+                    <a name="//apple_ref/swift/Method/onCapture(imageData:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onCaptureWithImageData:">onCapture(imageData:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Provides the image output of the photo capture.</p>
+<h1 id='code' class='heading'>Code</h1>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">onCapture</span><span class="p">(</span><span class="nv">imageData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">filedir</span> <span class="o">=</span> <span class="n">imageData</span><span class="o">.</span><span class="nf">savePhotoToFiles</span><span class="p">(</span><span class="nv">fileName</span><span class="p">:</span> <span class="s">"test"</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//Something went wrong when saving the file</span>
+        <span class="k">return</span>
+    <span class="p">}</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"file saved to </span><span class="se">\(</span><span class="n">filedir</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">onCapture</span><span class="p">(</span><span class="nv">imageData</span><span class="p">:</span> <span class="kt">Data</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>imageData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Data object of the photo capture image</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onCameraInitialized"></a>
+                    <a name="//apple_ref/swift/Method/onCameraInitialized()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onCameraInitialized">onCameraInitialized()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Called when the camera initialization has finished</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">onCameraInitialized</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onCameraPermissionDenied"></a>
+                    <a name="//apple_ref/swift/Method/onCameraPermissionDenied()" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@M@PharmaLedger_Camera@objc(pl)CameraEventListener(im)onCameraPermissionDenied">onCameraPermissionDenied()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the user has denied the camera access permission and the SDK was unable to request the permission, this event will be called</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">onCameraPermissionDenied</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.7</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

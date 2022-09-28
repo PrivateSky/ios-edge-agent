@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+<html>
+   <head>
+      
+      <script type = "text/javascript">
+         function WebSocketTest() {
+            
+            if ("WebSocket" in window) {
+               alert("WebSocket is supported by your Browser!");
+               //
+               var fps = 0
+               var nbrFramesTimed = 10
+               var currentFrameId = 0
+               var t0 = new Date().getTime();
+               // Let us open a web socket
+               var ws = new WebSocket("ws://localhost:8888");
+               // var ws = new WebSocket("ws://172.30.2.163:8888");
+               // var ws = new WebSocket("ws://192.168.8.155:8888");
+				
+               ws.onopen = function() {
+                  
+                console.log('connection opened');
+               };
+				
+               ws.onmessage = function (evt) { 
+                  currentFrameId = currentFrameId+1;
+                  evt.data.arrayBuffer().then(b => {
+                     var frame = new Uint8ClampedArray(b);
+                     if (currentFrameId === nbrFramesTimed) {
+                        fps = Math.round(10* 1000 * nbrFramesTimed / ( new Date().getTime() - t0 )) / 10;
+                        currentFrameId = 0
+                        t0 = new Date().getTime();
+                     }
+                     document.getElementById('disp').innerHTML = `L=${frame.byteLength}, frame[0]=${frame[0]}, FPS=${fps}`
+                  })
+               };
+				
+               ws.onclose = function() { 
+                  
+                  // websocket is closed.
+                  alert("Connection is closed..."); 
+               };
+            } else {
+              
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+         }
+      </script>
+		
+   </head>
+   
+   <body>
+      <div id = "sse">
+         <a href = "javascript:WebSocketTest()">Run WebSocket</a>
+      </div>
+      <p id="disp"></p>
+   </body>
+</html>

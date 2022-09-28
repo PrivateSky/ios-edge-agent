@@ -25,7 +25,7 @@ class CallableObject extends Function {
     return this._bound;
   }
   
-  _call(...args) {
+  _call(args) {
     console.log(this, args);
   }
     
@@ -100,8 +100,7 @@ class StreamPacketCollector {
     }
 }
 
-class StreamApiCall {
-    
+class DataStreamApiCall {
     constructor(response) {
         this.response = response;
     }
@@ -148,15 +147,14 @@ class StreamApiCall {
 }
 
 class NativeApiCall extends CallableObject {
-
-    constructor(nativeApiSymbol, origin) {
+    constructor(url) {
         super();
-        this.nativeApiSymbol = nativeApiSymbol;
-        this.origin = origin;
+        this.url = url;
     }
 
-    _call(...args) {
+    _call(args) {
         const self = this;
+        args = args || [];
 
         return new Promise((resolve, reject) => {
             const formData = new FormData();
@@ -170,34 +168,36 @@ class NativeApiCall extends CallableObject {
     
     makeApiCall(formData, resultCallback, errorCallback) {
         const self = this;
-        const url = `${this.origin}/${self.nativeApiSymbol}`;
+        const url = this.url;
         const options = {
           method: 'POST',
           mode: 'cors',
-          body: formData
+          body: formData,
+          credentials: 'include'
         };
         fetch(url, options)
         .then((response) => {
-            console.log("HEEELP");
             if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status} for ${self.nativeApiSymbol} and ${formData}`);
+              throw new Error(`HTTP error! status: ${response.status} for ${self.url} and ${formData}`);
             }
             
             const isStreamedResponse = response.headers.get("X-Stream-Header");
             
-            if (isStreamedResponse && isStreamedResponse .includes("*")) {
-                resultCallback(new StreamApiCall(response))
+            if (isStreamedResponse && isStreamedResponse.includes("*")) {
+                resultCallback(new DataStreamApiCall(response))
                 return;
             }
     
-            return response.json()        .then((jsonResponse) => {
+            return response.json().then((jsonResponse) => {
                 if(jsonResponse.error) {
                     errorCallback(jsonResponse.error);
                 } else if(jsonResponse.result) {
                     self.processApiResult(jsonResponse.result, resultCallback, errorCallback);
                 }
             }, errorCallback);
-        })
+        }, (error) => {
+            console.log("Native API Error: " + error);
+        });
     }
     
     processApiResult(resultArray, resultCallback, errorCallback) {
@@ -216,11 +216,11 @@ class NativeApiCall extends CallableObject {
     promiseFor(valueItem, results) {
         const self = this;
         return new Promise((resolve, reject) => {
-            if(!exists(valueItem.type)) { reject(`Unknown result type for value ${valueItem}; ${results} in call ${self.nativeApiSymbol}`); return;}
+            if(!exists(valueItem.type)) { reject(`Unknown result type for value ${valueItem}; ${results} in call ${self.url}`); return;}
             if(valueItem.type == "number" || valueItem.type == "string") {
                 const value = valueItem.value;
                 if(!exists(value) || !(isNumber(value) || isString(value))) {
-                    reject(`Value in ${valueItem} is neither string nor number; ${results}, ${self.nativeApiSymbol}`);
+                    reject(`Value in ${valueItem} is neither string nor number; ${results}, ${self.url}`);
                     return;
                 }
                 resolve(value);
@@ -235,22 +235,25 @@ class NativeApiCall extends CallableObject {
     downloadBytes(bytesItem, results, resolve, reject) {
         const self = this;
         if(!bytesItem.path || !(isString(bytesItem.path))) {
-            reject(`Path field non-existend or wrong type: ${bytesItem}; ${results}, ${self.nativeApiSymbol}`);
+            reject(`Path field non-existend or wrong type: ${bytesItem}; ${results}, ${self.url}`);
             return;
         }
-        const url = `${this.origin}${bytesItem.path}`;
+        const url = bytesItem.path;
         const options = {
         method: 'GET',
-        mode: 'cors'
+        mode: 'cors',
+        credentials: 'include'
         };
         fetch(url, options)
         .then((response) => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status} for ${self.nativeApiSymbol} retrieving ${bytesItem.path}`);
+                reject(`HTTP error! status: ${response.status} for ${self.url} retrieving ${bytesItem.path}`);
             }
-            return response.blob();
-        })
-        .then(resolve, reject);
+            
+            response.blob().then((theBlob) => {
+                resolve(theBlob);
+            });
+        });
     }
     
     insert(element, name, formData) {
@@ -267,7 +270,7 @@ class NativeApiCall extends CallableObject {
             } else if(this.isArrayOfNumbersOrStrings(element)) {
                 formData.set(name, JSON.stringify(element));
             } else {
-                const message = `The value ${element} is not an instance of an accepted type. Only Number, String, [String|Number], Uint8Array and Blob are acceptable types. Api call: ${this.nativeApiSymbol}`;
+                const message = `The value ${element} is not an instance of an accepted type. Only Number, String, [String|Number], Uint8Array and Blob are acceptable types. Api call: ${this.url}`;
                 throw new Error(message);
             }
         }
@@ -284,18 +287,154 @@ class NativeApiCall extends CallableObject {
 
 }
 
-class PSSmartWalletNativeLayer {
+class NativePushStreamChannel {
+    constructor(websocketURL, identifier) {
+        this.websocketURL = websocketURL;
+        this.identifier = identifier;
+    }
+    
+    connect() {
+        let socket = new WebSocket(this.websocketURL);
+        socket.binaryType = "arraybuffer";
+        let self = this;
+        self.socket = socket;
+        return new Promise((resolve, reject) => {
+            socket.onopen = (event) => {
+                socket.onmessage = (message) => {
+                    if(message.data == "READY") {
+                        socket.onmessage = (binaryMessageEvent) => {
+                            self.handleIncomingData(binaryMessageEvent);
+                        }
+                        resolve(self);
+                    } else {
+                        reject(message.data);
+                    }
+                };
+                socket.send(self.identifier);
+            };
+            
+            socket.onerror = (error) => {
+              reject(error);
+            };
+        });
+    }
+    
+    setNewEventHandler(handler) {
+        this.handler = handler;
+    }
+    
+    send(data) {
+        this.socket.send(data);
+    }
+    
+    handleIncomingData(event) {
+        if(this.handler) {
+            this.handler(event.data);
+        }
+    }
+    
+    close() {
+        this.socket.close();
+    }
+}
 
+class NativePushStreamAPI {
+    constructor(origin, name) {
+        this.origin = origin;
+        this.apiName = name;
+        this.openedChannels = [];
+        const openURL = `${origin}/pushStream/open/${name}`;
+        const closeURL = `${origin}/pushStream/close/${name}`;
+        this.openCall = new NativeApiCall(openURL);
+        this.closeCall = new NativeApiCall(closeURL);
+    }
+    
+    openStream(options) {
+        let self = this;
+        return new Promise((resolve, reject) => {
+            self.openCall(options).then((resultArray) => {
+                resolve();
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+    
+    openChannel(channelName,options) {
+        const openChannelURL = `${this.origin}/pushStream/connect/${this.apiName}/${channelName}`;
+        let openChannelCall = new NativeApiCall(openChannelURL);
+        const self = this;
+        return new Promise((resolve, reject) => {
+            openChannelCall(options).then((resultArray) => {
+                const wsURL = resultArray[0];
+                const wsID = resultArray[1];
+                const channel = new NativePushStreamChannel(wsURL, wsID);
+                channel.connect().then(resolve, reject);
+                self.openedChannels.push(channel);
+            }, (error) => {
+                reject(error);
+            });
+        });
+    }
+    
+    closeStream() {
+        this.closeCall();
+        this.openedChannels.forEach((item) => {
+            item.close();
+        })
+    }
+}
+
+class NativeStreamAPI {
+    constructor(origin, name) {
+        const baseURL = `${origin}/${name}`;
+        const openURL = `${baseURL}/open`;
+        const nextValueURL = `${baseURL}/nextValue`;
+        const closeURL = `${baseURL}/close`;
+
+        this.openCall = new NativeApiCall(openURL);
+        this.nextValueCall = new NativeApiCall(nextValueURL);
+        this.closeCall = new NativeApiCall(closeURL);
+    }
+
+    openStream(args) {
+        return this.openCall(args);
+    }
+
+    retrieveNextValue(args) {
+        return this.nextValueCall(args);
+    }
+
+    close() {
+        return this.closeCall();
+    }
+}
+
+class PSSmartWalletNativeLayer {
     constructor(origin) {
-        this.nativeApiMap = {};
+        this.nativeAPIMap = {};
+        this.nativeStreamAPIMap = {};
+        this.nativePushStreamAPIMap = {};
         this.origin = origin;
     }
 
     importNativeAPI(name) {
-        const nativeApiCall = this.nativeApiMap[name] ||
-          new NativeApiCall(name, this.origin);
-        this.nativeApiMap[name] = nativeApiCall;
+        const url = `${this.origin}/${name}`
+        const nativeApiCall = this.nativeAPIMap[name] || new NativeApiCall(url);
+        this.nativeAPIMap[name] = nativeApiCall;
         return nativeApiCall;
+    }
+
+    importNativeStreamAPI(name) {
+        const api = this.nativeStreamAPIMap[name] || new NativeStreamAPI(this.origin, name);
+        this.nativeStreamAPIMap[name] = api;
+        return api;
+    }
+    
+    importNativePushStreamAPI(name) {
+        const api = this.nativePushStreamAPIMap[name] || new NativePushStreamAPI(this.origin, name);
+        this.nativePushStreamAPIMap[name] = api;
+        return api;
     }
 }
 
@@ -311,7 +450,6 @@ function detectNativeServerUrl(callback){
             called = true;
             return callback(err, result);
         } else if(err){
-            //Just to don't loose errors
             console.log(err);
         }
     }
@@ -333,8 +471,9 @@ window.opendsu_native_apis = {
             if(err){
                 return callback(err);
             }
-            const connector = new PSSmartWalletNativeLayer(`http://localhost:${nsp}`);
+            const connector = new PSSmartWalletNativeLayer(`http://localhost:${nsp}/nativeApiCall`);
             callback(undefined, connector);
         });
     }
-}
+};
+
